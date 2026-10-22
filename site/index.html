@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>griasdi: voice and chat for your crew, encrypted on your device</title>
+  <meta name="description" content="griasdi is end-to-end encrypted voice and chat for communities. Crisp voice, screen sharing, big files and on-device models. For Linux, Windows and macOS.">
+  <meta name="theme-color" content="#1c131d">
+  <meta property="og:title" content="griasdi">
+  <meta property="og:description" content="Voice and chat for your crew, encrypted on your device.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="img/mark.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/baloo2.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></symbol>
+  <symbol id="i-head" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3.5" y="14" width="4" height="6" rx="1.5"/><rect x="16.5" y="14" width="4" height="6" rx="1.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-8l-5 3.5V17H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-voice" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-screen" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M9 20.5h6M12 16.5v4M10 9l3 1.5-3 1.5z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h2v2H9zM13 12h2v2h-2zM9 16h2v2H9zM13 16h2v2h-2z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9v6l5-3z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 0 1-13.4 4.6M4.5 12a7.5 7.5 0 0 1 13.4-4.6"/><path d="M18.5 3.5v4.2h-4.2M5.5 20.5v-4.2h4.2"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17.5 12v3.5M20.5 12v2.5"/></symbol>
+  <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v4M15 3v4M6.5 7h11v3a5.5 5.5 0 0 1-11 0z"/><path d="M12 15.5V21"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3.5v12M7 10.5l5 5 5-5M4.5 20.5h15"/></symbol>
+  <symbol id="i-dice" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3.5"/><circle cx="9" cy="9" r="1.2" class="dot"/><circle cx="15" cy="15" r="1.2" class="dot"/><circle cx="15" cy="9" r="1.2" class="dot"/><circle cx="9" cy="15" r="1.2" class="dot"/><circle cx="12" cy="12" r="1.2" class="dot"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/><path d="M8 7.5h.01M8 16.5h.01M12 7.5h4M12 16.5h4"/></symbol>
+  <symbol id="i-kbd" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h1.5M7 14h10"/></symbol>
+  <symbol id="i-mix" viewBox="0 0 24 24"><path d="M6 4v16M12 4v16M18 4v16"/><rect x="3.5" y="13" width="5" height="3.5" rx="1.2"/><rect x="9.5" y="6.5" width="5" height="3.5" rx="1.2"/><rect x="15.5" y="11" width="5" height="3.5" rx="1.2"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="#top" aria-label="griasdi, back to top">
+      <img src="img/mark.svg" width="34" height="34" alt="">
+      <span>griasdi</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#voice">Voice</a></li>
+      <li><a href="#everything">Features</a></li>
+      <li><a href="#keys">Security</a></li>
+      <li><a href="#smarts">On-device models</a></li>
+      <li><a href="#devs">Developers</a></li>
+    </ul>
+    <a class="btn btn-small" href="#download">
+      <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>Download
+    </a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <h1 id="hero-title" class="hero-title">
+        <span class="hero-word">griasdi</span>
+        <span class="hero-say">Hello, you. Your crew is waiting.</span>
+      </h1>
+      <p class="hero-lede">Voice and chat for your crew, encrypted on your device. Crisp voice for long nights, screen sharing, big files, and a server in the middle that only ever hears noise.</p>
+      <div class="hero-actions">
+        <a class="btn btn-big" id="primary-download" href="#download">
+          <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>
+          <span id="primary-label">Download griasdi</span>
+        </a>
+        <a class="link-quiet" href="#download" id="other-platforms">Linux, Windows and macOS</a>
+      </div>
+      <p class="hero-pron"><b>gree·ahs·dee</b>, Bavarian for “hello, you”.</p>
+    </div>
+
+    <figure class="stage" aria-labelledby="stage-cap">
+      <div class="table" id="table">
+        <div class="server" id="server" aria-hidden="true">
+          <svg class="ico" aria-hidden="true"><use href="#i-server"/></svg>
+          <span class="server-name">server</span>
+          <span class="server-sees" id="server-sees">a7·3f·0c·e9</span>
+        </div>
+        <!-- seats are filled by main.js; this list is the no-script fallback -->
+        <ul class="seats" id="seats">
+          <li class="seat" data-name="Alice" data-face="11"></li>
+          <li class="seat" data-name="Clara" data-face="1"></li>
+          <li class="seat" data-name="Bob" data-face="27"></li>
+          <li class="seat" data-name="Dora" data-face="40"></li>
+          <li class="seat" data-name="Emil" data-face="6"></li>
+        </ul>
+      </div>
+      <figcaption id="stage-cap" class="stage-cap">Tap someone to make them talk. Watch what the server gets.</figcaption>
+      <p class="sr-only" aria-live="polite" id="stage-live"></p>
+    </figure>
+  </section>
+
+  <section class="voice band" id="voice" aria-labelledby="voice-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="voice-title">Sounds like you’re in the same room.</h2>
+        <p>A voice engine built for long sessions: echo cancellation, automatic gain, a noise model that eats your mechanical keyboard, and a jitter buffer for every speaker. Push-to-talk, speech detection or voice activation, your call.</p>
+        <div class="peek" aria-hidden="true">
+          <span class="face-slot" data-face="6"></span>
+          <span class="bubble">My keyboard is gone. My drill is gone. Only my voice is left.</span>
+        </div>
+      </div>
+
+      <div class="noise" id="noise">
+        <div class="noise-head">
+          <span class="noise-label" id="noise-label">Noise suppression</span>
+          <div class="seg" role="radiogroup" aria-labelledby="noise-label">
+            <button type="button" role="radio" aria-checked="false" data-level="0">Standard</button>
+            <button type="button" role="radio" aria-checked="true" data-level="1">Light</button>
+            <button type="button" role="radio" aria-checked="false" data-level="2">Strong</button>
+            <button type="button" role="radio" aria-checked="false" data-level="3">Maximum</button>
+          </div>
+        </div>
+        <canvas class="wave" id="wave" width="1200" height="264" role="img" aria-label="Illustration: a voice signal with keyboard clicks and fan hum; higher noise suppression removes more of the noise and keeps the voice."></canvas>
+        <p class="noise-note" id="noise-note">Light: a small speech model, about 10 ms of delay. The default.</p>
+      </div>
+
+      <div class="pipe-wrap">
+        <svg class="pipe pipe-h" viewBox="0 0 1120 340" role="img" aria-labelledby="pipe-title pipe-desc">
+          <title id="pipe-title">How your voice travels</title>
+          <desc id="pipe-desc">On your device the microphone signal is cleaned up, its noise removed by a model, gated by speech detection, encoded with Opus and encrypted with SFrame. The server only forwards ciphertext. On each listener's device it is decrypted, buffered against jitter, mixed and played.</desc>
+          <g class="pipe-zone">
+            <rect x="0" y="0" width="495" height="290" rx="22"/>
+            <text x="22" y="34">your device</text>
+            <rect x="625" y="0" width="495" height="290" rx="22"/>
+            <text x="647" y="34">their device</text>
+          </g>
+          <path class="pipe-line" d="M 60 150 H 1060"/>
+          <path class="pipe-line secret" d="M 440 150 H 680"/>
+          <circle class="pulse" r="7" cx="0" cy="0"><animateMotion dur="3.2s" repeatCount="indefinite" path="M 60 150 H 1060"/></circle>
+          <g class="node" transform="translate(60 150)"><circle r="30"/><use href="#i-mic" x="-13" y="-13" width="26" height="26"/><text y="58">mic</text></g>
+          <g class="node" transform="translate(155 150)"><circle r="30"/><text class="node-k" y="5">AEC</text><text y="58">echo, gain</text></g>
+          <g class="node model" transform="translate(250 150)"><circle r="30"/><use href="#i-chip" x="-13" y="-13" width="26" height="26"/><text y="58">noise model</text></g>
+          <g class="node model" transform="translate(345 150)"><circle r="30"/><use href="#i-voice" x="-13" y="-13" width="26" height="26"/><text y="58">speech gate</text></g>
+          <g class="node lock" transform="translate(440 150)"><circle r="30"/><use href="#i-lock" x="-13" y="-13" width="26" height="26"/><text y="58">Opus</text><text class="node-sub" y="76">+ SFrame</text></g>
+          <g class="node srv" transform="translate(560 150)"><rect x="-42" y="-34" width="84" height="68" rx="14"/><use href="#i-server" x="-13" y="-22" width="26" height="26"/><text class="node-k" y="22">xx xx</text><text y="62">server</text><text class="node-sub" y="80">ciphertext only</text></g>
+          <g class="node lock" transform="translate(680 150)"><circle r="30"/><use href="#i-key" x="-13" y="-13" width="26" height="26"/><text y="58">decrypt</text></g>
+          <g class="node" transform="translate(775 150)"><circle r="30"/><text class="node-k" y="5">40–200</text><text y="58">jitter buffer</text><text class="node-sub" y="76">ms, per speaker</text></g>
+          <g class="node" transform="translate(870 150)"><circle r="30"/><use href="#i-mix" x="-13" y="-13" width="26" height="26"/><text y="58">mix, volume</text></g>
+          <g class="node" transform="translate(965 150)"><circle r="30"/><text class="node-k" y="5">±10</text><text y="58">dB per person</text></g>
+          <g class="node" transform="translate(1060 150)"><circle r="30"/><use href="#i-head" x="-13" y="-13" width="26" height="26"/><text y="58">headset</text></g>
+          <text class="pipe-spec" x="0" y="326">48 kHz · 10 ms blocks · 20 ms Opus frames with forward error correction</text>
+          <text class="pipe-spec" x="1120" y="326" text-anchor="end">AES-GCM keys from MLS</text>
+        </svg>
+        <svg class="pipe pipe-v" viewBox="0 0 360 1130" role="img" aria-labelledby="pipe-v-title pipe-desc">
+          <title id="pipe-v-title">How your voice travels</title>
+          <g class="pipe-zone">
+            <rect x="0" y="0" width="360" height="450" rx="22"/>
+            <text x="110" y="36">your device</text>
+            <rect x="0" y="590" width="360" height="480" rx="22"/>
+            <text x="110" y="626">their device</text>
+          </g>
+          <path class="pipe-line" d="M 64 90 V 1000"/>
+          <path class="pipe-line secret" d="M 64 410 V 680"/>
+          <circle class="pulse" r="7" cx="0" cy="0"><animateMotion dur="3.6s" repeatCount="indefinite" path="M 64 90 V 1000"/></circle>
+          <g class="node row" transform="translate(64 90)"><circle r="26"/><use href="#i-mic" x="-12" y="-12" width="24" height="24"/><text x="46" y="5">mic</text></g>
+          <g class="node row" transform="translate(64 170)"><circle r="26"/><text class="node-k" y="5">AEC</text><text x="46" y="5">echo, gain</text></g>
+          <g class="node row model" transform="translate(64 250)"><circle r="26"/><use href="#i-chip" x="-12" y="-12" width="24" height="24"/><text x="46" y="5">noise model</text></g>
+          <g class="node row model" transform="translate(64 330)"><circle r="26"/><use href="#i-voice" x="-12" y="-12" width="24" height="24"/><text x="46" y="5">speech gate</text></g>
+          <g class="node row lock" transform="translate(64 410)"><circle r="26"/><use href="#i-lock" x="-12" y="-12" width="24" height="24"/><text x="46" y="5">Opus + SFrame</text></g>
+          <g class="node row srv" transform="translate(64 525)"><rect x="-40" y="-32" width="80" height="64" rx="14"/><use href="#i-server" x="-12" y="-20" width="24" height="24"/><text class="node-k" y="22">xx xx</text><text x="56" y="0">server</text><text class="node-sub" x="56" y="20">ciphertext only</text></g>
+          <g class="node row lock" transform="translate(64 680)"><circle r="26"/><use href="#i-key" x="-12" y="-12" width="24" height="24"/><text x="46" y="5">decrypt</text></g>
+          <g class="node row" transform="translate(64 760)"><circle r="26"/><text class="node-k" y="5">40–200</text><text x="46" y="5">jitter buffer per speaker</text></g>
+          <g class="node row" transform="translate(64 840)"><circle r="26"/><use href="#i-mix" x="-12" y="-12" width="24" height="24"/><text x="46" y="5">mix, volume</text></g>
+          <g class="node row" transform="translate(64 920)"><circle r="26"/><text class="node-k" y="5">±10</text><text x="46" y="5">dB per person</text></g>
+          <g class="node row" transform="translate(64 1000)"><circle r="26"/><use href="#i-head" x="-12" y="-12" width="24" height="24"/><text x="46" y="5">headset</text></g>
+          <text class="pipe-spec" x="0" y="1112">48 kHz · 20 ms Opus frames</text>
+        </svg>
+      </div>
+
+      <ul class="voice-facts">
+        <li><svg class="ico" aria-hidden="true"><use href="#i-kbd"/></svg><span><b>Push-to-talk</b> or speech detection that ignores your keyboard.</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-voice"/></svg><span><b>Mute for me</b> and a volume per person, kept across every channel.</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-bell"/></svg><span><b>Cues you choose</b>: tones, noises, birds, spoken words or your own set. They never go into the call.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="everything" id="everything" aria-labelledby="every-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="every-title">Everything your crew does on a Saturday night.</h2>
+        <p>Text channels, voice channels, calls and direct messages in one app. All of it encrypted, all of it fast.</p>
+      </div>
+
+      <figure class="shot">
+        <div class="shot-frame">
+          <img src="img/app-1600.webp" srcset="img/app-1600.webp 1600w, img/app.webp 2560w" sizes="(min-width: 1200px) 1100px, 92vw" width="1600" height="1000" loading="lazy" decoding="async"
+               alt="The griasdi app: a community called Stammtisch with people in two voice channels and a live screen share in the call panel, a conversation in #general with a reply, reactions, a photo and Markdown, and the member list.">
+          <span class="tag tag-voice" style="--x:15%;--y:56%">See who’s in before you join</span>
+          <span class="tag tag-share" style="--x:3%;--y:80%">Screen share with sound, in AV1</span>
+          <span class="tag tag-chat" style="--x:60%;--y:38%">Replies, reactions, Markdown</span>
+          <span class="tag tag-face" style="--x:80%;--y:45%">A face for everyone</span>
+        </div>
+        <figcaption>The app with a demo community.</figcaption>
+      </figure>
+
+      <ul class="feats">
+        <li><span class="face-slot" data-face="11"></span><div class="bubble feat"><h3>Text channels and DMs</h3><p>Markdown, replies, reactions, mentions and @here. Edit your last message with the up arrow.</p></div></li>
+        <li><span class="face-slot" data-face="1"></span><div class="bubble feat"><h3>Voice channels and calls</h3><p>Hop in and out of voice rooms, or call someone directly. Moderators can mute for everyone.</p></div></li>
+        <li><span class="face-slot" data-face="27"></span><div class="bubble feat"><h3>Screen sharing</h3><p>A screen, a window, a capture card or a camera, with its sound. Into the call or into a channel.</p></div></li>
+        <li><span class="face-slot" data-face="40"></span><div class="bubble feat"><h3>Files of any size</h3><p>Too big for the server? It goes from member to member in 1&nbsp;MiB pieces, each one checked, from everyone who has it.</p></div></li>
+        <li><span class="face-slot" data-face="6"></span><div class="bubble feat"><h3>Watch together</h3><p>Videos play right in the chat, even while they are still arriving. YouTube included.</p></div></li>
+        <li><span class="face-slot" data-face="19"></span><div class="bubble feat"><h3>Roles that hold</h3><p>Ranked roles, private channels, owners. Every change is signed and checked by every member.</p></div></li>
+        <li><span class="face-slot" data-face="33"></span><div class="bubble feat"><h3>Updates itself</h3><p>New builds install on their own. A restart keeps your place, your call and your screen share.</p></div></li>
+        <li><span class="face-slot" data-face="58"></span><div class="bubble feat"><h3>Keyboard first</h3><p>Ctrl+K opens the command palette. Everything else has a key too.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="keys band" id="keys" aria-labelledby="keys-title">
+    <div class="wrap keys-grid">
+      <div class="section-head">
+        <h2 id="keys-title">No accounts. Just keys.</h2>
+        <p>You are a key pair on your device, not a username with a password reset. Text is encrypted with MLS (RFC 9420), voice and screens with SFrame (RFC 9605), all over QUIC. Servers order, store and forward ciphertext. That is all they can do.</p>
+        <ul class="key-facts">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-link"/></svg><span>Join with a link. No sign-up, no e-mail, no phone number.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg><span>Each device holds its own key, certified by yours.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><span>New members and devices get the keys to read history from the others, not from the server.</span></li>
+        </ul>
+      </div>
+
+      <div class="vault">
+        <div class="vault-head">
+          <span class="vault-title"># general</span>
+          <button type="button" class="switch" id="server-view" role="switch" aria-checked="false">
+            <span class="switch-knob" aria-hidden="true"></span>
+            <span>What the server stores</span>
+          </button>
+        </div>
+        <ol class="chat" id="chat">
+          <li data-face="11"><b>Alice</b><span class="msg">raid at 9? bring snacks</span></li>
+          <li data-face="1"><b>Clara</b><span class="msg">only if Emil fixes his mic first</span></li>
+          <li data-face="6"><b>Emil</b><span class="msg">it was the noise model. it’s ON now</span></li>
+          <li data-face="27"><b>Bob</b><span class="msg">griasdi everyone, server password is… just kidding, there isn’t one</span></li>
+        </ol>
+
+        <div class="roll">
+          <span class="face-slot roll-face" id="roll-face" data-face="73"></span>
+          <div>
+            <p><b>A face for everyone.</b> No picture? You get a pixel face drawn from your id. Don’t like it? Roll again.</p>
+            <button type="button" class="btn btn-ghost" id="roll"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg>Roll a face</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="smarts" id="smarts" aria-labelledby="smarts-title">
+    <div class="wrap smarts-grid">
+      <div class="section-head">
+        <h2 id="smarts-title">Smart where you sit. Not on a server.</h2>
+        <p>griasdi runs its models on your own computer, on its own inference engine. What you say is never sent anywhere to be analysed.</p>
+        <div class="peek" aria-hidden="true">
+          <span class="face-slot" data-face="52"></span>
+          <span class="bubble">“Felix joined.” Said by my own computer.</span>
+        </div>
+      </div>
+      <ul class="models">
+        <li class="model"><h3>Noise suppression</h3><p>Three strengths, from “quiet room” to “someone is drilling next door”. On the processor, in real time.</p></li>
+        <li class="model"><h3>Speech detection</h3><p>Your microphone opens when you speak, not when you type, chew or breathe heavily into a boss fight.</p></li>
+        <li class="model tap"><h3>Live transcripts</h3><p>Opt in, and your graphics card writes along. Captions are posted encrypted to the channel, and call transcripts vanish when the call ends.</p></li>
+        <li class="model"><h3>Spoken cues</h3><p>A voice that says who joined, by name, in ten voices. Opt in, runs locally.</p></li>
+        <li class="model"><h3>Numbers, not promises</h3><p>Every model has a Details view. The two on your microphone show their median and slowest 1&nbsp;% for every second, and noise suppression falls back to the standard one if it gets too slow.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="devs band" id="devs" aria-labelledby="devs-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="devs-title">Hackable from your side.</h2>
+        <p>For people who live in a terminal. Everything stays on your machine and is off until you turn it on in Settings, Developer.</p>
+        <div class="peek" aria-hidden="true">
+          <span class="face-slot" data-face="27"></span>
+          <span class="bubble">My agent read the whole call back to me. Locally, promise.</span>
+        </div>
+      </div>
+      <div class="devs-grid">
+        <article class="term">
+          <header><svg class="ico" aria-hidden="true"><use href="#i-plug"/></svg><h3>MCP server for your agents</h3></header>
+          <p>Let an AI agent list your conversations, read and send messages as you, and read the live transcript of your call. Listens on 127.0.0.1 only, refuses browsers, every request needs your token. The plug in the title bar hands you the configuration:</p>
+<pre><code>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"griasdi"</span>: {
+      <span class="k">"type"</span>: <span class="s">"http"</span>,
+      <span class="k">"url"</span>: <span class="s">"http://127.0.0.1:13337/mcp"</span>,
+      <span class="k">"headers"</span>: { <span class="k">"Authorization"</span>: <span class="s">"Bearer …"</span> }
+    }
+  }
+}</code></pre>
+          <ul class="tools" aria-label="MCP tools">
+            <li>list_conversations</li><li>read_messages</li><li>send_message</li><li>read_transcript</li>
+          </ul>
+        </article>
+        <article class="term">
+          <header><svg class="ico" aria-hidden="true"><use href="#i-link"/></svg><h3>Add a device over SSH</h3></header>
+          <p>Bring your laptop in from a terminal: your desktop signs its key, your communities follow.</p>
+<pre><code><span class="p">$</span> griasdi link ssh desktop
+<span class="c">passphrase for the user key: ••••••</span>
+<span class="c">linked · 2 servers added</span></code></pre>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="download" id="download" aria-labelledby="dl-title">
+    <div class="wrap">
+      <div class="dl-head">
+        <h2 id="dl-title">Grab it. Say griasdi.</h2>
+        <p>One app for Linux, Windows and macOS. Invite your crew with a link.</p>
+        <div class="dl-cast" aria-hidden="true">
+          <span class="face-slot" data-face="11"></span><span class="face-slot" data-face="1"></span><span class="face-slot" data-face="27"></span><span class="face-slot" data-face="40"></span><span class="face-slot" data-face="6"></span>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER DOWNLOAD URLS: every href="#dl-…" below is a placeholder until the release URLs are decided. -->
+      <div class="platforms">
+        <article class="platform" id="pf-linux" data-os="linux">
+          <h3>Linux</h3>
+          <p>x86_64 and ARM64. AppImage and tarball update themselves.</p>
+          <ul class="files">
+            <li><a class="file" href="#dl-linux-deb"><span>.deb</span><small>Debian, Ubuntu</small></a></li>
+            <li><a class="file" href="#dl-linux-rpm"><span>.rpm</span><small>Fedora</small></a></li>
+            <li><a class="file" href="#dl-linux-appimage"><span>AppImage</span><small>any distro</small></a></li>
+            <li><a class="file" href="#dl-linux-tar"><span>.tar.gz</span><small>~/.local</small></a></li>
+          </ul>
+        </article>
+        <article class="platform" id="pf-windows" data-os="windows">
+          <h3>Windows</h3>
+          <p>x86_64. Installs per user, no administrator rights needed.</p>
+          <ul class="files">
+            <li><a class="file" href="#dl-windows-setup"><span>Setup</span><small>.exe</small></a></li>
+            <li><a class="file" href="#dl-windows-zip"><span>Portable</span><small>.zip</small></a></li>
+          </ul>
+        </article>
+        <article class="platform" id="pf-macos" data-os="macos">
+          <h3>macOS</h3>
+          <p>Apple Silicon, macOS 14 or newer.</p>
+          <ul class="files">
+            <li><a class="file" href="#dl-macos-dmg"><span>.dmg</span><small>Apple Silicon</small></a></li>
+          </ul>
+        </article>
+      </div>
+      <p class="sums"><a href="#dl-sha256sums">SHA256SUMS</a> to check every file.</p>
+
+      <aside class="soon" aria-labelledby="soon-title">
+        <svg class="ico" aria-hidden="true"><use href="#i-server"/></svg>
+        <p><b id="soon-title">Linux server, coming soon.</b> Host griasdi for your own crew.</p>
+        <span class="stamp" aria-hidden="true">soon</span>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <a class="brand" href="#top" aria-label="griasdi, back to top"><img src="img/mark.svg" width="28" height="28" alt=""><span>griasdi</span></a>
+    <p>griasdi is Bavarian for “hello, you”.</p>
+    <p class="legal">© 2026 Hannes Uebelacker and Felix Itzenplitz. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="faces.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

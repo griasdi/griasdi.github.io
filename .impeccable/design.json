@@ -1,0 +1,741 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T14:26:48Z",
+  "title": "Design System: griasdi launch page",
+  "extensions": {
+    "colorMeta": {
+      "night": {
+        "role": "neutral",
+        "displayName": "Midnight Plum",
+        "canonical": "#1c131d",
+        "tonalRamp": [
+          "#100811",
+          "#2b212c",
+          "#483e49",
+          "#685d69",
+          "#8a7e8b",
+          "#ada0ae",
+          "#d1c4d2",
+          "#f7e9f8"
+        ],
+        "purpose": "Page ground and deep cards."
+      },
+      "night-raised": {
+        "role": "neutral",
+        "displayName": "Raised Plum",
+        "canonical": "#241926",
+        "tonalRamp": [
+          "#110713",
+          "#2c202e",
+          "#493d4c",
+          "#695c6c",
+          "#8b7d8d",
+          "#ae9fb0",
+          "#d2c3d5",
+          "#f8e8fb"
+        ],
+        "purpose": "Alternate bands, the table face, the vault."
+      },
+      "night-lifted": {
+        "role": "neutral",
+        "displayName": "Lifted Plum",
+        "canonical": "#2f2131",
+        "tonalRamp": [
+          "#120614",
+          "#2d1f2f",
+          "#4b3c4d",
+          "#6b5b6d",
+          "#8d7c8f",
+          "#b09eb2",
+          "#d4c2d7",
+          "#fae7fd"
+        ],
+        "purpose": "Server node, ghost button, tiles, chip grounds."
+      },
+      "night-line": {
+        "role": "neutral",
+        "displayName": "Plum Line",
+        "canonical": "#453248",
+        "tonalRamp": [
+          "#140516",
+          "#2f1d32",
+          "#4d3a50",
+          "#6e5971",
+          "#8f7a93",
+          "#b39cb6",
+          "#d8c0db",
+          "#fbe7fe"
+        ],
+        "purpose": "Borders, dashed ring, scrollbar."
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Warm Cream Ink",
+        "canonical": "#f6efe6",
+        "tonalRamp": [
+          "#0f0a05",
+          "#29241e",
+          "#47413a",
+          "#666059",
+          "#878179",
+          "#aaa49c",
+          "#cfc8bf",
+          "#f4ede4"
+        ],
+        "purpose": "Headlines, primary text, bubble paper."
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Lilac Grey",
+        "canonical": "#c3b9c9",
+        "tonalRamp": [
+          "#0f0813",
+          "#29222e",
+          "#473e4c",
+          "#665d6b",
+          "#887e8d",
+          "#aba1b0",
+          "#cfc5d5",
+          "#f4eafb"
+        ],
+        "purpose": "Body copy."
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Faint Lilac Grey",
+        "canonical": "#9d93a6",
+        "tonalRamp": [
+          "#0f0815",
+          "#292130",
+          "#473e4e",
+          "#665d6e",
+          "#887e90",
+          "#aaa0b4",
+          "#cfc4d8",
+          "#f4e9fe"
+        ],
+        "purpose": "Captions, comments, pronunciation."
+      },
+      "terracotta": {
+        "role": "primary",
+        "displayName": "Terracotta Mark",
+        "canonical": "#d9572b",
+        "tonalRamp": [
+          "#1e0100",
+          "#460f00",
+          "#752100",
+          "#a83402",
+          "#d55326",
+          "#fd784d",
+          "#fdb69f",
+          "#ffe9e2"
+        ],
+        "purpose": "The g mark and the action colour."
+      },
+      "terracotta-deep": {
+        "role": "primary",
+        "displayName": "Deep Terracotta",
+        "canonical": "#a83e19",
+        "tonalRamp": [
+          "#1e0100",
+          "#470e00",
+          "#762000",
+          "#a33a13",
+          "#ca5d3a",
+          "#f2815d",
+          "#fdb59f",
+          "#ffe9e2"
+        ],
+        "purpose": "Button lip."
+      },
+      "terracotta-light": {
+        "role": "primary",
+        "displayName": "Light Terracotta",
+        "canonical": "#f08a5d",
+        "tonalRamp": [
+          "#1b0300",
+          "#421500",
+          "#6e2a03",
+          "#9e400a",
+          "#c46335",
+          "#ec8659",
+          "#fcb699",
+          "#ffe9e1"
+        ],
+        "purpose": "Hover face, links and small text on dark."
+      },
+      "on-terracotta": {
+        "role": "neutral",
+        "displayName": "Burnt Umber Ink",
+        "canonical": "#1b0c06",
+        "tonalRamp": [
+          "#150703",
+          "#312119",
+          "#503d35",
+          "#705c54",
+          "#927d74",
+          "#b6a096",
+          "#dac4ba",
+          "#feeae1"
+        ],
+        "purpose": "Text on terracotta."
+      },
+      "teal-voice": {
+        "role": "secondary",
+        "displayName": "Voice Teal",
+        "canonical": "#4fa3a5",
+        "tonalRamp": [
+          "#000f0f",
+          "#002c2d",
+          "#034c4e",
+          "#0b6f71",
+          "#3c9193",
+          "#62b5b7",
+          "#86dadc",
+          "#b8fdff"
+        ],
+        "purpose": "Voice."
+      },
+      "teal-voice-light": {
+        "role": "secondary",
+        "displayName": "Light Voice Teal",
+        "canonical": "#7cc6c7",
+        "tonalRamp": [
+          "#000f0f",
+          "#002c2c",
+          "#054c4d",
+          "#1f6e6f",
+          "#469091",
+          "#6ab4b5",
+          "#8ed9d9",
+          "#b9fdfe"
+        ],
+        "purpose": "Voice text and pulses on dark."
+      },
+      "gold-taps": {
+        "role": "tertiary",
+        "displayName": "Tap Gold",
+        "canonical": "#e0b04c",
+        "tonalRamp": [
+          "#130900",
+          "#322200",
+          "#563d00",
+          "#7d5b03",
+          "#a47b16",
+          "#cc9d36",
+          "#f2c15e",
+          "#feeccb"
+        ],
+        "purpose": "Taps, transcripts, ciphertext."
+      },
+      "lavender-model": {
+        "role": "tertiary",
+        "displayName": "Model Lavender",
+        "canonical": "#9b8ac4",
+        "tonalRamp": [
+          "#11002a",
+          "#2b1949",
+          "#48376a",
+          "#67568c",
+          "#8877b0",
+          "#ab9ad5",
+          "#cfbefb",
+          "#f0ebff"
+        ],
+        "purpose": "On-device models."
+      },
+      "lavender-model-light": {
+        "role": "tertiary",
+        "displayName": "Light Model Lavender",
+        "canonical": "#bcaee0",
+        "tonalRamp": [
+          "#100225",
+          "#2a1c43",
+          "#463963",
+          "#665885",
+          "#8779a8",
+          "#aa9ccd",
+          "#cec0f3",
+          "#f0ebff"
+        ],
+        "purpose": "Model text and code keywords."
+      },
+      "on-teal": {
+        "role": "neutral",
+        "displayName": "Deep Teal Ink",
+        "canonical": "#0b1d1e",
+        "tonalRamp": [
+          "#010e0f",
+          "#17292a",
+          "#334647",
+          "#526667",
+          "#728788",
+          "#94aaab",
+          "#b8cecf",
+          "#ddf4f5"
+        ],
+        "purpose": "Text on teal."
+      },
+      "on-gold": {
+        "role": "neutral",
+        "displayName": "Deep Gold Ink",
+        "canonical": "#2a1d05",
+        "tonalRamp": [
+          "#130900",
+          "#30230a",
+          "#4e4027",
+          "#6e5f46",
+          "#908066",
+          "#b3a387",
+          "#d8c7ab",
+          "#feeccf"
+        ],
+        "purpose": "Text on gold."
+      },
+      "on-lavender": {
+        "role": "neutral",
+        "displayName": "Deep Lavender Ink",
+        "canonical": "#17121f",
+        "tonalRamp": [
+          "#0d0815",
+          "#272230",
+          "#443f4e",
+          "#645e6e",
+          "#857f90",
+          "#a8a1b3",
+          "#ccc5d8",
+          "#f1ebfe"
+        ],
+        "purpose": "Text on lavender."
+      },
+      "bubble-paper": {
+        "role": "neutral",
+        "displayName": "Bubble Paper",
+        "canonical": "#f6efe6",
+        "tonalRamp": [
+          "#0f0a05",
+          "#29241e",
+          "#47413a",
+          "#666059",
+          "#878179",
+          "#aaa49c",
+          "#cfc8bf",
+          "#f4ede4"
+        ],
+        "purpose": "Speech bubble surface."
+      },
+      "bubble-text": {
+        "role": "neutral",
+        "displayName": "Bubble Plum Ink",
+        "canonical": "#241c2c",
+        "tonalRamp": [
+          "#0f0716",
+          "#292131",
+          "#463e4f",
+          "#665d70",
+          "#877e92",
+          "#aaa0b5",
+          "#cec4da",
+          "#f4eafe"
+        ],
+        "purpose": "Speech bubble text."
+      },
+      "bubble-body-text": {
+        "role": "neutral",
+        "displayName": "Bubble Body Plum",
+        "canonical": "#4a3f52",
+        "tonalRamp": [
+          "#100716",
+          "#2a2032",
+          "#483d50",
+          "#685c70",
+          "#897d92",
+          "#ac9fb6",
+          "#d0c3da",
+          "#f5e9ff"
+        ],
+        "purpose": "Feature bubble paragraphs."
+      },
+      "bubble-peach": {
+        "role": "neutral",
+        "displayName": "Peach Bubble",
+        "canonical": "#f3d9cc",
+        "tonalRamp": [
+          "#160601",
+          "#332016",
+          "#513d32",
+          "#725c51",
+          "#947d71",
+          "#b89f93",
+          "#ddc3b6",
+          "#feeadf"
+        ],
+        "purpose": "Tinted feature bubble."
+      },
+      "bubble-mint": {
+        "role": "neutral",
+        "displayName": "Mint Bubble",
+        "canonical": "#d6ecec",
+        "tonalRamp": [
+          "#010e0e",
+          "#172929",
+          "#344646",
+          "#526666",
+          "#738787",
+          "#95aaaa",
+          "#b9cece",
+          "#def4f4"
+        ],
+        "purpose": "Tinted feature bubble."
+      },
+      "code-well": {
+        "role": "neutral",
+        "displayName": "Code Well",
+        "canonical": "#0f0d14",
+        "tonalRamp": [
+          "#0c0a11",
+          "#26242b",
+          "#434049",
+          "#626069",
+          "#83818a",
+          "#a6a3ad",
+          "#cac7d2",
+          "#efedf7"
+        ],
+        "purpose": "Sunken code ground."
+      },
+      "code-well-line": {
+        "role": "neutral",
+        "displayName": "Code Well Line",
+        "canonical": "#2a2433",
+        "tonalRamp": [
+          "#0e0815",
+          "#282231",
+          "#453f4f",
+          "#645e6f",
+          "#857f91",
+          "#a8a1b4",
+          "#cdc5d9",
+          "#f2eaff"
+        ],
+        "purpose": "Code well hairline."
+      }
+    },
+    "typographyMeta": {
+      "hero-word": {
+        "displayName": "Hero Word",
+        "purpose": "The lowercase greeting in a terracotta bubble, once."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Section headings (h2)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The hero's spoken line."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "h3 in bubbles, models, terminals."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running copy in ink-soft."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Hero offer line."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav links and segmented options."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Baloo 2 800 on every button."
+      },
+      "speech": {
+        "displayName": "Speech",
+        "purpose": "Text inside hero and echo bubbles."
+      },
+      "measurement": {
+        "displayName": "Measurement",
+        "purpose": "Hex readout, ciphertext packets, tool chips."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Real CLI and MCP snippets."
+      }
+    },
+    "shadows": [
+      {
+        "name": "face-drop",
+        "value": "0 10px 22px -10px #000",
+        "purpose": "Soft drop under a face tile."
+      },
+      {
+        "name": "bubble-drop",
+        "value": "0 10px 24px -12px #000",
+        "purpose": "Soft drop under a speech bubble."
+      },
+      {
+        "name": "server-drop",
+        "value": "0 18px 40px -18px #000",
+        "purpose": "Server node resting depth."
+      },
+      {
+        "name": "panel-drop",
+        "value": "0 40px 70px -40px #000",
+        "purpose": "Vault card and screenshot frame."
+      },
+      {
+        "name": "band-card-drop",
+        "value": "0 30px 50px -28px #3b1205",
+        "purpose": "Platform cards on the terracotta band."
+      },
+      {
+        "name": "server-busy-ring",
+        "value": "0 0 0 6px rgb(224 176 76 / .12), 0 18px 40px -18px #000",
+        "purpose": "Gold halo on the server while it relays ciphertext."
+      },
+      {
+        "name": "button-lip",
+        "value": "0 5px 0 #a83e19, 0 12px 24px -10px rgb(0 0 0 / .6)",
+        "purpose": "Pressable button lip; buttons only. Shipped as built, flagged against the craft floor (see not-canonized note)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Settling movement: rises, reveals, button lift."
+      },
+      {
+        "name": "spring",
+        "value": "cubic-bezier(.34, 1.56, .64, 1)",
+        "purpose": "Pops, tilts, nods, toggle knob, button press."
+      },
+      {
+        "name": "packet-travel",
+        "value": "cubic-bezier(.5, 0, .3, 1)",
+        "purpose": "Ciphertext packet flight across the table."
+      },
+      {
+        "name": "bubble-pop",
+        "value": "420ms spring, scale .2 to 1.06 to 1, rotate -8deg to 2deg to 0",
+        "purpose": "Speech bubble arrival."
+      },
+      {
+        "name": "table-conversation",
+        "value": "speak, 420ms pop, packet to server, packets to listeners, nod .5s, fade 200ms, about 2.6 to 2.9s total; idle talk every 3.6s",
+        "purpose": "The shared hero timeline."
+      },
+      {
+        "name": "idle-bob",
+        "value": "3.2s ease-in-out infinite, -5px",
+        "purpose": "Idle faces at the table."
+      },
+      {
+        "name": "reveal",
+        "value": ".8s ease-out, translate 26px",
+        "purpose": "Section reveal, only with script and motion allowed."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce disables hero entry, reveal, download hop and smooth scroll; content visible by default",
+        "purpose": "Nothing depends on animation to be readable."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "xs",
+        "value": "520px"
+      },
+      {
+        "name": "sm",
+        "value": "700px"
+      },
+      {
+        "name": "md",
+        "value": "760px"
+      },
+      {
+        "name": "md-wide",
+        "value": "820px"
+      },
+      {
+        "name": "lg",
+        "value": "860px"
+      },
+      {
+        "name": "xl",
+        "value": "900px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The terracotta lip key; every action on the page.",
+      "html": "<button class=\"ds-btn\">Download for Linux</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.55em;padding:.72em 1.25em;border:0;border-radius:16px;background:#d9572b;color:#1b0c06;font:800 1.05rem/1 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif;letter-spacing:.01em;cursor:pointer;box-shadow:0 5px 0 #a83e19,0 12px 24px -10px rgb(0 0 0 / .6);transition:transform .18s cubic-bezier(.16,1,.3,1),box-shadow .18s cubic-bezier(.16,1,.3,1),background .18s}.ds-btn:hover{background:#f08a5d;transform:translateY(-2px);box-shadow:0 7px 0 #a83e19,0 16px 28px -10px rgb(0 0 0 / .6)}.ds-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #a83e19,0 6px 12px -8px rgb(0 0 0 / .5)}.ds-btn:focus-visible{outline:3px solid #f08a5d;outline-offset:3px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary key on a dark lip, e.g. Roll a face.",
+      "html": "<button class=\"ds-btn-ghost\">Roll a face</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;gap:.55em;padding:.72em 1.25em;border:0;border-radius:16px;background:#2f2131;color:#f6efe6;font:800 1.05rem/1 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif;letter-spacing:.01em;cursor:pointer;box-shadow:0 4px 0 #0e0c13;transition:transform .18s cubic-bezier(.16,1,.3,1),box-shadow .18s cubic-bezier(.16,1,.3,1),background .18s}.ds-btn-ghost:hover{background:#453248;transform:translateY(-2px);box-shadow:0 6px 0 #0e0c13}.ds-btn-ghost:active{transform:translateY(4px);box-shadow:0 1px 0 #0e0c13}.ds-btn-ghost:focus-visible{outline:3px solid #f08a5d;outline-offset:3px}"
+    },
+    {
+      "name": "Speech Bubble",
+      "kind": "custom",
+      "refersTo": "speech-bubble",
+      "description": "The g-bubble: cream paper, tail at the lower corner.",
+      "html": "<div style=\"padding-bottom:1rem\"><span class=\"ds-bubble\">griasdi! who’s up for a round?</span></div>",
+      "css": ".ds-bubble{position:relative;display:inline-block;max-width:15rem;padding:.55em .85em;border-radius:1.1em 1.1em 1.1em .3em;background:#f6efe6;color:#241c2c;font:700 1rem/1.25 'Atkinson Hyperlegible',system-ui,sans-serif;box-shadow:0 10px 24px -12px #000}.ds-bubble::after{content:\"\";position:absolute;left:.5em;bottom:-.55em;width:.9em;height:.7em;background:inherit;clip-path:polygon(0 0,100% 0,0 100%)}"
+    },
+    {
+      "name": "Cast Chat-Line Feature",
+      "kind": "custom",
+      "refersTo": "feature-bubble",
+      "description": "A feature said by a 60px face in a tinted bubble.",
+      "html": "<div class=\"ds-feat\"><span class=\"ds-feat-face\"></span><div class=\"ds-feat-bubble\"><h3>Push to talk, or not</h3><p>Open mic, push-to-talk or voice-activated, per channel.</p></div></div>",
+      "css": ".ds-feat{display:flex;align-items:flex-end;gap:.9rem}.ds-feat-face{width:60px;flex:none;aspect-ratio:1;border-radius:26%;background:#2f2131;box-shadow:0 10px 22px -10px #000;rotate:-4deg}.ds-feat-bubble{position:relative;flex:1;padding:1rem 1.2rem 1.1rem;border-radius:1.3em 1.3em 1.3em .35em;background:#f3d9cc;color:#4a3f52;font:400 1rem/1.5 'Atkinson Hyperlegible',system-ui,sans-serif;box-shadow:0 10px 24px -12px #000}.ds-feat-bubble::after{content:\"\";position:absolute;left:1em;bottom:-.55em;width:.9em;height:.7em;background:inherit;clip-path:polygon(0 0,100% 0,0 100%)}.ds-feat-bubble h3{margin:0 0 .25rem;color:#241c2c;font:800 1.3rem/1.2 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif;letter-spacing:-.01em}.ds-feat-bubble p{margin:0}"
+    },
+    {
+      "name": "Face Tile",
+      "kind": "custom",
+      "refersTo": "face-tile",
+      "description": "A gsichtl 8x8 face at 70px (a multiple of 10), square pixels, 26% radius.",
+      "html": "<div class=\"ds-face\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>",
+      "css": ".ds-face{width:70px;aspect-ratio:1;border-radius:26%;overflow:hidden;box-shadow:0 10px 22px -10px #000;display:grid;grid-template-columns:repeat(8,1fr);background:#13263a}.ds-face i{background:#b5651d}.ds-face i:nth-child(3n){background:#ffdbac}.ds-face i:nth-child(5n){background:#11151c}"
+    },
+    {
+      "name": "Sticker",
+      "kind": "custom",
+      "refersTo": "sticker-share",
+      "description": "Tilted bubble-shaped label; teal, gold, lavender and terracotta variants.",
+      "html": "<span class=\"ds-sticker\">Screen share with sound, in AV1</span>",
+      "css": ".ds-sticker{display:inline-block;padding:.5em .9em;border-radius:1em 1em 1em .25em;background:#e0b04c;color:#2a1d05;font:800 1rem/1.15 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif;rotate:2deg;box-shadow:0 12px 24px -10px #000;transition:rotate .4s cubic-bezier(.34,1.56,.64,1),scale .4s cubic-bezier(.34,1.56,.64,1)}.ds-sticker:hover{rotate:0deg;scale:1.06}"
+    },
+    {
+      "name": "Ruled Model Row",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "A lavender-ruled list row; models are rows, never cards.",
+      "html": "<div class=\"ds-model\"><h3>Noise suppression</h3><p>A small speech model runs on your device and keeps your voice, not your fan.</p></div>",
+      "css": ".ds-model{padding:1.4rem 0 1.5rem;border-top:2px solid rgb(155 138 196 / .4);border-bottom:2px solid rgb(155 138 196 / .4);max-width:34rem}.ds-model h3{margin:0 0 .35rem;color:#bcaee0;font:800 1.3rem/1.2 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif;letter-spacing:-.01em}.ds-model p{margin:0;color:#c3b9c9}"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "custom",
+      "refersTo": "segmented-control",
+      "description": "Lavender selection among model strengths.",
+      "html": "<div class=\"ds-seg\" role=\"radiogroup\"><button role=\"radio\" aria-checked=\"false\">Standard</button><button role=\"radio\" aria-checked=\"true\">Light</button><button role=\"radio\" aria-checked=\"false\">Strong</button></div>",
+      "css": ".ds-seg{display:inline-flex;padding:4px;gap:4px;border-radius:14px;background:#2f2131}.ds-seg button{all:unset;cursor:pointer;padding:.5em .95em;border-radius:10px;font:700 .95rem/1 'Atkinson Hyperlegible',system-ui,sans-serif;color:#c3b9c9;transition:background .2s,color .2s}.ds-seg button:hover{color:#f6efe6}.ds-seg button[aria-checked=true]{background:#9b8ac4;color:#17121f}.ds-seg button:focus-visible{outline:3px solid #bcaee0;outline-offset:1px}"
+    },
+    {
+      "name": "Server Node and Ciphertext",
+      "kind": "custom",
+      "refersTo": "server-node",
+      "description": "The table's server: gold ring and hex readout while it relays ciphertext.",
+      "html": "<div class=\"ds-server\"><b>server</b><span class=\"ds-server-sees\">9f·a2·31·c0</span><span class=\"ds-packet\">9fa231c0</span></div>",
+      "css": ".ds-server{display:grid;justify-items:center;gap:.2rem;width:9.5rem;padding:.9rem .6rem .8rem;background:#2f2131;border:2px solid #e0b04c;border-radius:22px;color:#9d93a6;box-shadow:0 0 0 6px rgb(224 176 76 / .12),0 18px 40px -18px #000}.ds-server b{font:800 1.05rem/1 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif;color:#c3b9c9}.ds-packet{display:inline-block;padding:.18em .45em;border-radius:.5em;background:#e0b04c;color:#2a1d05;font:600 .72rem/1 'JetBrains Mono',ui-monospace,monospace}.ds-server-sees{font:600 .82rem/1.2 'JetBrains Mono',ui-monospace,monospace;color:#e0b04c;letter-spacing:.02em}"
+    },
+    {
+      "name": "Terminal Card",
+      "kind": "card",
+      "refersTo": "terminal-card",
+      "description": "Developer card with a sunken code well and gold tool chips.",
+      "html": "<div class=\"ds-term\"><h3>MCP for agents</h3><pre><span class=\"p\">$</span> griasdi mcp <span class=\"k\">--token</span> <span class=\"s\">\"…\"</span> <span class=\"c\"># local only</span></pre><span class=\"ds-chip\">send_message</span></div>",
+      "css": ".ds-term{display:flex;flex-direction:column;gap:.8rem;padding:1.5rem;border-radius:24px;background:#1c131d;border:1px solid #453248;color:#c3b9c9;max-width:30rem}.ds-term h3{margin:0;color:#f6efe6;font:800 1.3rem/1.2 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif}.ds-term pre{margin:0;padding:1rem 1.1rem;border-radius:14px;background:#0f0d14;border:1px solid #2a2433;color:#f6efe6;font:400 .88rem/1.65 'JetBrains Mono',ui-monospace,monospace;overflow-x:auto}.ds-term .p{color:#f08a5d}.ds-term .k{color:#bcaee0}.ds-term .s{color:#7cc6c7}.ds-term .c{color:#9d93a6}.ds-chip{display:inline-block;padding:.35em .7em;border-radius:10px;background:#2f2131;color:#e0b04c;font:600 .82rem/1 'JetBrains Mono',ui-monospace,monospace}"
+    },
+    {
+      "name": "Platform Card with Tape and Stamp",
+      "kind": "card",
+      "refersTo": "platform-card",
+      "description": "Night card on the terracotta band with a gold tape and an uppercase stamp.",
+      "html": "<div style=\"background:var(--terra);padding:2.4rem 1.5rem 3rem\"><div class=\"ds-platform\"><span class=\"ds-tape\">your system</span><h3>Linux</h3></div><p style=\"margin:2rem 0 0\"><span class=\"ds-stamp\">soon</span></p></div>",
+      "css": ".ds-platform{position:relative;padding:1.5rem;border-radius:26px;background:#1c131d;color:#f6efe6;box-shadow:0 30px 50px -28px #3b1205;max-width:20rem}.ds-platform h3{margin:0;font:800 1.7rem/1.2 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif}.ds-tape{position:absolute;top:-.8rem;right:1.2rem;padding:.3em .8em;background:#e0b04c;color:#2a1d05;font:800 .85rem/1 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif;letter-spacing:.02em;rotate:4deg;border-radius:3px;box-shadow:0 4px 8px -4px rgb(0 0 0 / .5)}.ds-stamp{display:inline-block;padding:.2em .55em;border:3px solid #1b0c06;border-radius:8px;background:#d9572b;color:#1b0c06;font:800 1.15rem/1 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif;text-transform:uppercase;letter-spacing:.08em;rotate:-14deg}"
+    },
+    {
+      "name": "Download Band",
+      "kind": "custom",
+      "refersTo": "download-band",
+      "description": "The terracotta band as a whole section, with file tiles.",
+      "html": "<div class=\"ds-band\"><h2>Take a seat.</h2><p>Free to try on three systems.</p><a class=\"ds-file\" href=\"#\"><span>.deb</span><small>Debian, Ubuntu</small></a></div>",
+      "css": ".ds-band{background:#d9572b;color:#1b0c06;padding:2rem;border-radius:0}.ds-band h2{margin:0 0 .5rem;font:800 2.4rem/1.05 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif;letter-spacing:-.02em}.ds-band p{margin:0 0 1rem;font-size:1.2rem;font-weight:700}.ds-file{display:inline-grid;gap:.15rem;padding:.8rem 1rem;border-radius:16px;background:#2f2131;border:1.5px solid #453248;color:#f6efe6;text-decoration:none;transition:transform .2s cubic-bezier(.34,1.56,.64,1),border-color .2s,background .2s}.ds-file span{font:800 1.15rem/1.1 'Baloo 2','Atkinson Hyperlegible',system-ui,sans-serif}.ds-file small{color:#9d93a6;font-size:.85rem}.ds-file:hover{transform:translateY(-3px);border-color:#f08a5d;background:#322a3e}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Pixel Stammtisch",
+    "overview": "A Stammtisch is the regulars' table in a Bavarian pub: the same faces, the same chairs, talk that stays in the room. The page is that table at night. The ground is plum-black, the cast is the app's own 8x8 pixel faces (gsichtl 0.4.0, real generated data), and the people talk in speech bubbles cut from the same bubble-with-a-tail shape as the g mark. The server sits in the middle of the table and only ever sees scrambled hex; everything the page claims, it shows as a mechanism you can poke.\n\nThree decisions carry the world. Terracotta (the g mark's colour) is the single action colour and is allowed to own whole bands, not just buttons. The three informational colours are borrowed from the product's audio diagram and keep their meaning on every surface: teal is voice, gold is taps and ciphertext, lavender is on-device models. Type is heavy and round for the voice of the cast (Baloo 2), humanist and highly legible for everything read at length (Atkinson Hyperlegible), and monospace only where the content is code, a measurement or ciphertext (JetBrains Mono).\n\nDepth is physical but quiet: tonal night layers, soft dark drops with negative spread, and buttons that sit on a visible lip and press down. Motion is one shared stage clock (the hero table), spring pops for anything that arrives, and a rule that every animation is decoration over content that is already visible.",
+    "keyCharacteristics": [
+      "Plum-black ground (#1c131d), warm cream ink (#f6efe6), terracotta (#d9572b) as the only action colour.",
+      "Semantic accents: teal = voice, gold = taps and ciphertext, lavender = on-device models. Never decorative.",
+      "Pixel faces at integer scale, always square pixels, rounded to 26%.",
+      "Speech bubbles as the universal container for human words; features are lines the cast says.",
+      "Heavy rounded display (Baloo 2, 800), legible body (Atkinson Hyperlegible), mono for code and measurements only.",
+      "Tilted stickers, tape and a stamp as small hand-placed marks; everything else sits on a calm grid."
+    ],
+    "rules": [
+      {
+        "name": "The Audio Diagram Rule",
+        "body": "The accent colours keep the roles they have in the product's audio diagram: teal voice, gold taps and ciphertext, lavender on-device models. A new element picks its accent by what it is, never by what looks good beside it.",
+        "section": "colors"
+      },
+      {
+        "name": "The Terracotta Owns Bands Rule",
+        "body": "Terracotta is the action colour and may fill a whole band (the download section) or a whole object (button, greeting word, sticker). It is never a thin line, a border accent or a text highlight on a dark section; on dark ground its light variant carries links and small text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Dark Ink Rule",
+        "body": "Text on a bright fill (terracotta, teal, gold, lavender, bubble paper) uses that fill's own near-black on-colour, never pure black and never cream.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono Is Evidence Rule",
+        "body": "Monospace appears only where the content is code, a measurement or ciphertext. Prose, labels and headings are never set in mono to look technical.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hello Rule",
+        "body": "The product name is always lowercase, in Baloo 2, and the pronunciation note beneath it is quiet (ink-faint, 0.95rem).",
+        "section": "typography"
+      },
+      {
+        "name": "The Soft Drop Rule",
+        "body": "Resting depth is a dark, blurred, negatively spread drop or a tonal step, nothing else. Do not add glows, coloured halos or gradients as depth.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Pressable Lip Rule",
+        "body": "Only buttons carry a visible lip (a deeper-colour edge under the key) and they move toward it when pressed. Cards, bubbles and panels do not get a lip.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** use terracotta (#d9572b) for the action and let it fill whole bands and objects; put on-terracotta (#1b0c06) text on it.",
+      "**Do** colour by meaning: teal for voice, gold for taps and ciphertext, lavender for on-device models.",
+      "**Do** put words that a person or the product \"says\" in the g-bubble shape with a tail, and give features a face to speak them.",
+      "**Do** render gsichtl faces at multiples of 10 px with `crispEdges` and 26% radius.",
+      "**Do** set Baloo 2 at 800 for display, buttons and names; Atkinson Hyperlegible for everything read; JetBrains Mono only for code, measurements and ciphertext.",
+      "**Do** make pressable things travel on their lip and pop with the spring easing; keep every animation optional.",
+      "**Do** use ink-soft (#c3b9c9) for body copy and ink-faint (#9d93a6) only for captions and comments."
+    ],
+    "donts": [
+      "**Don't** use pure black or pure white; the darkest is night (#1c131d), the lightest is ink (#f6efe6).",
+      "**Don't** use a card for every list: models are ruled rows, features are chat lines.",
+      "**Don't** put a lip or a hard edge under anything but a button, and don't reuse a button's lip as a card shadow.",
+      "**Don't** colour decoratively with teal, gold or lavender; each belongs to its meaning.",
+      "**Don't** set prose, labels or headings in monospace to look technical.",
+      "**Don't** hide content behind an animation: everything must be readable with scripts off or motion reduced.",
+      "**Don't** scale faces to arbitrary sizes or smooth their pixels."
+    ]
+  }
+}
