@@ -203,6 +203,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (system === 'mac') {
     show('mac-hint');
   }
+  if (system === 'windows') {
+    show('windows-hint');
+  }
   if (system === 'linux' && files['linux-arm']) {
     setDownload(document.getElementById('download-arm'), found.base, files['linux-arm']);
     show('download-arm');
