@@ -323,35 +323,34 @@
         </div>
       </div>
 
-      <!-- PLACEHOLDER DOWNLOAD URLS: every href="#dl-…" below is a placeholder until the release URLs are decided. -->
       <div class="platforms">
         <article class="platform" id="pf-linux" data-os="linux">
           <h3>Linux</h3>
           <p>x86_64 and ARM64. AppImage and tarball update themselves.</p>
           <ul class="files">
-            <li><a class="file" href="#dl-linux-deb"><span>.deb</span><small>Debian, Ubuntu</small></a></li>
-            <li><a class="file" href="#dl-linux-rpm"><span>.rpm</span><small>Fedora</small></a></li>
-            <li><a class="file" href="#dl-linux-appimage"><span>AppImage</span><small>any distro</small></a></li>
-            <li><a class="file" href="#dl-linux-tar"><span>.tar.gz</span><small>~/.local</small></a></li>
+            <li><a class="file" data-file="desktop:appimage:x86_64-unknown-linux-gnu" href="#download" aria-disabled="true"><span>AppImage</span><small>x86_64, any distro</small></a></li>
+            <li><a class="file" data-file="desktop:appimage:aarch64-unknown-linux-gnu" href="#download" aria-disabled="true"><span>AppImage</span><small>ARM64, any distro</small></a></li>
+            <li><a class="file" data-file="desktop:tar.gz:x86_64-unknown-linux-gnu" href="#download" aria-disabled="true"><span>.tar.gz</span><small>x86_64, ~/.local</small></a></li>
+            <li><a class="file" data-file="desktop:tar.gz:aarch64-unknown-linux-gnu" href="#download" aria-disabled="true"><span>.tar.gz</span><small>ARM64, ~/.local</small></a></li>
           </ul>
         </article>
         <article class="platform" id="pf-windows" data-os="windows">
           <h3>Windows</h3>
           <p>x86_64. Installs per user, no administrator rights needed.</p>
           <ul class="files">
-            <li><a class="file" href="#dl-windows-setup"><span>Setup</span><small>.exe</small></a></li>
-            <li><a class="file" href="#dl-windows-zip"><span>Portable</span><small>.zip</small></a></li>
+            <li><a class="file" data-file="installer:x86_64-pc-windows-msvc" href="#download" aria-disabled="true"><span>Setup</span><small>.exe</small></a></li>
+            <li><a class="file" data-file="desktop:zip:x86_64-pc-windows-msvc" href="#download" aria-disabled="true"><span>Portable</span><small>.zip</small></a></li>
           </ul>
         </article>
         <article class="platform" id="pf-macos" data-os="macos">
           <h3>macOS</h3>
           <p>Apple Silicon, macOS 14 or newer.</p>
           <ul class="files">
-            <li><a class="file" href="#dl-macos-dmg"><span>.dmg</span><small>Apple Silicon</small></a></li>
+            <li><a class="file" data-file="installer:aarch64-apple-darwin" href="#download" aria-disabled="true"><span>.dmg</span><small>Apple Silicon</small></a></li>
           </ul>
         </article>
       </div>
-      <p class="sums"><a href="#dl-sha256sums">SHA256SUMS</a> to check every file.</p>
+      <p class="sums">Every file's SHA-256 is in the build's <a id="dl-manifest" href="#download" aria-disabled="true">signed manifest</a>. <span id="dl-build"></span></p>
 
       <aside class="soon" aria-labelledby="soon-title">
         <svg class="ico" aria-hidden="true"><use href="#i-server"/></svg>
@@ -372,6 +371,7 @@
 </footer>
 
 <script src="faces.js"></script>
+<script src="downloads.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

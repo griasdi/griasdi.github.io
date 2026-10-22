@@ -11,10 +11,10 @@ web (the launch site in `site/`); the product itself is a native desktop app
 
 ## Stack
 
-Launch site: static HTML, CSS and JavaScript without a build step, like the
-join page (`web/join/` in `griasdi/griasdi`). GitHub Pages publishes `site/`
-at https://griasdi.github.io/ on every push to `main`
-(`.github/workflows/pages.yml`).
+Launch site: static HTML, CSS and JavaScript without a build step. The join
+page is `site/join/`, the app's `JOIN_PAGE` (https://griasdi.github.io/join).
+GitHub Pages publishes `site/` at https://griasdi.github.io/ on every push to
+`main` (`.github/workflows/pages.yml`).
 
 ## Users
 
@@ -53,9 +53,10 @@ the server stores and forwards ciphertext only.
   (`docs/streaming.svg`); YouTube player; peer transfers for large files in
   1 MiB pieces from several members.
 - Self-updating apps; pixel avatars (gsichtl) for everyone without a picture.
-- Downloads: Linux (deb, rpm, AppImage, tar.gz), Windows (setup, zip), macOS
-  Apple Silicon (dmg, macOS 14+). Download URLs are not decided: the site
-  uses clearly marked placeholders.
+- Downloads: Linux (AppImage and tar.gz, x86_64 and ARM64), Windows (setup,
+  zip), macOS Apple Silicon (dmg, macOS 14+). Downloads are the newest build of
+  the update files, read live from `griasdi.doodleshnookie.net/updates`
+  (`site/downloads.js`).
 - Proprietary software (LICENSE); never call it open source.
 
 ## Brand Commitments

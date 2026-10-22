@@ -424,6 +424,7 @@ section { padding-block: var(--section); }
 .file:hover { transform: translateY(-3px); border-color: var(--terra-l); background: #322a3e; }
 .file:focus-visible { outline-color: var(--ink); }
 .sums { margin-top: 1.4rem; font-weight: 700; color: var(--on-terra); }
+.download a[aria-disabled="true"] { opacity: .5; pointer-events: none; }
 @media (max-width: 900px) { .platforms { grid-template-columns: 1fr; } }
 
 .soon {

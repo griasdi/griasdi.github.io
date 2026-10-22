@@ -1,0 +1,51 @@
+/* The join page: layout only. Fonts, tokens, .btn and .brand come from ../styles.css. */
+
+[hidden] { display: none !important; }
+
+body.join { min-height: 100svh; display: flex; flex-direction: column; }
+
+.join-top { width: min(34rem, calc(100% - 2rem)); margin-inline: auto; padding-block: 1.25rem 0; }
+
+.join-card {
+  width: min(34rem, calc(100% - 2rem));
+  margin: clamp(1rem, 6vh, 3.5rem) auto 3rem;
+  padding: clamp(1.4rem, 5vw, 2.2rem);
+  background: var(--night-2);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  box-shadow: 0 30px 50px -30px #000;
+  display: grid;
+  gap: 1rem;
+}
+
+.join-card h1 { font-size: clamp(1.6rem, 5.4vw, 2.3rem); overflow-wrap: anywhere; }
+.join-card p { color: var(--ink-2); }
+.join-card .broken { color: var(--ink); font-weight: 700; }
+.join-card .muted { color: var(--ink-3); font-size: .92rem; }
+.join-card #actions { display: grid; gap: 1rem; }
+
+.buttons { display: flex; flex-wrap: wrap; gap: .9rem 1.1rem; align-items: center; }
+.small { font-size: .92rem; }
+
+details { color: var(--ink-2); }
+summary { cursor: pointer; font-weight: 700; }
+details ul { margin: .6rem 0 0; padding-left: 1.2rem; display: grid; gap: .3rem; }
+
+.notice {
+  display: grid;
+  gap: .75rem;
+  padding: 1rem 1.1rem;
+  background: var(--night);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.link {
+  width: 100%;
+  padding: .55rem .7rem;
+  font: .85rem var(--mono);
+  color: var(--ink);
+  background: var(--night);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}

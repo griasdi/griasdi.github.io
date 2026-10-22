@@ -398,22 +398,47 @@
 
   // ---------- download for this system ----------
 
-  const ua = navigator.userAgent;
-  const plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
-  const mobile = /Android|iPhone|iPad|iPod/i.test(ua);
-  let os = null;
-  if (!mobile) {
-    if (/Win/i.test(plat) || /Windows/i.test(ua)) os = ["windows", "Windows", "#dl-windows-setup"];
-    else if (/Mac/i.test(plat) || /Mac OS X/i.test(ua)) os = ["macos", "macOS", "#dl-macos-dmg"];
-    else if (/Linux|X11/i.test(plat) || /Linux/i.test(ua)) os = ["linux", "Linux", "#dl-linux-appimage"];
-  }
-  if (os) {
-    const [id, label, href] = os;
+  const dl = window.griasdiDownloads;
+  const sys = dl.system();
+  // Where each system's primary download is: [card, label, spec].
+  const mine = {
+    windows: ["windows", "Windows", "installer:x86_64-pc-windows-msvc"],
+    mac: ["macos", "macOS", "installer:aarch64-apple-darwin"],
+    linux: ["linux", "Linux", "desktop:appimage:x86_64-unknown-linux-gnu"],
+    "linux-arm": ["linux", "Linux", "desktop:appimage:aarch64-unknown-linux-gnu"],
+  }[sys];
+  if (mine) {
+    const [id, label] = mine;
     document.getElementById("primary-label").textContent = `Download for ${label}`;
-    document.getElementById("primary-download").href = href;
     document.getElementById("other-platforms").textContent = "Other platforms";
     document.getElementById(`pf-${id}`)?.classList.add("mine");
   }
+
+  // The files are the newest build of the update files, read live.
+  const build = document.getElementById("dl-build");
+  dl.newestBuild().then((found) => {
+    if (!found) {
+      build.textContent = "Downloads could not be loaded. Try again in a moment.";
+      return;
+    }
+    const { base, manifest } = found;
+    for (const a of document.querySelectorAll("a[data-file]")) {
+      const file = dl.fileFor(manifest, a.dataset.file);
+      if (file === null) {
+        a.closest("li").hidden = true;
+        continue;
+      }
+      a.href = base + file;
+      a.download = file;
+      a.removeAttribute("aria-disabled");
+    }
+    const sums = document.getElementById("dl-manifest");
+    sums.href = base + "manifest.json";
+    sums.removeAttribute("aria-disabled");
+    build.textContent = `Build ${manifest.build}, ${manifest.created.slice(0, 10)}.`;
+    const primary = mine && dl.fileFor(manifest, mine[2]);
+    if (primary) document.getElementById("primary-download").href = base + primary;
+  });
 
   // ---------- small things ----------
 
