@@ -1,0 +1,17 @@
+/* Overrides for the 1200x630 link preview cards; everything else comes from site/styles.css. */
+html { font-size: 20px; }
+html, body { width: 1200px; height: 630px; overflow: hidden; }
+*, *::before, *::after { animation: none !important; transition: none !important; }
+
+.card { position: relative; width: 1200px; height: 630px; }
+.card-copy { position: absolute; left: 72px; top: 50%; translate: 0 -50%; width: 500px; }
+.hero-word { font-size: 128px; }
+.hero-say { font-size: 54px; max-width: 13ch; padding-top: .35em; }
+.hero-lede { margin-top: 28px; font-size: 27px; line-height: 1.4; max-width: 22ch; }
+
+.table { position: absolute; left: 620px; top: 92px; width: 520px; min-width: 0; }
+.seat { --seat-w: 90px; }
+.say { max-width: none; }
+.seat > .echo { left: 50%; top: 0; }
+.seat-empty { box-sizing: border-box; border: 3px dashed var(--ink-3); background: rgb(246 239 230 / .04); }
+.seat-you { color: var(--ink); }

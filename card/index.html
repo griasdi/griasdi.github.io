@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>griasdi card</title>
+<link rel="stylesheet" href="../site/styles.css">
+<link rel="stylesheet" href="card.css">
+<script src="../site/faces.js"></script>
+<script src="card.js" defer></script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/><path d="M8 7.5h.01M8 16.5h.01M12 7.5h4M12 16.5h4"/></symbol>
+</svg>
+<main class="card">
+  <div class="card-copy">
+    <h1 class="hero-title"><span class="hero-word">griasdi</span><span class="hero-say" id="say"></span></h1>
+    <p class="hero-lede" id="lede"></p>
+  </div>
+  <div class="table" id="table">
+    <div class="server busy"><svg class="ico" aria-hidden="true"><use href="#i-server"/></svg><span class="server-name">server</span><span class="server-sees">a7·3f·0c·e9</span></div>
+    <ul class="seats" id="seats"></ul>
+  </div>
+</main>
+</body>
+</html>
