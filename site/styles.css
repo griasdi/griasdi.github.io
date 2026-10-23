@@ -244,6 +244,7 @@ code, pre { font-family: var(--mono); }
 
 /* ---------- sections ---------- */
 section { padding-block: var(--section); }
+section[id]:not(.hero) { scroll-margin-top: calc(2rem - var(--section)); } /* anchor jumps skip the section's top padding: content lands 7rem down, like the sticky .smarts head */
 .band { background: var(--night-2); border-block: 1px solid #2c1f2e; }
 .section-head { display: grid; gap: 1.1rem; max-width: 46rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .section-head p { color: var(--ink-2); font-size: 1.15rem; max-width: 62ch; }
