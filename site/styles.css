@@ -111,6 +111,7 @@ code, pre { font-family: var(--mono); }
 .nav-links { display: flex; gap: .25rem; margin: 0 0 0 auto; padding: 0; list-style: none; }
 .nav-links a { display: block; padding: .45rem .75rem; border-radius: 10px; color: var(--ink-2); text-decoration: none; font-weight: 700; font-size: .98rem; }
 .nav-links a:hover { color: var(--ink); background: var(--night-3); }
+.nav-links a[aria-current="page"] { color: var(--ink); background: var(--night-3); }
 @media (max-width: 900px) { .nav-links { display: none; } .nav .btn-small { margin-left: auto; } }
 
 /* ---------- hero ---------- */
@@ -462,6 +463,9 @@ section[id]:not(.hero) { scroll-margin-top: calc(2rem - var(--section)); } /* an
 .foot-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; color: var(--ink-3); font-size: .95rem; }
 .foot .brand { font-size: 1.3rem; }
 .foot .legal { margin-left: auto; }
+.foot-links { display: flex; flex-wrap: wrap; gap: .25rem 1.2rem; margin: 0; padding: 0; list-style: none; }
+.foot-links a { color: var(--ink-2); font-weight: 700; text-decoration: none; }
+.foot-links a:hover { color: var(--ink); text-decoration: underline; }
 
 /* reveal: content is visible by default; only with script and motion allowed does it rise in */
 @media (prefers-reduced-motion: no-preference) {

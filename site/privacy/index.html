@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#1c131d">
+<title>griasdi: privacy</title>
+<meta name="description" content="What leaves your computer when you use griasdi, who can see it, and the switch that stops it.">
+<link rel="canonical" href="https://griasdi.github.io/privacy/">
+<meta property="og:site_name" content="griasdi">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://griasdi.github.io/privacy/">
+<meta property="og:title" content="Privacy in griasdi">
+<meta property="og:description" content="What leaves your computer when you use griasdi, who can see it, and the switch that stops it.">
+<meta property="og:image" content="https://griasdi.github.io/img/card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="griasdi: five pixel faces around a table talk in speech bubbles while the server in the middle only sees scrambled hex.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../img/mark.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/baloo2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/atkinson-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="privacy.css">
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17.5 12v3.5M20.5 12v2.5"/></symbol>
+  <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3.5v12M7 10.5l5 5 5-5M4.5 20.5h15"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="../" aria-label="griasdi, to the home page"><img src="../img/mark.svg" width="34" height="34" alt=""><span>griasdi</span></a>
+    <ul class="nav-links">
+      <li><a href="../about/">About</a></li>
+      <li><a href="../privacy/" aria-current="page">Privacy</a></li>
+    </ul>
+    <a class="btn btn-small" href="../#download"><svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>Download</a>
+  </nav>
+</header>
+
+<main id="main" class="doc">
+  <div class="wrap doc-head">
+    <h1>Privacy</h1>
+    <p class="doc-lede">griasdi is built so that no server can read what you say, ours included. This page lists what leaves your computer, who can see it, and the switch that stops it.</p>
+    <p class="doc-date">Last updated: 23 October 2026.</p>
+    <div class="peek" aria-hidden="true"><span class="face-slot" data-face="63"></span><span class="bubble">No small print. Promise.</span></div>
+  </div>
+  <div class="wrap doc-grid">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-title">On this page</p>
+      <ol>
+        <li><a href="#short">The short version</a></li>
+        <li><a href="#performance">Performance data</a></li>
+        <li><a href="#servers">What servers see</a></li>
+        <li><a href="#connections">Other connections</a></li>
+        <li><a href="#device">On your computer</a></li>
+        <li><a href="#website">This website</a></li>
+        <li><a href="#rights">Who we are and your rights</a></li>
+      </ol>
+    </nav>
+    <div class="doc-body">
+      <section id="short" aria-labelledby="short-title">
+        <h2 id="short-title">The short version</h2>
+        <ul class="facts">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg><span><b>No accounts.</b> You are a key pair on your computer. No e-mail address, no phone number, no password.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span><b>End-to-end encrypted.</b> Messages, files, voice, screen sharing and transcripts are encrypted on your device. Servers store and forward ciphertext.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><span><b>No ads, no analytics, no tracking.</b> We don’t sell your data and don’t share it with anyone. The few places your computer talks to besides your servers are listed below.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-chip"/></svg><span><b>One thing is on by default:</b> a daily performance report about your hardware, without content, names or addresses. One switch turns it off.</span></li>
+        </ul>
+      </section>
+
+      <section id="performance" aria-labelledby="performance-title">
+        <h2 id="performance-title">Performance data</h2>
+        <p>griasdi runs its speech models and video codecs on your own hardware, and we want them to run well on all of it. So once a day griasdi sends us a short report on how voice, transcription and screen sharing ran on your computer. It is on until you turn it off in <span class="ui-path">Settings <span aria-hidden="true">›</span> Privacy <span aria-hidden="true">›</span> Performance data <span aria-hidden="true">›</span> Share performance data</span>. Right below the switch, <b>Last report</b>, <b>Show</b> displays the last report exactly as it was sent.</p>
+        <div class="ledger">
+          <div class="ledger-col sealed">
+            <h3>In a report</h3>
+            <ul>
+              <li>App version and update channel, operating system and processor architecture</li>
+              <li>Processor model and number of threads</li>
+              <li>Graphics card name, vendor and device id, and driver</li>
+              <li>Which on-device models ran, how often, how fast and with how much memory</li>
+              <li>For screen sharing and voice: frame timing, round trip, loss and jitter, at most ten minutes of each per day</li>
+              <li>Results of about ten seconds of tests that run once per app version while you are away from the computer</li>
+              <li>A random report id, new for every report, and a random install id</li>
+            </ul>
+          </div>
+          <div class="ledger-col">
+            <h3>Never in a report</h3>
+            <ul>
+              <li>Message text</li>
+              <li>Transcripts or anything spoken</li>
+              <li>Audio or pictures</li>
+              <li>User or community names</li>
+              <li>Keys</li>
+              <li>IP or server addresses</li>
+            </ul>
+          </div>
+        </div>
+        <h3>How it travels</h3>
+        <p>Your computer encrypts the report to our key, so only we can open it. It sends the report over an anonymous connection, without your device’s key, to one of the community servers you are connected to, which forwards it to our server, griasdi.doodleshnookie.net. The community server sees your IP address and that a report went through, never what is in it, and stores and logs nothing. Our server sees which community server forwarded it, not your IP address.</p>
+        <h3>How long we keep it</h3>
+        <p>Reports are deleted from our server after 7 days, and the copies we take for analysis are kept no longer. What remains are summaries per kind of hardware, such as how fast a model runs on a given graphics card, which no longer point to any one computer.</p>
+        <h3>The install id</h3>
+        <p>The install id is a random number created with the first report. It lets us tell reports from the same computer apart from those of others; it is not linked to your key, your name or your IP address. Turning the switch off deletes it, together with the stored last report. Turning it back on starts with a new one.</p>
+      </section>
+
+      <section id="servers" aria-labelledby="servers-title">
+        <h2 id="servers-title">What servers see</h2>
+        <p>Every community lives on a server. We run the server of the griasdi Hub, our community for the beta. Whoever runs a server, us included, sees only what is in the right-hand list.</p>
+        <div class="ledger">
+          <div class="ledger-col sealed">
+            <h3>Encrypted: the server can’t read it</h3>
+            <ul>
+              <li>Messages and files</li>
+              <li>Voice and screen sharing</li>
+              <li>Transcripts and captions</li>
+              <li>Names of communities, channels and roles</li>
+            </ul>
+          </div>
+          <div class="ledger-col">
+            <h3>Visible to the server</h3>
+            <ul>
+              <li>Which communities and channels you belong to, by your key</li>
+              <li>Which of your devices sent a message, and when</li>
+              <li>The size of messages and files; messages are padded to hide their exact length</li>
+              <li>Who is in a voice channel right now and who is muted, held in memory only</li>
+              <li>Your IP address while you are connected</li>
+            </ul>
+          </div>
+        </div>
+        <h3>How long servers keep things</h3>
+        <ul class="plain">
+          <li>Messages stay on the server, encrypted. Dissolving a community deletes it with its channels and messages.</li>
+          <li>Attached files expire after 1, 7 or 30 days, as the sender picks. Large files are only passed through, never stored.</li>
+          <li>Messages in a call and call transcripts are deleted when the call ends.</li>
+          <li>Who is in voice is kept in memory only and forgotten when the server restarts.</li>
+          <li>The griasdi server software does not store IP addresses.</li>
+        </ul>
+      </section>
+
+      <section id="connections" aria-labelledby="connections-title">
+        <h2 id="connections-title">Other connections</h2>
+        <p>Besides your community servers, griasdi connects to other places only for the following. Your computer makes these connections itself; we are never in between.</p>
+        <ul class="flows">
+          <li class="flow">
+            <h3>Link previews</h3>
+            <dl>
+              <dt>When</dt><dd>You send a link on its own.</dd>
+              <dt>Who learns what</dt><dd>Your computer loads the page’s title, description and picture and attaches them, encrypted, to your message. The site sees your IP address; the people you send it to never contact it.</dd>
+              <dt>Switch</dt><dd><span class="ui-path">Settings <span aria-hidden="true">›</span> Privacy <span aria-hidden="true">›</span> Previews <span aria-hidden="true">›</span> Link previews</span> On by default.</dd>
+            </dl>
+          </li>
+          <li class="flow">
+            <h3>YouTube</h3>
+            <dl>
+              <dt>When</dt><dd>You send a YouTube link, or press play on one.</dd>
+              <dt>Who learns what</dt><dd>Sending loads the video’s title and picture from YouTube. Playing streams the video from YouTube, without cookies and without signing in. YouTube sees your IP address. Others contact YouTube only when they press play.</dd>
+              <dt>Switch</dt><dd><span class="ui-path">Settings <span aria-hidden="true">›</span> Privacy <span aria-hidden="true">›</span> Previews <span aria-hidden="true">›</span> YouTube previews</span> On by default.</dd>
+            </dl>
+          </li>
+          <li class="flow">
+            <h3>SponsorBlock</h3>
+            <dl>
+              <dt>When</dt><dd>You play a YouTube video with Attention Protection on.</dd>
+              <dt>Who learns what</dt><dd>The player asks the community database SponsorBlock which parts of the video are sponsor reads and the like. It sends only the first characters of a hash of the video id, never the id itself.</dd>
+              <dt>Switch</dt><dd><span class="ui-path">Settings <span aria-hidden="true">›</span> Videos <span aria-hidden="true">›</span> Attention Protection (YouTube)</span> On by default.</dd>
+            </dl>
+          </li>
+          <li class="flow">
+            <h3>Updates and models</h3>
+            <dl>
+              <dt>When</dt><dd>While you are connected, and when you turn on a model that needs a download.</dd>
+              <dt>Who learns what</dt><dd>New versions and model files come from your community servers, over a separate connection without your key. The servers see your IP address, your system and the files you fetch. Only builds signed by us are installed.</dd>
+              <dt>Switch</dt><dd><span class="ui-path">Settings <span aria-hidden="true">›</span> About <span aria-hidden="true">›</span> Updates <span aria-hidden="true">›</span> Install automatically</span> decides whether updates install by themselves. Updates always come from your servers, never from anywhere else.</dd>
+            </dl>
+          </li>
+          <li class="flow">
+            <h3>Release page</h3>
+            <dl>
+              <dt>When</dt><dd>You click Release page in the app.</dd>
+              <dt>Who learns what</dt><dd>Your browser opens github.com/griasdi/griasdi/releases.</dd>
+              <dt>Switch</dt><dd>Nothing happens unless you click.</dd>
+            </dl>
+          </li>
+        </ul>
+      </section>
+
+      <section id="device" aria-labelledby="device-title">
+        <h2 id="device-title">On your computer</h2>
+        <ul class="plain">
+          <li>Messages, keys and settings live in griasdi’s data folder, protected by your system’s file permissions, not by an extra layer of encryption. You can protect your user key with a passphrase.</li>
+          <li>Crashes are written to a crash log in that folder. It never leaves your computer.</li>
+          <li>Live transcripts are off until you turn them on in <span class="ui-path">Settings <span aria-hidden="true">›</span> Voice <span aria-hidden="true">›</span> Transcripts</span>. Speech is recognized on your computer; a transcript you start is shared, encrypted, with everyone in the channel, and in calls it is deleted when the call ends.</li>
+          <li>The spelling and grammar check runs a small language model on your computer. Nothing you write leaves it.</li>
+          <li>The MCP server for AI agents is off until you turn it on in <span class="ui-path">Settings <span aria-hidden="true">›</span> Developer <span aria-hidden="true">›</span> MCP server</span>. It listens on your computer only, and every request needs its access token.</li>
+          <li>Read receipts show others how far you have read, and are on by default. Turn them off in <span class="ui-path">Settings <span aria-hidden="true">›</span> Privacy <span aria-hidden="true">›</span> Read receipts</span>.</li>
+        </ul>
+      </section>
+
+      <section id="website" aria-labelledby="website-title">
+        <h2 id="website-title">This website</h2>
+        <p>griasdi.github.io is hosted by GitHub Pages (GitHub, Inc., USA). GitHub logs the IP address of every visitor for security; see the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>. GitHub is certified under the EU–US Data Privacy Framework.</p>
+        <p>This site sets no cookies, runs no analytics and serves its fonts itself.</p>
+        <p>The download section and the join page read the newest build from our server, griasdi.doodleshnookie.net, which sees your IP address. These reads are kept out of its request log. Downloading a file is an ordinary request to that server.</p>
+        <p>An invite link keeps the invite after the # in the address. Your browser never sends that part to any server.</p>
+      </section>
+
+      <section id="rights" aria-labelledby="rights-title">
+        <h2 id="rights-title">Who we are and your rights</h2>
+        <h3>Responsible</h3>
+        <p>Hannes Uebelacker and Felix Itzenplitz, Munich, Germany.</p>
+        <p>Contact: write to us in the griasdi Hub. <a href="../join/#invite:C2dyaWFzZGkgSHViABpncmlhc2RpLmRvb2RsZXNobm9va2llLm5ldLkKiNpxCr8hwfIBIHn3AGsi6QGm4ARpUYnaEiP0AshShurxazY1srflyz02tj6K3D1e0l4vHhmy0EfcR3B-fcWJFL220SeMtyZhb63HFmcXNDkGQLfYewDXp0XsV_cvFaWaOC23YyjvIOfkoz90FWr4IkY">Join the griasdi Hub</a></p>
+        <h3>Hosting</h3>
+        <p>Our server griasdi.doodleshnookie.net, which runs the griasdi Hub, the update files and the performance reports, is hosted by Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Germany, which processes the data on our behalf. This website is hosted by GitHub, Inc.</p>
+        <h3>Legal bases</h3>
+        <ul class="plain">
+          <li>Performance data: our legitimate interest in making griasdi run well on real hardware (Art. 6(1)(f) GDPR). You can object at any time with the switch.</li>
+          <li>The griasdi Hub, updates and model files: providing the service you use (Art. 6(1)(b) GDPR).</li>
+          <li>This website and the download files: our legitimate interest in delivering them (Art. 6(1)(f) GDPR).</li>
+        </ul>
+        <h3>Your rights</h3>
+        <p>You have the right to access, rectification, erasure and restriction of your data, to data portability, and to object to processing based on legitimate interest (Art. 15 to 18, 20 and 21 GDPR). Reports carry no name: to find yours, send us the install id shown in <span class="ui-path">Settings <span aria-hidden="true">›</span> Privacy <span aria-hidden="true">›</span> Performance data <span aria-hidden="true">›</span> Last report <span aria-hidden="true">›</span> Show</span>.</p>
+        <p>You can also complain to a data protection authority, for example the one in Bavaria: Bayerisches Landesamt für Datenschutzaufsicht, Promenade 18, 91522 Ansbach, <a href="https://www.lda.bayern.de">www.lda.bayern.de</a>.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <a class="brand" href="../" aria-label="griasdi, to the home page"><img src="../img/mark.svg" width="28" height="28" alt=""><span>griasdi</span></a>
+    <p>griasdi is Bavarian for “hello, you”.</p>
+    <ul class="foot-links"><li><a href="../about/">About</a></li><li><a href="../privacy/">Privacy</a></li></ul>
+    <p class="legal">© 2026 Hannes Uebelacker and Felix Itzenplitz. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="../faces.js"></script>
+<script src="../site.js"></script>
+</body>
+</html>

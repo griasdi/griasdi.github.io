@@ -5,7 +5,7 @@ const join = location.search === '?join';
 const FACES = (window.GSICHTL && window.GSICHTL.faces) || [];
 const SVG = 'http://www.w3.org/2000/svg';
 
-// Copy of faceElement in site/main.js, without the blinking.
+// Copy of faceElement in site/site.js, without the blinking.
 function faceElement(index) {
   const data = FACES[((index % FACES.length) + FACES.length) % FACES.length];
   const wrap = document.createElement('span');

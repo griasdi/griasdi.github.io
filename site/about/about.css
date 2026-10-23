@@ -1,0 +1,17 @@
+/* The about page: layout only. Tokens, .btn, .peek, .bubble, .dl-cast and the nav come from ../styles.css. */
+.about-head { display: grid; gap: 1.1rem; padding-block: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 3.5rem); }
+.about-head h1 { font-size: clamp(2.3rem, 5vw, 3.9rem); }
+.about-head p { color: var(--ink-2); font-size: clamp(1.08rem, 1.35vw, 1.22rem); max-width: 52ch; }
+.duo { list-style: none; margin-block: 0; padding: 0 0 clamp(4rem, 9vw, 7rem); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2.5rem, 5vw, 4rem); }
+.person .peek { margin-top: 0; }
+.person .peek .face-slot { width: 90px; rotate: -4deg; }
+.person:nth-child(even) .peek .face-slot { rotate: 4deg; }
+.person h2 { font-size: 1.7rem; margin-top: 1.4rem; }
+.person p { color: var(--ink-2); }
+.love { background: var(--terra); color: var(--on-terra); }
+.love a:not(.btn), .love a:not(.btn):hover { color: var(--on-terra); font-weight: 700; }
+.love :focus-visible { outline-color: var(--on-terra); }
+.love-row { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 1.5rem 2rem; }
+.love-say { margin-top: .8rem; font-size: 1.2rem; font-weight: 700; }
+.love-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 1.8rem; }
+@media (max-width: 700px) { .duo { grid-template-columns: 1fr; } .love-row { grid-template-columns: 1fr; } }
