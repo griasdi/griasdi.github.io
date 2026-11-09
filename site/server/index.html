@@ -109,9 +109,10 @@
       <section id="needs" aria-labelledby="needs-title">
         <h2 id="needs-title">What you need</h2>
         <ul class="ref tight">
-          <li><span class="term-name"><b>A Linux machine</b></span><div class="desc"><p>x86_64 or ARM64, with systemd and glibc 2.39 or newer: Ubuntu 24.04, Debian 13, Fedora 40 or later. In a container, any host that runs Docker or Podman.</p></div></li>
+          <li><span class="term-name"><b>A Linux machine</b></span><div class="desc"><p>x86_64 or ARM64 with systemd: Ubuntu 24.04, Debian 13, Fedora 40 or later. In a container, any host that runs Docker or Podman.</p></div></li>
+          <li><span class="term-name"><b>System packages</b></span><div class="desc"><p>Only glibc 2.39 or newer and libgcc_s, which those distributions bring. The server carries its own SQLite and TLS: no OpenSSL, no database server. The image brings everything it needs.</p></div></li>
           <li><span class="term-name"><b>A name or address</b></span><div class="desc"><p>The host name (or IP address) your members’ apps reach the server by, such as <code>chat.example.org</code>. It goes into every link the server makes.</p></div></li>
-          <li><span class="term-name"><b>Two open ports</b></span><div class="desc"><p><b>UDP 1337</b> for everything griasdi does. <b>TCP 1337</b> for app updates over HTTPS, for apps that can’t reach the server over QUIC; without it the server logs a warning at start and those apps skip that fallback.</p></div></li>
+          <li><span class="term-name"><b>Two open ports</b></span><div class="desc"><p><b>UDP 1337</b> for everything griasdi does. <b>TCP 1337</b> for app updates over HTTPS, for apps that can’t reach the server over QUIC; without it the server logs a warning at start and those apps skip that fallback. Outgoing, it reaches august on UDP 1328, and on TCP 1328 over HTTPS when that doesn’t get through.</p></div></li>
         </ul>
       </section>
 
@@ -233,7 +234,7 @@
           <li><span class="term-name"><code>GRIASDI_PUBLIC_HOST</code><span class="def">required</span></span><div class="desc"><p>The host name or address your members reach the server at.</p></div></li>
           <li><span class="term-name"><code>GRIASDI_NAME</code><span class="def">default <code>griasdi</code></span></span><div class="desc"><p>The server’s display name.</p></div></li>
         </ul>
-        <p>Both are read on the first start only, when the server writes <code>griasdi-server.toml</code> into the volume, with the image’s channel in <code>[updates]</code>. The volume holds the data, the configuration and the server’s binaries. The server updates itself inside the volume, so an updated server survives a restart of its container, and a newer image only matters for a new volume.</p>
+        <p>Both are read on the first start only, when the server writes <code>griasdi-server.toml</code> into the volume, with the image’s channel in <code>[updates]</code> unless it is <code>dev</code>, the default. The volume holds the data, the configuration and the server’s binaries. The server updates itself inside the volume, so an updated server survives a restart of its container, and a newer image only matters for a new volume.</p>
         <p>Keep <code>--restart=always</code> (<code>restart: always</code> in Compose): when the server can’t replace itself in place after an update, it exits to be started again into the new build.</p>
       </section>
 
@@ -353,11 +354,11 @@
       <section id="updates" aria-labelledby="updates-title">
         <h2 id="updates-title">Updates</h2>
         <h3>Your server</h3>
-        <p><b>From a package or the tarball,</b> the server doesn’t update itself; it logs that and leaves it to you. Install the next release over it the way you installed the first.</p>
-        <p><b>In the container,</b> the server updates itself from its channel: it fetches a new build, checks its signature against the keys compiled into it, installs it in the volume and hands its socket over to the new build. Apps reconnect at once. It only ever moves to a newer build. A build that won’t start, or dies three times right after its start, is set aside, and the previous one runs again.</p>
+        <p><b>From a package or the tarball,</b> the server doesn’t update itself. Once a newer build is out it logs that and tells its admins in the app’s notification center, with what to do. Install the next release over it the way you installed the first.</p>
+        <p><b>In the container,</b> the server updates itself from its channel: it fetches a new build, checks its signature against the keys compiled into it, installs it in the volume and hands its socket over to the new build. Apps reconnect at once. It only ever moves to a newer build. A failed install is tried again after 15 minutes, then after twice the wait each time, up to 6 hours. A build that won’t start, or dies three times right after its start, is set aside, and the previous one runs again. If the server still runs an older build an hour after a newer one came out, or has had no contact with august for 6 hours, its log and its admins’ notification center say why and what to do.</p>
         <p>Before it changes its database schema the server keeps a copy, <code>griasdi.db.pre-v&lt;old version&gt;</code>, next to the database.</p>
         <h3>Your members’ apps</h3>
-        <p>The server follows august, our catalog, and fetches every signed app build and speech model in 1&nbsp;MiB pieces, from august and from other servers at once. It trusts neither: each piece is checked against the signed manifest, and an older build is never taken. Once it holds a build of the apps’ channel it announces it to them, and they fetch it from all the servers that have it.</p>
+        <p>The server follows august, our catalog, and fetches every signed app build and speech model in 1&nbsp;MiB pieces, from august and from other servers at once. A file they can’t deliver comes whole from august over HTTPS on TCP 1328, and while the server has had no link to august for 30 minutes, it asks august there for new builds every 15 minutes. It trusts none of them: everything is checked against the signed manifest, and an older build is never taken. Once it holds a build of the apps’ channel it announces it to them, and they fetch it from all the servers that have it.</p>
         <p>Voice sessions live in memory only. After a restart the apps in a call join it again on their own.</p>
       </section>
 
@@ -376,7 +377,6 @@
           <li><span class="term-name"><code>init</code></span><div class="desc"><p>Writes a new configuration from <code>--public-host</code>, <code>--listen</code>, <code>--data-dir</code> and <code>--name</code>; refuses to overwrite.</p></div></li>
           <li><span class="term-name"><code>setup-link</code></span><div class="desc"><p>Prints a new setup link and voids the old one, while the server has no community.</p></div></li>
           <li><span class="term-name"><code>license</code></span><div class="desc"><p>Installs a license from a <code>griasdi:license:</code> link or a license file. A running server uses it at once.</p></div></li>
-          <li><span class="term-name"><code>update</code></span><div class="desc"><p>Lists the update builds stored on this host: each channel’s newest and the builds kept.</p></div></li>
           <li><span class="term-name"><code>--version</code></span><div class="desc"><p>The version, with build number, channel and commit once the build is known.</p></div></li>
         </ul>
         <p>Logs: <code>sudo journalctl -u griasdi-server</code>.</p>
