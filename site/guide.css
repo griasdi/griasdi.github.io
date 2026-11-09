@@ -18,7 +18,11 @@
 .relay .speaker:last-child { flex-direction: row-reverse; }
 .relay .face-slot { width: 60px; flex: none; rotate: -4deg; }
 .relay .speaker:last-child .face-slot { rotate: 4deg; }
-.relay .bubble { margin-bottom: .9rem; font-size: .95rem; }
+.relay .bubble { font-size: .95rem; }
+.relay .said { display: grid; gap: .35rem; justify-items: start; margin-bottom: .9rem; }
+.relay .speaker:last-child .said { justify-items: end; }
+.said-who { color: var(--ink-3); font-size: .85rem; font-weight: 700; line-height: 1.2; }
+.said-who b { color: var(--ink-2); }
 .relay .speaker:last-child .bubble { border-radius: 1.1em 1.1em .3em 1.1em; background: var(--teal); color: #0b1d1e; }
 .relay .speaker:last-child .bubble::after { left: auto; right: .5em; clip-path: polygon(0 0, 100% 0, 100% 100%); }
 .node {
