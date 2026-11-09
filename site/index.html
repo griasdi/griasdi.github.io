@@ -43,6 +43,7 @@
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3.5v12M7 10.5l5 5 5-5M4.5 20.5h15"/></symbol>
   <symbol id="i-dice" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3.5"/><circle cx="9" cy="9" r="1.2" class="dot"/><circle cx="15" cy="15" r="1.2" class="dot"/><circle cx="15" cy="9" r="1.2" class="dot"/><circle cx="9" cy="15" r="1.2" class="dot"/><circle cx="12" cy="12" r="1.2" class="dot"/></symbol>
   <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/><path d="M8 7.5h.01M8 16.5h.01M12 7.5h4M12 16.5h4"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3.5"/><path d="M12 8V4.5M9 13.5h.01M15 13.5h.01M9.5 17h5"/><circle cx="12" cy="3.6" r="1.1"/></symbol>
   <symbol id="i-kbd" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h1.5M7 14h10"/></symbol>
   <symbol id="i-mix" viewBox="0 0 24 24"><path d="M6 4v16M12 4v16M18 4v16"/><rect x="3.5" y="13" width="5" height="3.5" rx="1.2"/><rect x="9.5" y="6.5" width="5" height="3.5" rx="1.2"/><rect x="15.5" y="11" width="5" height="3.5" rx="1.2"/></symbol>
 </svg>
@@ -289,7 +290,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2 id="devs-title">Hackable from your side.</h2>
-        <p>For people who live in a terminal. Everything stays on your machine and is off until you turn it on in Settings, Developer.</p>
+        <p>For people who live in a terminal. The app’s hooks stay on your machine and are off until you turn them on in Settings, Developer. Bots run wherever you start them.</p>
         <div class="peek" aria-hidden="true">
           <span class="face-slot" data-face="27"></span>
           <span class="bubble">My agent read the whole call back to me. Locally, promise.</span>
@@ -312,13 +313,22 @@
             <li>list_conversations</li><li>read_messages</li><li>send_message</li><li>read_transcript</li>
           </ul>
         </article>
-        <article class="term">
-          <header><svg class="ico" aria-hidden="true"><use href="#i-link"/></svg><h3>Add a device over SSH</h3></header>
-          <p>Bring your laptop in from a terminal: your desktop signs its key, your communities follow.</p>
+        <div class="devs-stack">
+          <article class="term">
+            <header><svg class="ico" aria-hidden="true"><use href="#i-link"/></svg><h3>Add a device over SSH</h3></header>
+            <p>Bring your laptop in from a terminal: your desktop signs its key, your communities follow.</p>
 <pre><code><span class="p">$</span> griasdi link ssh desktop
 <span class="c">passphrase for the user key: ••••••</span>
 <span class="c">linked · 2 servers added</span></code></pre>
-        </article>
+          </article>
+          <article class="term">
+            <header><svg class="ico" aria-hidden="true"><use href="#i-bot"/></svg><h3>Bots in Python or TypeScript</h3></header>
+            <p>A bot is a member with its own key, invited like a person. Slash commands, cards, polls, voice. <a href="bots/">Read the bot guide</a></p>
+<pre><code><span class="p">$</span> spezl new HelloBot
+<span class="p">$</span> spezl join <span class="s">'https://griasdi.github.io/join#invite:…'</span>
+<span class="p">$</span> spezl run hello.py</code></pre>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -374,7 +384,7 @@
 
       <aside class="soon" aria-labelledby="soon-title">
         <svg class="ico" aria-hidden="true"><use href="#i-server"/></svg>
-        <p><b id="soon-title">Linux server, coming soon.</b> Host griasdi for your own crew.</p>
+        <p><b id="soon-title">Linux server, coming soon.</b> Host griasdi for your own crew. <a href="server/">Read the server guide</a></p>
         <span class="stamp" aria-hidden="true">soon</span>
       </aside>
     </div>
@@ -386,7 +396,7 @@
   <div class="wrap foot-row">
     <a class="brand" href="#top" aria-label="griasdi, back to top"><img src="img/mark.svg" width="28" height="28" alt=""><span>griasdi</span></a>
     <p>griasdi is Bavarian for “hello, you”.</p>
-    <ul class="foot-links"><li><a href="about/">About</a></li><li><a href="privacy/">Privacy</a></li></ul>
+    <ul class="foot-links"><li><a href="server/">Server</a></li><li><a href="bots/">Bots</a></li><li><a href="about/">About</a></li><li><a href="privacy/">Privacy</a></li></ul>
     <p class="legal">© 2026 Hannes Uebelacker and Felix Itzenplitz. All rights reserved.</p>
   </div>
 </footer>

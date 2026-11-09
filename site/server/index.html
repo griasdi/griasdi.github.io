@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#1c131d">
+<title>griasdi: run your own server</title>
+<meta name="description" content="Host griasdi for your own crew on Linux: install griasdi-server, set it up, configure it and keep it updated.">
+<link rel="canonical" href="https://griasdi.github.io/server/">
+<meta property="og:site_name" content="griasdi">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://griasdi.github.io/server/">
+<meta property="og:title" content="Run your own griasdi server">
+<meta property="og:description" content="Host griasdi for your own crew on Linux: install griasdi-server, set it up, configure it and keep it updated.">
+<meta property="og:image" content="https://griasdi.github.io/img/card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="griasdi: five pixel faces around a table talk in speech bubbles while the server in the middle only sees scrambled hex.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../img/mark.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/baloo2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/atkinson-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../doc.css">
+<link rel="stylesheet" href="../guide.css">
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17.5 12v3.5M20.5 12v2.5"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/><path d="M8 7.5h.01M8 16.5h.01M12 7.5h4M12 16.5h4"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h13M13.5 4.5L17 8l-3.5 3.5M20 16H7M10.5 12.5L7 16l3.5 3.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3.5v12M7 10.5l5 5 5-5M4.5 20.5h15"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="../" aria-label="griasdi, to the home page"><img src="../img/mark.svg" width="34" height="34" alt=""><span>griasdi</span></a>
+    <ul class="nav-links">
+      <li><a href="../server/" aria-current="page">Server</a></li>
+      <li><a href="../bots/">Bots</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../privacy/">Privacy</a></li>
+    </ul>
+    <a class="btn btn-small" href="../#download"><svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>Download</a>
+  </nav>
+</header>
+
+<main id="main" class="doc">
+  <div class="wrap doc-head guide-head">
+    <h1>Run your own server.</h1>
+    <p class="doc-lede">griasdi-server is one program for Linux. It holds your communities, stores and forwards what your members encrypt, and can’t read any of it. This guide covers installing it, setting it up, configuring it and keeping it up to date.</p>
+    <aside class="release" aria-labelledby="release-title">
+      <svg class="ico" aria-hidden="true"><use href="#i-server"/></svg>
+      <p><b id="release-title">Server builds are coming soon.</b> Until then, this is how it will work.</p>
+      <span class="stamp" aria-hidden="true">soon</span>
+    </aside>
+    <figure class="scene">
+      <div class="relay" aria-hidden="true">
+        <div class="speaker"><span class="face-slot" data-face="11"></span><span class="bubble">gg, same time tomorrow?</span></div>
+        <div class="node">
+          <svg class="ico"><use href="#i-server"/></svg>
+          <span class="node-name">your server</span>
+          <span class="node-sees">c4·19·e0·7b</span>
+        </div>
+        <div class="speaker"><span class="face-slot" data-face="40"></span><span class="bubble">gg, same time tomorrow?</span></div>
+      </div>
+      <figcaption>Your box, same deal: the server forwards what it can’t read.</figcaption>
+      <ul class="ports" aria-label="Ports">
+        <li>UDP 1337</li><li>TCP 1337</li>
+      </ul>
+    </figure>
+  </div>
+
+  <div class="wrap doc-grid">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-title">On this page</p>
+      <ol>
+        <li><a href="#what">What a server does</a></li>
+        <li><a href="#needs">What you need</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#setup">Set it up</a></li>
+        <li><a href="#container">In a container</a></li>
+        <li><a href="#people">Communities and admins</a></li>
+        <li><a href="#config">Configuration</a></li>
+        <li><a href="#updates">Updates</a></li>
+        <li><a href="#files">Files and commands</a></li>
+      </ol>
+    </nav>
+    <div class="doc-body">
+      <section id="what" aria-labelledby="what-title">
+        <h2 id="what-title">What a server does</h2>
+        <p>Every griasdi community lives on a server. Run your own and your crew’s communities, messages and files live on hardware you choose. Your members connect to it from the griasdi app like to any other server.</p>
+        <ul class="facts">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span><b>It stores ciphertext.</b> Messages, files, voice, screen sharing and the names of communities, channels and roles are encrypted on your members’ devices. <a href="../privacy/#servers">What a server sees</a></span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg><span><b>No accounts, no passwords.</b> People are keys. They join with invite links, and the first link makes you the owner.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-swap"/></svg><span><b>It hands out updates and models.</b> The server fetches signed app builds and on-device speech models and passes them on to the apps connected to it. Only builds signed by us are taken.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><span><b>It serves no web page.</b> Invite links point to griasdi.github.io/join, which hands them to the app. The server talks only to griasdi apps, other griasdi servers and our catalog of builds.</span></li>
+        </ul>
+      </section>
+
+      <section id="needs" aria-labelledby="needs-title">
+        <h2 id="needs-title">What you need</h2>
+        <ul class="ref tight">
+          <li><span class="term-name"><b>A Linux machine</b></span><div class="desc"><p>x86_64 or ARM64, with systemd and glibc 2.39 or newer: Ubuntu 24.04, Debian 13, Fedora 40 or later. In a container, any host that runs Podman.</p></div></li>
+          <li><span class="term-name"><b>A name or address</b></span><div class="desc"><p>The host name (or IP address) your members’ apps reach the server by, such as <code>chat.example.org</code>. It goes into every link the server makes.</p></div></li>
+          <li><span class="term-name"><b>Two open ports</b></span><div class="desc"><p><b>UDP 1337</b> for everything griasdi does. <b>TCP 1337</b> for app updates over HTTPS, for apps that can’t reach the server over QUIC; without it the server logs a warning at start and those apps skip that fallback.</p></div></li>
+        </ul>
+      </section>
+
+      <section id="install" aria-labelledby="install-title">
+        <h2 id="install-title">Install</h2>
+        <p>Every release carries the server for x86_64 and ARM64 in three forms, next to <code>SHA256SUMS</code> to check them with <code>sha256sum -c --ignore-missing SHA256SUMS</code>. The packages and the tarball bring the systemd unit <code>griasdi-server.service</code>. For a container, skip to <a href="#container">In a container</a>.</p>
+        <ul class="ref">
+          <li><span class="term-name"><code>griasdi-server_&lt;version&gt;-1_&lt;arch&gt;.deb</code><span class="def">amd64 or arm64</span></span><div class="desc"><p>Debian and Ubuntu.</p></div></li>
+          <li><span class="term-name"><code>griasdi-server-&lt;version&gt;-1.&lt;arch&gt;.rpm</code><span class="def">x86_64 or aarch64</span></span><div class="desc"><p>Fedora and other rpm distributions.</p></div></li>
+          <li><span class="term-name"><code>griasdi-server-&lt;version&gt;-&lt;arch&gt;-linux.tar.gz</code><span class="def">x86_64 or aarch64</span></span><div class="desc"><p>Any other Linux with systemd. Installs into <code>/usr/local</code>.</p></div></li>
+        </ul>
+        <h3>Debian and Ubuntu</h3>
+        <div class="code"><pre><code><span class="p">$ </span>sudo apt install ./griasdi-server_*.deb</code></pre></div>
+        <h3>Fedora</h3>
+        <div class="code"><pre><code><span class="p">$ </span>sudo dnf install ./griasdi-server-*.rpm</code></pre></div>
+        <h3>Other Linux</h3>
+        <div class="code"><pre><code><span class="p">$ </span>sudo tar -xzf griasdi-server-*-linux.tar.gz --strip-components=1 -C /usr/local
+<span class="p">$ </span>sudo systemctl daemon-reload
+<span class="p">$ </span>sudo install -d -m755 /etc/griasdi</code></pre></div>
+        <p>The service is installed but stays idle until its configuration exists.</p>
+      </section>
+
+      <section id="setup" aria-labelledby="setup-title">
+        <h2 id="setup-title">Set it up</h2>
+        <ol class="steps">
+          <li>
+            <h3>Write the configuration</h3>
+            <p>Use the host name your members reach the server by. <code>init</code> refuses to overwrite a configuration that exists.</p>
+            <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server init --public-host chat.example.org --listen '[::]:1337' \
+    --data-dir /var/lib/griasdi --name "$(hostname -s)" \
+    --config /etc/griasdi/griasdi-server.toml
+<span class="p">$ </span>sudo chmod 644 /etc/griasdi/griasdi-server.toml</code></pre></div>
+          </li>
+          <li>
+            <h3>Start the service</h3>
+            <div class="code"><pre><code><span class="p">$ </span>sudo systemctl enable --now griasdi-server</code></pre></div>
+            <p>Open UDP 1337 and TCP 1337 in your firewall.</p>
+          </li>
+          <li>
+            <h3>Take the setup link</h3>
+            <p>At start the server prints its <code>griasdi:server:…</code> link and, while it has no community yet, a setup link.</p>
+            <div class="code"><pre><code><span class="p">$ </span>sudo journalctl -u griasdi-server -o cat | grep -A1 'setup link'</code></pre></div>
+          </li>
+          <li>
+            <h3>Open it in griasdi</h3>
+            <p>Paste the setup link into <span class="ui-path">Join by link</span> in the app, or open it as the first link when griasdi starts. That creates the server’s first community and makes you the server’s admin.</p>
+          </li>
+        </ol>
+        <div class="note">
+          <p><b>The setup link works once and for 24 hours.</b> A restart keeps it. Lost it? <code>sudo griasdi-server setup-link --config /etc/griasdi/griasdi-server.toml</code> prints a new one and voids the old one, for as long as the server has no community.</p>
+        </div>
+      </section>
+
+      <section id="container" aria-labelledby="container-title">
+        <h2 id="container-title">In a container</h2>
+        <p>Every build is also the image <code>oci.doodleshnookie.net/griasdi-server</code> for amd64 and arm64, pulled without an account. Its tags are the update channel (<code>dev</code>, <code>nightly</code>, <code>release</code>) and the build number; a release adds its version and <code>latest</code>.</p>
+        <div class="code"><pre><code><span class="p">$ </span>podman run -d --name griasdi-server --restart=always \
+    -p 1337:1337/udp -p 1337:1337/tcp \
+    -e GRIASDI_PUBLIC_HOST=chat.example.org -e GRIASDI_NAME="$(hostname -s)" \
+    -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server:release
+<span class="p">$ </span>podman logs griasdi-server | grep -A1 'setup link'</code></pre></div>
+        <ul class="ref tight">
+          <li><span class="term-name"><code>GRIASDI_PUBLIC_HOST</code><span class="def">required</span></span><div class="desc"><p>The host name or address your members reach the server at.</p></div></li>
+          <li><span class="term-name"><code>GRIASDI_NAME</code><span class="def">default <code>griasdi</code></span></span><div class="desc"><p>The server’s display name.</p></div></li>
+        </ul>
+        <p>Both are read on the first start only, when the server writes <code>griasdi-server.toml</code> into the volume, with the image’s channel in <code>[updates]</code>. The volume holds the data, the configuration and the server’s binaries. The server updates itself inside the volume, so an updated server survives a restart of its container, and a newer image only matters for a new volume.</p>
+        <p>Keep <code>--restart=always</code>: when the server can’t replace itself in place after an update, it exits to be started again into the new build.</p>
+      </section>
+
+      <section id="people" aria-labelledby="people-title">
+        <h2 id="people-title">Communities and admins</h2>
+        <ul class="plain">
+          <li>The community the setup link creates belongs to the server and can’t be dissolved. A server that had communities before makes its oldest one this community.</li>
+          <li>Everyone else joins with invite links, made in the app. Each lets one person in and expires after 1 hour to 30 days, 7 by default. Whoever manages a community can also make its public link, for 10, 20, 50, 100 or any number of people; it never expires and works until it is used up or turned off.</li>
+          <li>By default anyone on the server may create communities, at most 20 each. <code>community_creation = "admins"</code> leaves that to the admins.</li>
+          <li>Whoever redeemed the setup link is an admin; <code>admins</code> in the configuration adds more by user id. An admin finds <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span> next to the server: version and uptime, users, devices and who is online, live voice, calls, shares and transfers, stored files and messages, and every community with its counts. Communities are named only where the admin is a member. Never any content.</li>
+        </ul>
+      </section>
+
+      <section id="config" aria-labelledby="config-title">
+        <h2 id="config-title">Configuration</h2>
+        <p><code>/etc/griasdi/griasdi-server.toml</code>, written by <code>init</code>. The first four keys come from its options; everything else has a default. The file may hold only these keys: an unknown or misspelled key is an error and the server doesn’t start. Restart the service after a change.</p>
+        <div class="code">
+          <div class="code-head"><span>Written by init</span><code>griasdi-server.toml</code></div>
+<pre><code><span class="k">name</span> = <span class="s">"chat"</span>
+<span class="k">listen</span> = <span class="s">"[::]:1337"</span>
+<span class="k">public_host</span> = <span class="s">"chat.example.org"</span>
+<span class="k">data_dir</span> = <span class="s">"/var/lib/griasdi"</span></code></pre>
+        </div>
+        <h3>Server</h3>
+        <ul class="ref">
+          <li><span class="term-name"><code>name</code><span class="def"><code>--name</code></span></span><div class="desc"><p>The server’s display name.</p></div></li>
+          <li><span class="term-name"><code>listen</code><span class="def"><code>--listen</code>, default <code>0.0.0.0:1337</code></span></span><div class="desc"><p>The UDP address to listen on. The server also takes the same TCP port for update downloads.</p></div></li>
+          <li><span class="term-name"><code>public_host</code><span class="def"><code>--public-host</code></span></span><div class="desc"><p>The host name or address clients reach the server by.</p></div></li>
+          <li><span class="term-name"><code>data_dir</code><span class="def"><code>--data-dir</code></span></span><div class="desc"><p>The database, the stored files and the server’s TLS identity.</p></div></li>
+          <li><span class="term-name"><code>community_creation</code><span class="def">default <code>"anyone"</code></span></span><div class="desc"><p>Who may create communities: <code>"anyone"</code> or <code>"admins"</code>.</p></div></li>
+          <li><span class="term-name"><code>admins</code><span class="def">default <code>[]</code></span></span><div class="desc"><p>User ids in hex with server-admin rights, besides whoever redeemed the setup link.</p></div></li>
+        </ul>
+        <h3>Files</h3>
+        <ul class="ref">
+          <li><span class="term-name"><code>max_blob_bytes</code><span class="def">default <code>26214400</code>, 25 MiB</span></span><div class="desc"><p>The largest attachment the server stores. 25 MiB is also the most: every app treats it as its ceiling, and a larger value is refused at load. A bigger file isn’t stored at all; the app sends it member to member instead, through the server.</p></div></li>
+          <li><span class="term-name"><code>blob_ttl_days</code><span class="def">default <code>[1, 7, 30]</code></span></span><div class="desc"><p>The lifetimes in days a sender may pick for an attachment. Values outside 1 to 3650 are dropped; an empty list is an error. The longest is the most the server keeps any file.</p></div></li>
+          <li><span class="term-name"><code>blob_ttl_default_days</code><span class="def">default <code>30</code></span></span><div class="desc"><p>The lifetime the app preselects. One that isn’t in <code>blob_ttl_days</code> falls back to the largest entry below it, else the smallest.</p></div></li>
+          <li><span class="term-name"><code>max_blob_bytes_per_user</code><span class="def">default <code>1073741824</code>, 1 GiB</span></span><div class="desc"><p>Stored bytes one user may hold; <code>0</code> turns the quota off. A user at the quota sends files member to member.</p></div></li>
+          <li><span class="term-name"><code>max_hosted_bytes</code><span class="def">default <code>8589934592</code>, 8 GiB</span></span><div class="desc"><p>The largest file the server relays between members; <code>0</code> turns relaying off.</p></div></li>
+        </ul>
+        <h3>Rate limit</h3>
+        <ul class="ref">
+          <li><span class="term-name"><code>rate_burst</code><span class="def">default <code>60</code></span></span><div class="desc"><p>Requests one device may send at once: posting messages, creating groups and calls, joining voice, sharing and the like.</p></div></li>
+          <li><span class="term-name"><code>rate_per_sec</code><span class="def">default <code>10</code></span></span><div class="desc"><p>How fast that allowance refills, per second. A device over the limit is told “rate limited” until it has refilled.</p></div></li>
+        </ul>
+        <h3>Updates and august</h3>
+        <ul class="ref">
+          <li><span class="term-name"><code>[updates] channel</code><span class="def">default <code>"dev"</code></span></span><div class="desc"><p>The channel the server updates itself from: <code>"dev"</code>, <code>"nightly"</code> or <code>"release"</code>.</p></div></li>
+          <li><span class="term-name"><code>[august] enabled</code><span class="def">default <code>true</code></span></span><div class="desc"><p><code>false</code> cuts the server off from august, our catalog of builds and models. It then fetches no app builds and no speech models for its members and forwards no performance reports.</p></div></li>
+          <li><span class="term-name"><code>[august] host</code>, <code>port</code>, <code>fingerprint</code></span><div class="desc"><p>Where august is and the SHA-256 fingerprint of its key (64 hex digits). The defaults are ours; leave them out.</p></div></li>
+        </ul>
+        <div class="code">
+          <div class="code-head"><span>Optional tables</span><code>griasdi-server.toml</code></div>
+<pre><code>[<span class="k">updates</span>]
+<span class="k">channel</span> = <span class="s">"release"</span>
+
+[<span class="k">august</span>]
+<span class="k">enabled</span> = true</code></pre>
+        </div>
+      </section>
+
+      <section id="updates" aria-labelledby="updates-title">
+        <h2 id="updates-title">Updates</h2>
+        <h3>Your server</h3>
+        <p><b>From a package or the tarball,</b> the server doesn’t update itself; it logs that and leaves it to you. Install the next release over it the way you installed the first.</p>
+        <p><b>In the container,</b> the server updates itself from its channel: it fetches a new build, checks its signature against the keys compiled into it, installs it in the volume and hands its socket over to the new build. Apps reconnect at once. It only ever moves to a newer build. A build that won’t start, or dies three times right after its start, is set aside, and the previous one runs again.</p>
+        <p>Before it changes its database schema the server keeps a copy, <code>griasdi.db.pre-v&lt;old version&gt;</code>, next to the database.</p>
+        <h3>Your members’ apps</h3>
+        <p>The server follows august, our catalog, and fetches every signed app build and speech model in 1&nbsp;MiB pieces, from august and from other servers at once. It trusts neither: each piece is checked against the signed manifest, and an older build is never taken. Once it holds a build of the apps’ channel it announces it to them, and they fetch it from all the servers that have it.</p>
+        <p>Voice sessions live in memory only. After a restart the apps in a call join it again on their own.</p>
+      </section>
+
+      <section id="files" aria-labelledby="files-title">
+        <h2 id="files-title">Files and commands</h2>
+        <h3>Where things live</h3>
+        <ul class="ref tight">
+          <li><span class="term-name"><code>/etc/griasdi/</code></span><div class="desc"><p>The configuration. Root’s; the service only reads it.</p></div></li>
+          <li><span class="term-name"><code>/var/lib/griasdi/</code></span><div class="desc"><p>The database, stored files and TLS identity. The service runs as a user systemd allocates, and only root reads this directory, so use <code>sudo</code>.</p></div></li>
+          <li><span class="term-name"><code>…/storage/</code></span><div class="desc"><p>The caches of update builds and model files, refilled from august if lost. A directory of its own, so you can mount bulk storage there and keep the databases on the local disk.</p></div></li>
+        </ul>
+        <h3>Commands</h3>
+        <p>Each takes <code>--config &lt;path&gt;</code>, default <code>griasdi-server.toml</code> in the current directory.</p>
+        <ul class="ref tight">
+          <li><span class="term-name"><code>run</code></span><div class="desc"><p>Runs the server. The systemd unit does this.</p></div></li>
+          <li><span class="term-name"><code>init</code></span><div class="desc"><p>Writes a new configuration from <code>--public-host</code>, <code>--listen</code>, <code>--data-dir</code> and <code>--name</code>; refuses to overwrite.</p></div></li>
+          <li><span class="term-name"><code>setup-link</code></span><div class="desc"><p>Prints a new setup link and voids the old one, while the server has no community.</p></div></li>
+          <li><span class="term-name"><code>update</code></span><div class="desc"><p>Lists the update builds stored on this host: each channel’s newest and the builds kept.</p></div></li>
+          <li><span class="term-name"><code>--version</code></span><div class="desc"><p>The version, with build number, channel and commit once the build is known.</p></div></li>
+        </ul>
+        <p>Logs: <code>sudo journalctl -u griasdi-server</code>.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <a class="brand" href="../" aria-label="griasdi, to the home page"><img src="../img/mark.svg" width="28" height="28" alt=""><span>griasdi</span></a>
+    <p>griasdi is Bavarian for “hello, you”.</p>
+    <ul class="foot-links"><li><a href="../server/">Server</a></li><li><a href="../bots/">Bots</a></li><li><a href="../about/">About</a></li><li><a href="../privacy/">Privacy</a></li></ul>
+    <p class="legal">© 2026 Hannes Uebelacker and Felix Itzenplitz. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="../faces.js"></script>
+<script src="../site.js"></script>
+</body>
+</html>

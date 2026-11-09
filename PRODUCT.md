@@ -26,5 +26,13 @@ GitHub Pages publishes `site/` at https://griasdi.github.io/ on every push to
   zip), macOS Apple Silicon (dmg, macOS 14+). Downloads are the newest build of
   the update files, read live from `griasdi.doodleshnookie.net/updates`
   (`site/downloads.js`).
-- Self-hosted Linux server: the site may say "coming soon" and nothing more.
+- Self-hosted Linux server: builds are "coming soon"; `site/server/` documents
+  installing, setting up, configuring and updating it, from the app
+  repository's README and `crates/griasdi-server`.
+- Bots: spezl (the `spezl` repository, checked out next to this one as `../spezl`) is
+  closed source and released as a binary only, "coming soon". `site/bots/`
+  documents the Python and TypeScript SDKs and the `spezl serve` JSON-RPC
+  protocol; never the Rust crate or the spezl source. How the SDKs are
+  distributed is open: the site says only that they come with the spezl
+  release.
 - Site copy in English.

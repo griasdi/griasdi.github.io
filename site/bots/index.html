@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#1c131d">
+<title>griasdi: bots with spezl</title>
+<meta name="description" content="Write bots for griasdi in Python or TypeScript with spezl: slash commands, cards, polls, voice and video streaming.">
+<link rel="canonical" href="https://griasdi.github.io/bots/">
+<meta property="og:site_name" content="griasdi">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://griasdi.github.io/bots/">
+<meta property="og:title" content="Bots for griasdi with spezl">
+<meta property="og:description" content="Write bots for griasdi in Python or TypeScript with spezl: slash commands, cards, polls, voice and video streaming.">
+<meta property="og:image" content="https://griasdi.github.io/img/card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="griasdi: five pixel faces around a table talk in speech bubbles while the server in the middle only sees scrambled hex.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../img/mark.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/baloo2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/atkinson-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../doc.css">
+<link rel="stylesheet" href="../guide.css">
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17.5 12v3.5M20.5 12v2.5"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3.5"/><path d="M12 8V4.5M9 13.5h.01M15 13.5h.01M9.5 17h5"/><circle cx="12" cy="3.6" r="1.1"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3.5v12M7 10.5l5 5 5-5M4.5 20.5h15"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="../" aria-label="griasdi, to the home page"><img src="../img/mark.svg" width="34" height="34" alt=""><span>griasdi</span></a>
+    <ul class="nav-links">
+      <li><a href="../server/">Server</a></li>
+      <li><a href="../bots/" aria-current="page">Bots</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../privacy/">Privacy</a></li>
+    </ul>
+    <a class="btn btn-small" href="../#download"><svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>Download</a>
+  </nav>
+</header>
+
+<main id="main" class="doc">
+  <div class="wrap doc-head guide-head">
+    <h1>Bring a bot to the table.</h1>
+    <p class="doc-lede">spezl runs griasdi bots you write in Python or TypeScript. A bot is a member like anyone else: it has its own key, joins with an invite link and reads and writes the channels it can see. Slash commands, cards, polls, voice and video streams included.</p>
+    <aside class="release" aria-labelledby="release-title">
+      <svg class="ico" aria-hidden="true"><use href="#i-bot"/></svg>
+      <p><b id="release-title">spezl is coming soon.</b> The Python and TypeScript SDKs come with its release.</p>
+      <span class="stamp" aria-hidden="true">soon</span>
+    </aside>
+    <figure class="scene">
+      <ol class="thread" aria-label="A member mentions HelloBot, and it answers">
+        <li><span class="face-slot" data-face="11" aria-hidden="true"></span><div><span class="who">Anna</span><p class="msg"><span class="mention">@HelloBot</span> hi</p></div></li>
+        <li><span class="face-slot" data-face="52" aria-hidden="true"></span><div><span class="who">HelloBot <span class="bot-id">b07be291…</span></span><p class="msg">hi, <span class="mention">@Anna</span>!</p></div></li>
+      </ol>
+      <figcaption>The whole bot is the Python file below. A bot’s user id starts with <code>b07b</code>.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap doc-grid">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-title">On this page</p>
+      <ol>
+        <li><a href="#what">What a bot is</a></li>
+        <li><a href="#start">Quick start</a></li>
+        <li><a href="#cli">The spezl command</a></li>
+        <li><a href="#events">Events and actions</a></li>
+        <li><a href="#python">Python</a></li>
+        <li><a href="#typescript">TypeScript</a></li>
+        <li><a href="#commands">Commands and cards</a></li>
+        <li><a href="#voice">Voice</a></li>
+        <li><a href="#streaming">Streaming video</a></li>
+        <li><a href="#protocol">The serve protocol</a></li>
+      </ol>
+    </nav>
+    <div class="doc-body">
+      <section id="what" aria-labelledby="what-title">
+        <h2 id="what-title">What a bot is</h2>
+        <ul class="facts">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg><span><b>A member with its own key.</b> It joins a community through an ordinary invite link and has the same rights as anyone else. Nothing in griasdi changes for it, and no server has to allow it.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg><span><b>It reads what it can see.</b> Like every member, a bot decrypts everything in every channel it can view. Channel audiences are the only boundary: keep a bot out of a channel to keep it from reading it.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-bot"/></svg><span><b>It runs where you run it.</b> On your computer or on a server of yours. spezl keeps its keys and state in one folder.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-link"/></svg><span><b>Its id starts with <code>b07b</code>.</b> spezl searches a key until the user id begins with these two bytes, so apps can tell it is a bot. It is a convention of honest bot software, not a proof, and the app doesn’t show it yet.</span></li>
+        </ul>
+        <h3>What you need</h3>
+        <ul class="plain">
+          <li>spezl, a single program. It holds the griasdi client the SDKs talk to.</li>
+          <li>Python 3.10 or newer for the Python SDK, or Node 22.18 or newer (or Bun) for the TypeScript SDK. Neither SDK has dependencies.</li>
+          <li>For streaming video only: GStreamer with its base, good and bad plugins, and libav for H.264 and older formats.</li>
+        </ul>
+      </section>
+
+      <section id="start" aria-labelledby="start-title">
+        <h2 id="start-title">Quick start</h2>
+        <ol class="steps">
+          <li>
+            <h3>Create the bot</h3>
+            <p>A fresh identity with a <code>b07b…</code> id. People mention it as <code>@HelloBot</code>.</p>
+            <div class="code"><pre><code><span class="p">$ </span>spezl new HelloBot</code></pre></div>
+          </li>
+          <li>
+            <h3>Invite it</h3>
+            <p>Make an invite link as you would for a person, with <span class="ui-path">Invite people <span aria-hidden="true">›</span> Create link</span> in the community, and hand it to the bot. <code>join</code> tells you what the bot can read, for example <code>HelloBot can read: #general</code>.</p>
+            <div class="code"><pre><code><span class="p">$ </span>spezl join 'https://griasdi.github.io/join#invite:…'
+<span class="p">$ </span>spezl status</code></pre></div>
+          </li>
+          <li>
+            <h3>Write it</h3>
+            <div class="code">
+              <div class="code-head"><span>Python</span><code>hello.py</code></div>
+<pre><code><span class="k">import</span> spezl
+
+bot = spezl.Bot()
+
+
+@bot.on_ready
+<span class="k">async def</span> ready(server: str) -&gt; None:
+    print(f<span class="s">"{bot.name} ready on {server}"</span>, flush=True)
+
+
+@bot.on_mention
+<span class="k">async def</span> greet(msg: spezl.Message) -&gt; None:
+    <span class="k">await</span> msg.reply(f<span class="s">"hi, @{msg.sender.name}!"</span>)
+
+
+bot.run()</code></pre>
+            </div>
+          </li>
+          <li>
+            <h3>Run it</h3>
+            <div class="code"><pre><code><span class="p">$ </span>spezl run hello.py</code></pre></div>
+            <p>Write <code>@HelloBot hi</code> in one of the bot’s channels. It answers <code>hi, @&lt;your name&gt;!</code></p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="cli" aria-labelledby="cli-title">
+        <h2 id="cli-title">The spezl command</h2>
+        <ul class="ref tight">
+          <li><span class="term-name"><code>new &lt;NAME&gt;</code></span><div class="desc"><p>Creates a bot identity. The first bot becomes the default.</p></div></li>
+          <li><span class="term-name"><code>join &lt;LINK&gt;</code></span><div class="desc"><p>Joins a community. Takes <code>griasdi:invite:…</code> or <code>https://…/join#invite:…</code> and returns once the bot is in every text channel it can view.</p></div></li>
+          <li><span class="term-name"><code>status</code></span><div class="desc"><p>Name, id, whether each server is online, and the communities with their text channels.</p></div></li>
+          <li><span class="term-name"><code>rename &lt;NAME&gt;</code></span><div class="desc"><p>Changes the display name and tells the members. Id, communities and folder stay. Stop <code>spezl run</code> for that bot first.</p></div></li>
+          <li><span class="term-name"><code>run &lt;TARGET&gt; [ARGS]…</code></span><div class="desc"><p>Runs a bot program with this bot’s home (below).</p></div></li>
+          <li><span class="term-name"><code>list</code></span><div class="desc"><p>The bots in the spezl directory; <code>*</code> marks the default.</p></div></li>
+          <li><span class="term-name"><code>default [BOT]</code></span><div class="desc"><p>Shows the default bot, or makes <code>BOT</code> the default.</p></div></li>
+          <li><span class="term-name"><code>serve</code></span><div class="desc"><p>The JSON-RPC sidecar the SDKs start themselves (<a href="#protocol">protocol</a>).</p></div></li>
+        </ul>
+
+        <h3>The bot’s home</h3>
+        <p>Everything a bot owns is in one folder, its home. All homes live in the spezl directory: <code>~/.config/spezl</code> on Linux, or another with <code>--dir</code> or <code>SPEZL_DIR</code>.</p>
+        <div class="code"><pre><code>~/.config/spezl/
+  config.toml        <span class="c"># default = "HelloBot"</span>
+  bots/
+    HelloBot/
+      identity/      <span class="c"># keys and certificates, unencrypted</span>
+      client/        <span class="c"># the griasdi client's database and MLS state</span>
+      members.toml   <span class="c"># members seen, so each join is reported once</span>
+      spezl.lock     <span class="c"># one process at a time</span>
+    PollBot/</code></pre></div>
+        <div class="note"><p><b>The private keys are stored unencrypted.</b> Treat a bot’s home like an SSH key. <code>spezl new</code> puts a <code>.gitignore</code> into every home, so git leaves it out.</p></div>
+        <ul class="plain">
+          <li>A bot’s folder is its name without spaces and punctuation: <code>Hello Bot</code> becomes <code>HelloBot</code>.</li>
+          <li>Every command works on <code>--bot &lt;NAME&gt;</code> (or <code>SPEZL_BOT</code>), else on the default bot. Names match in any case, as display name or folder name.</li>
+          <li><code>--home &lt;DIR&gt;</code> (or <code>SPEZL_HOME</code>) names one bot’s folder directly and wins over <code>--dir</code> and <code>--bot</code>.</li>
+          <li>Only one process may use a home: the second fails with <code>another spezl process is using …</code>. Stop <code>spezl run</code> before you call <code>join</code> or <code>status</code> for the same bot.</li>
+        </ul>
+
+        <h3>How spezl run starts a program</h3>
+        <ul class="ref tight">
+          <li><span class="term-name"><code>*.py</code></span><div class="desc"><p><code>uv run --project &lt;dir&gt; python &lt;file&gt;</code> when <code>uv</code> is on <code>PATH</code> and the folder has a <code>pyproject.toml</code>, else <code>python3 &lt;file&gt;</code>.</p></div></li>
+          <li><span class="term-name"><code>*.ts</code> <code>*.mts</code> <code>*.js</code> <code>*.mjs</code></span><div class="desc"><p><code>node &lt;file&gt;</code>, which runs TypeScript directly from Node 22.18; else <code>bun &lt;file&gt;</code>.</p></div></li>
+          <li><span class="term-name">anything else</span><div class="desc"><p>The program itself.</p></div></li>
+        </ul>
+        <p>The program gets <code>SPEZL_HOME</code>, the bot’s home, and <code>SPEZL_BIN</code>, the spezl it should start as sidecar. Ctrl-C and SIGTERM reach the program, and <code>spezl run</code> exits with its exit code (128+N for a program killed by signal N). You don’t need <code>spezl run</code>: set <code>SPEZL_HOME</code> yourself, or let the default bot be used, and put <code>spezl</code> on <code>PATH</code>.</p>
+      </section>
+
+      <section id="events" aria-labelledby="events-title">
+        <h2 id="events-title">Events and actions</h2>
+        <p>Both SDKs give you the same events and actions.</p>
+        <h3>Events</h3>
+        <ul class="ref tight">
+          <li><span class="term-name"><b>ready</b></span><div class="desc"><p>A server’s backlog has been processed.</p></div></li>
+          <li><span class="term-name"><b>message</b></span><div class="desc"><p>A text message by someone else in a community text channel: community, channel, <code>seq</code>, sender, text, <code>reply_to</code> and <code>mentions_me</code>.</p></div></li>
+          <li><span class="term-name"><b>invocation</b></span><div class="desc"><p>A member ran one of the bot’s slash commands.</p></div></li>
+          <li><span class="term-name"><b>press</b></span><div class="desc"><p>A member pressed a button on one of the bot’s cards.</p></div></li>
+          <li><span class="term-name"><b>submit</b></span><div class="desc"><p>A member filled in a form that a button on one of the bot’s cards opened.</p></div></li>
+          <li><span class="term-name"><b>member joined</b></span><div class="desc"><p>Someone joined one of the bot’s communities.</p></div></li>
+        </ul>
+        <h3>Actions</h3>
+        <ul class="ref tight">
+          <li><span class="term-name"><b>reply</b>, <b>send</b></span><div class="desc"><p>Answer a message, or write to a channel.</p></div></li>
+          <li><span class="term-name"><b>post card</b></span><div class="desc"><p>Post a card with buttons, lists, forms, columns, pictures, links or a poll.</p></div></li>
+          <li><span class="term-name"><b>edit card</b>, <b>replace card</b></span><div class="desc"><p>Replace the body of the bot’s own card (its buttons and poll stay), or its body and blocks in place.</p></div></li>
+          <li><span class="term-name"><b>delete message</b></span><div class="desc"><p>Delete the bot’s own message for everyone.</p></div></li>
+          <li><span class="term-name"><b>reveal</b></span><div class="desc"><p>Scroll the chat of the member who pressed a button or sent a form to one of the bot’s cards: the first reveal per press, within 10 seconds, on the device they pressed on.</p></div></li>
+          <li><span class="term-name"><b>upload image</b></span><div class="desc"><p>Store a picture for a card.</p></div></li>
+          <li><span class="term-name"><b>send DM</b></span><div class="desc"><p>Send a member a direct message.</p></div></li>
+          <li><span class="term-name"><b>communities</b></span><div class="desc"><p>List the communities and their channels.</p></div></li>
+        </ul>
+        <h3>What a message covers</h3>
+        <ul class="plain">
+          <li>Not the bot’s own messages, deleted messages, files or direct messages. A bot doesn’t read answers to its DMs.</li>
+          <li>Messages from while the bot was offline arrive like live ones when it reconnects, so it also answers mentions it missed. Invocations from that time arrive the same way.</li>
+          <li><code>mentions_me</code> works the way the app highlights a mention: <code>@&lt;bot name&gt;</code>, in any case, as a whole word. A longer member name that also matches wins: <code>@Anna Maria</code> doesn’t mention <code>Anna</code>. <code>@all</code>, <code>@here</code>, <code>@admins</code> and <code>@owner</code> never count.</li>
+          <li>Sender names are the members’ display names. Right after <code>join</code>, a member’s app sends theirs to the bot within a few seconds.</li>
+        </ul>
+        <h3>What member joined covers</h3>
+        <ul class="plain">
+          <li>Once per join, also across restarts: the bot keeps the members it has seen in <code>members.toml</code>. A join while it was offline is reported when it starts again.</li>
+          <li>Not before the bot’s first start in a community: the members then are the baseline. Leaves aren’t reported; someone who leaves and comes back is reported again.</li>
+          <li>The event waits up to 30 seconds for the new member’s display name; without one, the name is the first 8 hex digits of their user id.</li>
+        </ul>
+      </section>
+
+      <section id="python" aria-labelledby="python-title">
+        <h2 id="python-title">Python</h2>
+        <p>Standard library only, Python 3.10 or newer. Handlers are <code>async</code> functions registered with decorators; an exception in a handler is printed and the bot keeps running. <code>spezl.Bot(home=…, binary=…)</code> overrides <code>SPEZL_HOME</code> and <code>SPEZL_BIN</code>.</p>
+        <ul class="ref">
+          <li><span class="term-name"><code>@bot.on_ready</code><code>@bot.on_mention</code><code>@bot.on_message</code></span><div class="desc"><p><code>on_mention</code> gets messages that mention the bot, <code>on_message</code> every message.</p><p><code>msg.text</code>, <code>msg.sender.name</code>, <code>msg.sender.id</code>, <code>msg.sender.bot_id</code>, <code>msg.channel.name</code>, <code>msg.community.name</code>, <code>msg.seq</code>, <code>msg.reply_to</code>, <code>await msg.reply(text)</code>.</p></div></li>
+          <li><span class="term-name"><code>await bot.send(…)</code><code>await bot.send_dm(…)</code></span><div class="desc"><p><code>send(channel, text, reply_to=None)</code> writes to a <code>spezl.Channel</code>; <code>send_dm(server, user, text)</code> to a member by user id, opening the DM on the first one. <code>await bot.communities()</code> lists communities and channels.</p></div></li>
+          <li><span class="term-name"><code>@bot.command(…)</code></span><div class="desc"><p><code>command(name, description, fields=[…])</code> registers one slash command. <code>inv.values</code> maps field ids to values; <code>await inv.respond(card, private=False)</code> answers.</p></div></li>
+          <li><span class="term-name"><code>await bot.post_card(…)</code></span><div class="desc"><p><code>post_card(channel, card, to=None)</code>; <code>to</code> is the user id of the only member who sees it. Then <code>edit_card(channel, seq, body)</code>, <code>replace_card(channel, seq, card)</code>, <code>delete_message(channel, seq)</code>, <code>reveal(channel, action, target)</code> and <code>upload_image(channel, data)</code>.</p></div></li>
+          <li><span class="term-name"><code>@bot.on_press</code><code>@bot.on_submit</code></span><div class="desc"><p>Presses and filled-in forms (<code>submit.values</code>, <code>submit.card</code>, <code>submit.button</code>). Both answer with <code>await ….reply(text, private=False)</code> and point the member at a card with <code>await ….reveal(seq)</code>.</p></div></li>
+          <li><span class="term-name"><code>@bot.on_member_join</code></span><div class="desc"><p>Gets a <code>spezl.MemberJoined</code>: <code>joined.community</code> with its <code>channels</code>, and <code>joined.member</code>.</p></div></li>
+        </ul>
+      </section>
+
+      <section id="typescript" aria-labelledby="typescript-title">
+        <h2 id="typescript-title">TypeScript</h2>
+        <p>Only <code>node:</code> modules, no build step, on Node 22.18 or newer and on Bun. The same bot as above:</p>
+        <div class="code">
+          <div class="code-head"><span>TypeScript</span><code>hello.ts</code></div>
+<pre><code><span class="k">import</span> { Bot } <span class="k">from</span> <span class="s">"@griasdi/spezl"</span>;
+
+<span class="k">const</span> bot = <span class="k">new</span> Bot(); <span class="c">// new Bot({ home, binary }) overrides SPEZL_HOME / SPEZL_BIN</span>
+bot.onReady((server) =&gt; console.log(<span class="s">`${bot.name} ready on ${server}`</span>));
+bot.onMention(<span class="k">async</span> (msg) =&gt; {
+  <span class="k">await</span> msg.reply(<span class="s">`hi, @${msg.sender.name}!`</span>);
+});
+<span class="k">await</span> bot.run(); <span class="c">// resolves when the bot stops (SIGINT/SIGTERM or bot.close())</span></code></pre>
+        </div>
+        <ul class="ref">
+          <li><span class="term-name">Names</span><div class="desc"><p>camelCase throughout: <code>msg.sender.botId</code>, <code>msg.replyTo</code>, <code>msg.mentionsMe</code>, <code>bot.sendDm</code>, <code>bot.postCard</code>.</p></div></li>
+          <li><span class="term-name"><code>bot.send(…)</code><code>bot.sendDm(…)</code></span><div class="desc"><p><code>send(channel, text, { replyTo })</code>, <code>sendDm(server, user, text)</code> and <code>communities()</code>.</p></div></li>
+          <li><span class="term-name"><code>bot.command(…)</code></span><div class="desc"><p><code>command({ name, description, fields }, handler)</code> with fields such as <code>{ type: "textList", id, label, min, max, maxChars }</code>; <code>inv.respond(card, { private })</code> answers.</p></div></li>
+          <li><span class="term-name"><code>bot.postCard(…)</code></span><div class="desc"><p><code>postCard(channel, card, { to })</code>, then <code>editCard</code>, <code>replaceCard</code>, <code>deleteMessage</code>, <code>reveal</code> and <code>uploadImage</code>.</p></div></li>
+          <li><span class="term-name"><code>bot.onPress</code><code>bot.onSubmit</code><code>bot.onMemberJoin</code></span><div class="desc"><p>Presses (<code>press.reply(text, { private })</code>, <code>press.reveal(seq)</code>), filled-in forms (<code>submit.values</code>, <code>submit.reply</code>) and new members (<code>community</code>, <code>member</code>).</p></div></li>
+        </ul>
+        <p>Voice isn’t in the TypeScript SDK yet.</p>
+      </section>
+
+      <section id="commands" aria-labelledby="commands-title">
+        <h2 id="commands-title">Commands and cards</h2>
+        <p>A bot offers slash commands. In the app a member types <code>/</code> in a channel, picks one and fills in its form. The form is built on the member’s computer from the bot’s command list and stays there until they post it, so nobody else sees it. Posting sends the bot an invocation with the values, and the bot answers with a card.</p>
+        <div class="code">
+          <div class="code-head"><span>Python</span><code>poll.py</code></div>
+<pre><code><span class="k">import</span> time
+
+<span class="k">import</span> spezl
+
+bot = spezl.Bot()
+
+ENDS = {<span class="s">"1h"</span>: 3_600_000, <span class="s">"1d"</span>: 86_400_000, <span class="s">"1w"</span>: 604_800_000}
+
+
+@bot.command(
+    <span class="s">"poll"</span>,
+    <span class="s">"Start a poll"</span>,
+    fields=[
+        spezl.TextField(<span class="s">"question"</span>, <span class="s">"Question"</span>, placeholder=<span class="s">"What should we play tonight?"</span>),
+        spezl.TextListField(<span class="s">"options"</span>, <span class="s">"Options"</span>, placeholder=<span class="s">"Option"</span>, min=2, max=10),
+        spezl.ToggleField(<span class="s">"multiple"</span>, <span class="s">"Allow several answers"</span>),
+        spezl.ChoiceField(
+            <span class="s">"ends"</span>,
+            <span class="s">"Ends"</span>,
+            [(<span class="s">"never"</span>, <span class="s">"When I end it"</span>), (<span class="s">"1h"</span>, <span class="s">"In 1 hour"</span>), (<span class="s">"1d"</span>, <span class="s">"In 1 day"</span>), (<span class="s">"1w"</span>, <span class="s">"In 1 week"</span>)],
+            default=<span class="s">"never"</span>,
+        ),
+    ],
+)
+<span class="k">async def</span> poll(inv: spezl.Invocation) -&gt; None:
+    v = inv.values
+    ends = ENDS.get(v[<span class="s">"ends"</span>])
+    <span class="k">await</span> inv.respond(
+        spezl.Card(blocks=[
+            spezl.Poll(
+                v[<span class="s">"question"</span>],
+                v[<span class="s">"options"</span>],
+                multiple=v[<span class="s">"multiple"</span>],
+                closes_ms=None <span class="k">if</span> ends <span class="k">is</span> None <span class="k">else</span> int(time.time() * 1000) + ends,
+                creator=inv.sender.id,
+            )
+        ])
+    )
+
+
+bot.run()</code></pre>
+        </div>
+        <h3>Form fields</h3>
+        <ul class="ref tight">
+          <li><span class="term-name">text</span><div class="desc"><p>One line. <code>spezl.TextField</code>.</p></div></li>
+          <li><span class="term-name">text list</span><div class="desc"><p><code>min</code> to <code>max</code> lines. <code>spezl.TextListField</code>.</p></div></li>
+          <li><span class="term-name">toggle</span><div class="desc"><p>Always arrives, a missing one at its default. <code>spezl.ToggleField</code>.</p></div></li>
+          <li><span class="term-name">choice</span><div class="desc"><p>One of a few options. <code>spezl.ChoiceField</code>.</p></div></li>
+          <li><span class="term-name">select</span><div class="desc"><p>A choice that can show its options as tiles (<code>tiles</code>) and depend on an earlier choice or select (<code>on</code>): an option with a non-empty <code>when</code> is offered only while that field holds one of its ids. A raid bot offers the specs of the chosen class this way. <code>spezl.SelectField</code>, <code>spezl.SelectOption</code>.</p></div></li>
+          <li><span class="term-name">date and time</span><div class="desc"><p>Picked on the member’s own clock; the bot gets Unix milliseconds. <code>spezl.DateTimeField</code>.</p></div></li>
+        </ul>
+        <p>All but toggles are required unless you say otherwise. Ids of commands, fields, options and buttons are 1 to 32 characters of <code>a-z</code>, <code>0-9</code>, <code>_</code> and <code>-</code>. An invocation of a command the bot doesn’t offer, or with values its form doesn’t accept, never reaches a handler. The SDK announces the commands in every text channel the bot is in, again on every connect and whenever a channel’s members change.</p>
+        <h3>Card blocks</h3>
+        <p>A card is a markdown body and blocks:</p>
+        <ul class="ref tight">
+          <li><span class="term-name"><code>Buttons</code><code>HintedButtons</code></span><div class="desc"><p>Rows of buttons, optionally with hover hints. A press reaches the bot.</p></div></li>
+          <li><span class="term-name"><code>ItemList</code></span><div class="desc"><p>Rows of a bold title, a muted detail line and up to 3 buttons.</p></div></li>
+          <li><span class="term-name"><code>FormButton</code></span><div class="desc"><p>Opens a dialog with a form the bot defines: title, text, fields like a command’s and the label of its send button. What the member fills in arrives as a submit.</p></div></li>
+          <li><span class="term-name"><code>Columns</code></span><div class="desc"><p>2 or 3 markdown columns side by side, each up to 1000 characters.</p></div></li>
+          <li><span class="term-name"><code>Image</code></span><div class="desc"><p>At most two per card, from <code>upload_image</code>.</p></div></li>
+          <li><span class="term-name"><code>Links</code></span><div class="desc"><p>Up to 5 buttons that open an http(s) address in the browser. A press sends nothing.</p></div></li>
+          <li><span class="term-name"><code>Tally</code></span><div class="desc"><p>2 to 5 options of equal width, each listing the members who chose it. Everyone sees the counts and their own option marked; a press reaches the bot, which replaces the card.</p></div></li>
+          <li><span class="term-name"><code>Poll</code></span><div class="desc"><p>At most one per card. Votes don’t reach the bot: every member’s app counts them. Only a member’s newest vote counts, nothing after the poll ended or after <code>closes_ms</code>, and only the bot or the poll’s <code>creator</code> ends it.</p></div></li>
+        </ul>
+        <p>Button styles are <code>primary</code>, <code>secondary</code> (default), <code>danger</code>, <code>success</code>, <code>warning</code>, <code>disabled</code> (shown, not pressable) and <code>selected</code> (the current choice, pressable).</p>
+        <h3>Hidden is not secret</h3>
+        <ul class="plain">
+          <li><b>Votes are visible.</b> Every member can read them; <code>show_voters=False</code> only hides the names in the app.</li>
+          <li><b>Private cards are hidden, not encrypted for one.</b> A card posted with <code>to</code> shows only to that member, marked “Only you can see this”, and to the bot, and only their presses count. Every member’s app still receives and decrypts it. griasdi has no private text, so a private reply is a card.</li>
+        </ul>
+        <h3>Pictures</h3>
+        <p><code>upload_image</code> takes a PNG, JPEG, GIF or WebP, scales it to at most 1200&nbsp;px per side (JPEG when opaque, else PNG), encrypts it and stores it on the channel’s server; the card carries its key. A picture belongs to one card: deleting the card, or replacing it with one that no longer shows the picture, deletes it on the server. Upload again for every card.</p>
+      </section>
+
+      <section id="voice" aria-labelledby="voice-title">
+        <h2 id="voice-title">Voice</h2>
+        <p>Python only for now. A bot made with <code>spezl.Bot(voice=True)</code> can be invited into a voice channel: a member in that channel right-clicks the bot in the member list and picks <span class="ui-path">Invite to voice</span>. Hovering the bot’s line under the voice channel offers <span class="ui-path">Send home</span>.</p>
+        <ul class="plain">
+          <li>The bot decides itself, and takes an invite or a send-home only from a member who is in that channel.</li>
+          <li>It is in one voice channel at a time and leaves on its own once only bots are left.</li>
+          <li>It hears every other participant mixed, as 20&nbsp;ms frames of 960 16-bit samples at 48&nbsp;kHz mono, and plays the same format, at most 60 seconds per call. While 1 second of heard frames waits unread, newer frames are dropped.</li>
+          <li>The declaration goes into the community’s text channels, so a community without a text channel never offers the bot.</li>
+        </ul>
+        <ul class="ref">
+          <li><span class="term-name"><code>@bot.on_voice_join</code><code>@bot.on_voice_leave</code></span><div class="desc"><p>Get a <code>spezl.Voice</code>: <code>channel</code>, <code>community</code> and <code>by</code>, who invited the bot or sent it home (<code>None</code> when it left on its own).</p></div></li>
+          <li><span class="term-name"><code>@bot.on_audio</code></span><div class="desc"><p>Every heard <code>spezl.Audio</code> frame in order: <code>audio.samples</code> is an <code>array('h')</code> of <code>spezl.AUDIO_FRAME</code> samples at <code>spezl.SAMPLE_RATE</code>.</p></div></li>
+          <li><span class="term-name"><code>await bot.play(samples)</code></span><div class="desc"><p>Plays an <code>array('h')</code> and returns once it is played. Raises <code>SpezlError</code> when the bot is in no voice channel or leaves before the end.</p></div></li>
+        </ul>
+      </section>
+
+      <section id="streaming" aria-labelledby="streaming-title">
+        <h2 id="streaming-title">Streaming video</h2>
+        <p>A bot streams a video file into a text channel as a screen share, without a voice call: <code>bot.stream_file(channel, path, title=…, start_ms=…)</code> in Python, <code>bot.streamFile(channel, path, { title, startMs })</code> in TypeScript. The call returns once the share is live. The file waits at its first picture until the first member opens the stream, then plays in real time.</p>
+        <p>spezl decodes the file with GStreamer and encodes video with the first of these that loads:</p>
+        <ul class="ref tight">
+          <li><span class="term-name">AV1 on NVIDIA</span><div class="desc"><p>RTX 40 or newer (<code>nvav1enc</code>): up to 2560×1440, 30 fps, 10 Mbit/s.</p></div></li>
+          <li><span class="term-name">H.264 on a GPU</span><div class="desc"><p>NVIDIA (<code>nvh264enc</code>) or VA-API, such as Intel or AMD (<code>vah264enc</code>): up to 2560×1440, 30 fps, 15 Mbit/s.</p></div></li>
+          <li><span class="term-name">AV1 on the CPU</span><div class="desc"><p><code>svtav1enc</code>: up to 1280×720, 30 fps, 2 Mbit/s.</p></div></li>
+        </ul>
+        <p>An encoder that fails while the file loads falls back to the next. <code>SPEZL_ENCODER=nvidia</code>, <code>nvidia-h264</code>, <code>va-h264</code> or <code>software</code> forces one, without fallback.</p>
+        <p>One file at a time: a new start, <code>stop_stream</code> or closing the bot ends the running one. Its end arrives as an event with the path, the reason (<code>finished</code>, <code>stopped</code>, <code>failed</code> with the error, or <code>lost</code> when the server ended the share) and the position reached, so the bot can resume there later.</p>
+        <p>To see what your system still lacks for streaming (it prints nothing when all is there; the three GPU encoders are optional):</p>
+        <div class="code"><pre><code><span class="k">for</span> e <span class="k">in</span> playbin svtav1enc av1parse avdec_h264 avdec_mpeg4 nvav1enc nvh264enc vah264enc; <span class="k">do</span>
+  gst-inspect-1.0 <span class="s">"$e"</span> &gt; /dev/null 2&gt;&amp;1 || echo <span class="s">"missing: $e"</span>
+<span class="k">done</span></code></pre></div>
+      </section>
+
+      <section id="protocol" aria-labelledby="protocol-title">
+        <h2 id="protocol-title">The serve protocol</h2>
+        <p>For an SDK in another language. <code>spezl serve</code> speaks JSON-RPC 2.0, one JSON object per line: requests in on stdin, responses and notifications out on stdout, logs on stderr (<code>SPEZL_LOG</code> sets the filter, default <code>warn,spezl=info</code>). Serve ends on EOF, SIGINT and SIGTERM.</p>
+        <ul class="plain">
+          <li>Ids are lowercase hex. A server is its <code>griasdi:server:…</code> link.</li>
+          <li><code>info</code> reports <code>protocol: 2</code>. An SDK should refuse any other.</li>
+          <li>A request without <code>id</code> is a notification: serve runs it and answers nothing.</li>
+          <li>Unknown keys are refused with <code>-32602</code>.</li>
+        </ul>
+        <h3>Methods</h3>
+        <div class="table-wrap">
+          <table class="wire">
+            <thead><tr><th scope="col">Method</th><th scope="col">params</th><th scope="col">result</th></tr></thead>
+            <tbody>
+              <tr><td><code>info</code></td><td>–</td><td><code>{protocol, user_id, name, bot_id, servers}</code></td></tr>
+              <tr><td><code>communities</code></td><td>–</td><td><code>[{server, id, name, channels: [{server, id, name, group}]}]</code></td></tr>
+              <tr><td><code>send</code></td><td><code>{server, group, text, reply_to?}</code></td><td><code>{seq}</code></td></tr>
+              <tr><td><code>send_dm</code></td><td><code>{server, user, text}</code></td><td><code>{seq}</code></td></tr>
+              <tr><td><code>set_commands</code></td><td><code>{commands: [Command]}</code></td><td><code>null</code></td></tr>
+              <tr><td><code>post_card</code></td><td><code>{server, group, card, answers?, to?}</code></td><td><code>{seq}</code></td></tr>
+              <tr><td><code>edit_card</code></td><td><code>{server, group, seq, body}</code></td><td><code>null</code></td></tr>
+              <tr><td><code>replace_card</code></td><td><code>{server, group, seq, card}</code></td><td><code>null</code></td></tr>
+              <tr><td><code>delete_message</code></td><td><code>{server, group, seq}</code></td><td><code>null</code></td></tr>
+              <tr><td><code>reveal</code></td><td><code>{server, group, action, target}</code></td><td><code>null</code></td></tr>
+              <tr><td><code>upload_image</code></td><td><code>{server, group, data}</code></td><td><code>{blob, key, nonce, mime, width, height}</code></td></tr>
+              <tr><td><code>set_voice</code></td><td><code>{voice}</code></td><td><code>null</code></td></tr>
+              <tr><td><code>play_audio</code></td><td><code>{samples}</code></td><td><code>null</code> once played</td></tr>
+              <tr><td><code>stream_file</code></td><td><code>{server, group, path, title?, start_ms?}</code></td><td><code>null</code> once live</td></tr>
+              <tr><td><code>stop_stream</code></td><td>–</td><td>whether a stream ran</td></tr>
+              <tr><td><code>shutdown</code></td><td>–</td><td><code>null</code>, then serve ends</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Notifications</h3>
+        <div class="table-wrap">
+          <table class="wire">
+            <thead><tr><th scope="col">Notification</th><th scope="col">params</th></tr></thead>
+            <tbody>
+              <tr><td><code>ready</code></td><td><code>{server}</code></td></tr>
+              <tr><td><code>status</code></td><td><code>{server, status: "connecting" | "online" | "offline", reason}</code></td></tr>
+              <tr><td><code>message</code></td><td><code>{community: {id, name}, channel: {server, id, name, group}, seq, ts_ms, sender: {id, name, bot_id}, text, reply_to, mentions_me}</code></td></tr>
+              <tr><td><code>invocation</code></td><td><code>{community, channel, seq, ts_ms, sender, command, values}</code></td></tr>
+              <tr><td><code>press</code></td><td><code>{community, channel, seq, ts_ms, sender, card, button}</code></td></tr>
+              <tr><td><code>submit</code></td><td><code>{community, channel, seq, ts_ms, sender, card, button, values}</code></td></tr>
+              <tr><td><code>member_joined</code></td><td><code>{community: {server, id, name, channels}, member}</code></td></tr>
+              <tr><td><code>voice_joined</code></td><td><code>{community, channel, by: sender | null}</code></td></tr>
+              <tr><td><code>voice_left</code></td><td><code>{community, channel, by: sender | null}</code></td></tr>
+              <tr><td><code>audio</code></td><td><code>{samples}</code></td></tr>
+              <tr><td><code>stream_ended</code></td><td><code>{channel, path, title, reason, error, position_ms}</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note"><p><b><code>ts_ms</code> is the sender’s own clock, unchecked.</b> Never use it to decide what a member may do.</p></div>
+        <h3>Values and data</h3>
+        <ul class="plain">
+          <li><code>values</code> maps field ids to a string (text, choice, select), an array of strings (text list), a bool (toggle) or a number (date and time, Unix milliseconds).</li>
+          <li><code>samples</code> are 16-bit little-endian samples at 48&nbsp;kHz mono, standard base64 with padding: 960 per <code>audio</code> frame, at most 60 seconds for <code>play_audio</code>.</li>
+          <li><code>upload_image</code> takes the file as standard base64. Its <code>key</code> and <code>nonce</code> come back base64; the key opens the picture, so keep it out of logs.</li>
+          <li><code>stream_file</code> takes a path as serve sees it. A blank <code>title</code> is the file name without extension; <code>start_ms</code> defaults to 0. <code>error</code> in <code>stream_ended</code> is set only for <code>failed</code>.</li>
+        </ul>
+        <h3>A command and a card</h3>
+        <div class="code"><pre><code>{<span class="k">"name"</span>: <span class="s">"poll"</span>, <span class="k">"description"</span>: <span class="s">"Start a poll"</span>, <span class="k">"fields"</span>: [
+  {<span class="k">"type"</span>: <span class="s">"text"</span>, <span class="k">"id"</span>: <span class="s">"question"</span>, <span class="k">"label"</span>: <span class="s">"Question"</span>, <span class="k">"required"</span>: true, <span class="k">"placeholder"</span>: <span class="s">"…"</span>, <span class="k">"max_chars"</span>: 300},
+  {<span class="k">"type"</span>: <span class="s">"text_list"</span>, <span class="k">"id"</span>: <span class="s">"options"</span>, <span class="k">"label"</span>: <span class="s">"Options"</span>, <span class="k">"min"</span>: 2, <span class="k">"max"</span>: 10, <span class="k">"max_chars"</span>: 100},
+  {<span class="k">"type"</span>: <span class="s">"toggle"</span>, <span class="k">"id"</span>: <span class="s">"multiple"</span>, <span class="k">"label"</span>: <span class="s">"Allow several answers"</span>, <span class="k">"default"</span>: false},
+  {<span class="k">"type"</span>: <span class="s">"choice"</span>, <span class="k">"id"</span>: <span class="s">"ends"</span>, <span class="k">"label"</span>: <span class="s">"Ends"</span>, <span class="k">"options"</span>: [{<span class="k">"id"</span>: <span class="s">"never"</span>, <span class="k">"label"</span>: <span class="s">"When I end it"</span>}], <span class="k">"default"</span>: <span class="s">"never"</span>},
+  {<span class="k">"type"</span>: <span class="s">"select"</span>, <span class="k">"id"</span>: <span class="s">"spec"</span>, <span class="k">"label"</span>: <span class="s">"Spec"</span>, <span class="k">"on"</span>: <span class="s">"class"</span>, <span class="k">"tiles"</span>: true,
+   <span class="k">"options"</span>: [{<span class="k">"id"</span>: <span class="s">"mage-frost"</span>, <span class="k">"label"</span>: <span class="s">"Frost"</span>, <span class="k">"when"</span>: [<span class="s">"mage"</span>]}]},
+  {<span class="k">"type"</span>: <span class="s">"date_time"</span>, <span class="k">"id"</span>: <span class="s">"starts"</span>, <span class="k">"label"</span>: <span class="s">"Starts"</span>, <span class="k">"required"</span>: false}]}
+
+{<span class="k">"body"</span>: <span class="s">"markdown"</span>, <span class="k">"blocks"</span>: [
+  {<span class="k">"type"</span>: <span class="s">"buttons"</span>, <span class="k">"buttons"</span>: [{<span class="k">"id"</span>: <span class="s">"yes"</span>, <span class="k">"label"</span>: <span class="s">"Yes"</span>, <span class="k">"style"</span>: <span class="s">"primary"</span>}]},
+  {<span class="k">"type"</span>: <span class="s">"list"</span>, <span class="k">"items"</span>: [{<span class="k">"title"</span>: <span class="s">"Thrall"</span>, <span class="k">"detail"</span>: <span class="s">"Protection Warrior"</span>,
+   <span class="k">"buttons"</span>: [{<span class="k">"id"</span>: <span class="s">"pick"</span>, <span class="k">"label"</span>: <span class="s">"Sign up"</span>}]}]},
+  {<span class="k">"type"</span>: <span class="s">"form"</span>, <span class="k">"button"</span>: {<span class="k">"id"</span>: <span class="s">"new"</span>, <span class="k">"label"</span>: <span class="s">"New character"</span>},
+   <span class="k">"form"</span>: {<span class="k">"title"</span>: <span class="s">"New character"</span>, <span class="k">"text"</span>: <span class="s">"…"</span>, <span class="k">"fields"</span>: [<span class="c">Field</span>], <span class="k">"submit"</span>: <span class="s">"Save"</span>}},
+  {<span class="k">"type"</span>: <span class="s">"columns"</span>, <span class="k">"columns"</span>: [<span class="s">"**Tanks**"</span>, <span class="s">"**Healers**"</span>]},
+  {<span class="k">"type"</span>: <span class="s">"hinted_buttons"</span>, <span class="k">"buttons"</span>: [{<span class="k">"id"</span>: <span class="s">"go"</span>, <span class="k">"label"</span>: <span class="s">"Go"</span>, <span class="k">"style"</span>: <span class="s">"success"</span>, <span class="k">"hint"</span>: <span class="s">"Starts it"</span>}]},
+  {<span class="k">"type"</span>: <span class="s">"tally"</span>, <span class="k">"options"</span>: [{<span class="k">"id"</span>: <span class="s">"in"</span>, <span class="k">"label"</span>: <span class="s">"In"</span>, <span class="k">"style"</span>: <span class="s">"success"</span>, <span class="k">"members"</span>: [<span class="s">"&lt;user id hex&gt;"</span>]},
+   {<span class="k">"id"</span>: <span class="s">"out"</span>, <span class="k">"label"</span>: <span class="s">"Out"</span>}]},
+  {<span class="k">"type"</span>: <span class="s">"image"</span>, <span class="k">"blob"</span>: <span class="s">"&lt;hex&gt;"</span>, <span class="k">"key"</span>: <span class="s">"&lt;base64&gt;"</span>, <span class="k">"nonce"</span>: <span class="s">"&lt;base64&gt;"</span>, <span class="k">"mime"</span>: <span class="s">"image/jpeg"</span>,
+   <span class="k">"width"</span>: 1200, <span class="k">"height"</span>: 600, <span class="k">"alt"</span>: <span class="s">"The roster"</span>},
+  {<span class="k">"type"</span>: <span class="s">"links"</span>, <span class="k">"links"</span>: [{<span class="k">"label"</span>: <span class="s">"Guide"</span>, <span class="k">"url"</span>: <span class="s">"https://example.org"</span>, <span class="k">"style"</span>: <span class="s">"primary"</span>}]},
+  {<span class="k">"type"</span>: <span class="s">"poll"</span>, <span class="k">"question"</span>: <span class="s">"…"</span>, <span class="k">"options"</span>: [<span class="s">"A"</span>, <span class="s">"B"</span>], <span class="k">"multiple"</span>: false, <span class="k">"hidden_results"</span>: false,
+   <span class="k">"show_voters"</span>: true, <span class="k">"closes_ms"</span>: null, <span class="k">"creator"</span>: <span class="s">"&lt;user id hex&gt;"</span>}]}</code></pre></div>
+        <p>Defaults: <code>required</code> is true for every field but a toggle, whose <code>default</code> is false; a select’s <code>on</code> is null, its <code>tiles</code> false and an option’s <code>when</code> empty; a form’s <code>submit</code> is “Submit”; a button’s <code>style</code> is <code>secondary</code>; a poll’s <code>show_voters</code> is true. Everything else is empty. A command set or card over griasdi’s limits (more than two pictures, a link that isn’t http(s), a member in two tally options and the like) is refused with <code>-32602</code>.</p>
+        <h3>Errors</h3>
+        <ul class="ref tight">
+          <li><span class="term-name"><code>-32700</code></span><div class="desc"><p>Invalid JSON.</p></div></li>
+          <li><span class="term-name"><code>-32600</code></span><div class="desc"><p>Not a request.</p></div></li>
+          <li><span class="term-name"><code>-32601</code></span><div class="desc"><p>Unknown method.</p></div></li>
+          <li><span class="term-name"><code>-32602</code></span><div class="desc"><p>Invalid params, no such channel, data that isn’t base64, or JSON that isn’t valid Unicode.</p></div></li>
+          <li><span class="term-name"><code>-32000</code></span><div class="desc"><p>A griasdi or spezl error: no voice channel for <code>play_audio</code>, a picture griasdi can’t open, a file <code>stream_file</code> can’t play or a start offset past or too close to its end, a share griasdi refuses.</p></div></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <a class="brand" href="../" aria-label="griasdi, to the home page"><img src="../img/mark.svg" width="28" height="28" alt=""><span>griasdi</span></a>
+    <p>griasdi is Bavarian for “hello, you”.</p>
+    <ul class="foot-links"><li><a href="../server/">Server</a></li><li><a href="../bots/">Bots</a></li><li><a href="../about/">About</a></li><li><a href="../privacy/">Privacy</a></li></ul>
+    <p class="legal">© 2026 Hannes Uebelacker and Felix Itzenplitz. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="../faces.js"></script>
+<script src="../site.js"></script>
+</body>
+</html>

@@ -382,6 +382,7 @@ section[id]:not(.hero) { scroll-margin-top: calc(2rem - var(--section)); } /* an
 /* devs */
 .devs-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1.1rem; align-items: start; }
 .devs-grid > * { min-width: 0; }
+.devs-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; min-width: 0; }
 .term { display: flex; flex-direction: column; gap: .8rem; padding: 1.5rem; border-radius: 24px; background: var(--night); border: 1px solid var(--line); }
 .term header { display: flex; align-items: center; gap: .7rem; color: var(--terra-l); }
 .term h3 { color: var(--ink); }
