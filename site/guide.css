@@ -81,6 +81,7 @@
 .tabs [hidden] { display: none; }
 .tabs .seg { margin-bottom: .7rem; }
 .tab-panel .code { margin-top: 0; }
+.tab-panel > p:not(.tab-title) { margin: 0 0 .7rem; }
 .tab-panel .code + .code { margin-top: .7rem; }
 .tabs:not(.is-on) .tab-panel + .tab-panel { margin-top: 1.2rem; }
 .tabs .tab-title { margin: 0 0 .5rem; color: var(--ink-3); font-size: .9rem; font-weight: 700; }

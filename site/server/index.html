@@ -118,19 +118,30 @@
       <section id="install" aria-labelledby="install-title">
         <h2 id="install-title">Install</h2>
         <p>Every release carries the server for x86_64 and ARM64 in three forms, next to <code>SHA256SUMS</code> to check them with <code>sha256sum -c --ignore-missing SHA256SUMS</code>. The packages and the tarball bring the systemd unit <code>griasdi-server.service</code>. For a container, skip to <a href="#container">In a container</a>.</p>
-        <ul class="ref">
-          <li><span class="term-name"><code>griasdi-server_&lt;version&gt;-1_&lt;arch&gt;.deb</code><span class="def">amd64 or arm64</span></span><div class="desc"><p>Debian and Ubuntu.</p></div></li>
-          <li><span class="term-name"><code>griasdi-server-&lt;version&gt;-1.&lt;arch&gt;.rpm</code><span class="def">x86_64 or aarch64</span></span><div class="desc"><p>Fedora and other rpm distributions.</p></div></li>
-          <li><span class="term-name"><code>griasdi-server-&lt;version&gt;-&lt;arch&gt;-linux.tar.gz</code><span class="def">x86_64 or aarch64</span></span><div class="desc"><p>Any other Linux with systemd. Installs into <code>/usr/local</code>.</p></div></li>
-        </ul>
-        <h3>Debian and Ubuntu</h3>
-        <div class="code"><pre><code><span class="p">$ </span>sudo apt install ./griasdi-server_*.deb</code></pre></div>
-        <h3>Fedora</h3>
-        <div class="code"><pre><code><span class="p">$ </span>sudo dnf install ./griasdi-server-*.rpm</code></pre></div>
-        <h3>Other Linux</h3>
-        <div class="code"><pre><code><span class="p">$ </span>sudo tar -xzf griasdi-server-*-linux.tar.gz --strip-components=1 -C /usr/local
+        <div class="tabs" data-tabs="os">
+          <div class="seg" role="tablist" aria-label="Distribution" hidden>
+            <button type="button" role="tab" id="os-deb-tab" aria-controls="os-deb" aria-selected="true" data-tab="deb">Debian and Ubuntu</button>
+            <button type="button" role="tab" id="os-rpm-tab" aria-controls="os-rpm" aria-selected="false" tabindex="-1" data-tab="rpm">Fedora</button>
+            <button type="button" role="tab" id="os-tar-tab" aria-controls="os-tar" aria-selected="false" tabindex="-1" data-tab="tar">Other Linux</button>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="os-deb" aria-labelledby="os-deb-tab" tabindex="0">
+            <p class="tab-title">Debian and Ubuntu</p>
+            <p>Download <code>griasdi-server_&lt;version&gt;-1_&lt;arch&gt;.deb</code>, for amd64 or arm64, and install it:</p>
+            <div class="code"><pre><code><span class="p">$ </span>sudo apt install ./griasdi-server_*.deb</code></pre></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="os-rpm" aria-labelledby="os-rpm-tab" tabindex="0">
+            <p class="tab-title">Fedora</p>
+            <p>For Fedora and other rpm distributions, download <code>griasdi-server-&lt;version&gt;-1.&lt;arch&gt;.rpm</code>, for x86_64 or aarch64, and install it:</p>
+            <div class="code"><pre><code><span class="p">$ </span>sudo dnf install ./griasdi-server-*.rpm</code></pre></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="os-tar" aria-labelledby="os-tar-tab" tabindex="0">
+            <p class="tab-title">Other Linux</p>
+            <p>For any other Linux with systemd, download <code>griasdi-server-&lt;version&gt;-&lt;arch&gt;-linux.tar.gz</code>, for x86_64 or aarch64, and unpack it into <code>/usr/local</code>:</p>
+            <div class="code"><pre><code><span class="p">$ </span>sudo tar -xzf griasdi-server-*-linux.tar.gz --strip-components=1 -C /usr/local
 <span class="p">$ </span>sudo systemctl daemon-reload
 <span class="p">$ </span>sudo install -d -m755 /etc/griasdi</code></pre></div>
+          </div>
+        </div>
         <p>The service is installed but stays idle until its configuration exists.</p>
       </section>
 
