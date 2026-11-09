@@ -1,4 +1,4 @@
-// Shared by every page: the gsichtl faces (faces.js), their blinking, and the nav hairline.
+// Shared by every page: the gsichtl faces (faces.js), their blinking, the nav hairline and the guide tabs.
 (() => {
   "use strict";
 
@@ -82,6 +82,44 @@
     addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
+
+  // ---------- tabs (server guide): groups sharing data-tabs switch together ----------
+
+  function selectTab(group, value, anchor) {
+    const before = anchor ? anchor.getBoundingClientRect().top : 0;
+    document.querySelectorAll(`.tabs[data-tabs="${group}"] [role="tab"]`).forEach((tab) => {
+      const on = tab.dataset.tab === value;
+      tab.setAttribute("aria-selected", String(on));
+      tab.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(tab.getAttribute("aria-controls"));
+      if (panel) panel.hidden = !on;
+    });
+    if (anchor) scrollBy({ top: anchor.getBoundingClientRect().top - before, behavior: "instant" });
+  }
+
+  document.querySelectorAll(".tabs[data-tabs]").forEach((box) => {
+    const group = box.dataset.tabs;
+    const list = box.querySelector('[role="tablist"]');
+    if (!list) return;
+    const tabs = [...list.querySelectorAll('[role="tab"]')];
+    list.hidden = false;
+    box.classList.add("is-on");
+    const current = tabs.find((t) => t.getAttribute("aria-selected") === "true") || tabs[0];
+    selectTab(group, current.dataset.tab);
+    list.addEventListener("click", (e) => {
+      const tab = e.target.closest('[role="tab"]');
+      if (tab) selectTab(group, tab.dataset.tab, list);
+    });
+    list.addEventListener("keydown", (e) => {
+      const i = tabs.indexOf(document.activeElement);
+      if (i < 0) return;
+      const to = { ArrowRight: (i + 1) % tabs.length, ArrowLeft: (i - 1 + tabs.length) % tabs.length, Home: 0, End: tabs.length - 1 }[e.key];
+      if (to === undefined) return;
+      e.preventDefault();
+      selectTab(group, tabs[to].dataset.tab, list);
+      tabs[to].focus();
+    });
+  });
 
   Object.assign(window.GSICHTL = window.GSICHTL || { faces: [] }, { face: faceElement, fill: fillSlot });
 })();

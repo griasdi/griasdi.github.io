@@ -261,7 +261,7 @@ section[id]:not(.hero) { scroll-margin-top: calc(2rem - var(--section)); } /* an
   transition: background .2s, color .2s;
 }
 .seg button:hover { color: var(--ink); }
-.seg button[aria-checked="true"] { background: var(--lav); color: #17121f; }
+.seg button[aria-checked="true"], .seg button[aria-selected="true"] { background: var(--lav); color: #17121f; }
 .seg button:focus-visible { outline: 3px solid var(--lav-l); outline-offset: 1px; }
 .wave { width: 100%; height: auto; aspect-ratio: 1200 / 264; }
 @media (max-width: 520px) { .seg button { padding: .5em .7em; font-size: .88rem; } }

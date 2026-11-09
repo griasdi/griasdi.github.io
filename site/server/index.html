@@ -108,7 +108,7 @@
       <section id="needs" aria-labelledby="needs-title">
         <h2 id="needs-title">What you need</h2>
         <ul class="ref tight">
-          <li><span class="term-name"><b>A Linux machine</b></span><div class="desc"><p>x86_64 or ARM64, with systemd and glibc 2.39 or newer: Ubuntu 24.04, Debian 13, Fedora 40 or later. In a container, any host that runs Podman.</p></div></li>
+          <li><span class="term-name"><b>A Linux machine</b></span><div class="desc"><p>x86_64 or ARM64, with systemd and glibc 2.39 or newer: Ubuntu 24.04, Debian 13, Fedora 40 or later. In a container, any host that runs Docker or Podman.</p></div></li>
           <li><span class="term-name"><b>A name or address</b></span><div class="desc"><p>The host name (or IP address) your members’ apps reach the server by, such as <code>chat.example.org</code>. It goes into every link the server makes.</p></div></li>
           <li><span class="term-name"><b>Two open ports</b></span><div class="desc"><p><b>UDP 1337</b> for everything griasdi does. <b>TCP 1337</b> for app updates over HTTPS, for apps that can’t reach the server over QUIC; without it the server logs a warning at start and those apps skip that fallback.</p></div></li>
         </ul>
@@ -167,17 +167,58 @@
       <section id="container" aria-labelledby="container-title">
         <h2 id="container-title">In a container</h2>
         <p>Every build is also the image <code>oci.doodleshnookie.net/griasdi-server</code> for amd64 and arm64, pulled without an account. Its tags are the update channel (<code>dev</code>, <code>nightly</code>, <code>release</code>) and the build number; a release adds its version and <code>latest</code>.</p>
-        <div class="code"><pre><code><span class="p">$ </span>podman run -d --name griasdi-server --restart=always \
+        <div class="tabs" data-tabs="engine">
+          <div class="seg" role="tablist" aria-label="Container engine" hidden>
+            <button type="button" role="tab" id="run-docker-tab" aria-controls="run-docker" aria-selected="true" data-tab="docker">Docker</button>
+            <button type="button" role="tab" id="run-compose-tab" aria-controls="run-compose" aria-selected="false" tabindex="-1" data-tab="compose">Docker Compose</button>
+            <button type="button" role="tab" id="run-podman-tab" aria-controls="run-podman" aria-selected="false" tabindex="-1" data-tab="podman">Podman</button>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="run-docker" aria-labelledby="run-docker-tab" tabindex="0">
+            <p class="tab-title">Docker</p>
+            <div class="code"><pre><code><span class="p">$ </span>docker run -d --name griasdi-server --restart=always \
+    -p 1337:1337/udp -p 1337:1337/tcp \
+    -e GRIASDI_PUBLIC_HOST=chat.example.org -e GRIASDI_NAME="$(hostname -s)" \
+    -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server:release
+<span class="p">$ </span>docker logs griasdi-server | grep -A1 'setup link'</code></pre></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="run-compose" aria-labelledby="run-compose-tab" tabindex="0">
+            <p class="tab-title">Docker Compose</p>
+            <div class="code">
+              <div class="code-head"><span>In a directory of its own</span><code>compose.yaml</code></div>
+<pre><code><span class="k">services</span>:
+  <span class="k">griasdi-server</span>:
+    <span class="k">image</span>: <span class="s">oci.doodleshnookie.net/griasdi-server:release</span>
+    <span class="k">restart</span>: <span class="s">always</span>
+    <span class="k">ports</span>:
+      - <span class="s">"1337:1337/udp"</span>
+      - <span class="s">"1337:1337/tcp"</span>
+    <span class="k">environment</span>:
+      <span class="k">GRIASDI_PUBLIC_HOST</span>: <span class="s">chat.example.org</span>
+      <span class="k">GRIASDI_NAME</span>: <span class="s">chat</span>
+    <span class="k">volumes</span>:
+      - <span class="s">griasdi:/var/lib/griasdi</span>
+
+<span class="k">volumes</span>:
+  <span class="k">griasdi</span>:</code></pre>
+            </div>
+            <div class="code"><pre><code><span class="p">$ </span>docker compose up -d
+<span class="p">$ </span>docker compose logs --no-log-prefix griasdi-server | grep -A1 'setup link'</code></pre></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="run-podman" aria-labelledby="run-podman-tab" tabindex="0">
+            <p class="tab-title">Podman</p>
+            <div class="code"><pre><code><span class="p">$ </span>podman run -d --name griasdi-server --restart=always \
     -p 1337:1337/udp -p 1337:1337/tcp \
     -e GRIASDI_PUBLIC_HOST=chat.example.org -e GRIASDI_NAME="$(hostname -s)" \
     -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server:release
 <span class="p">$ </span>podman logs griasdi-server | grep -A1 'setup link'</code></pre></div>
+          </div>
+        </div>
         <ul class="ref tight">
           <li><span class="term-name"><code>GRIASDI_PUBLIC_HOST</code><span class="def">required</span></span><div class="desc"><p>The host name or address your members reach the server at.</p></div></li>
           <li><span class="term-name"><code>GRIASDI_NAME</code><span class="def">default <code>griasdi</code></span></span><div class="desc"><p>The server’s display name.</p></div></li>
         </ul>
         <p>Both are read on the first start only, when the server writes <code>griasdi-server.toml</code> into the volume, with the image’s channel in <code>[updates]</code>. The volume holds the data, the configuration and the server’s binaries. The server updates itself inside the volume, so an updated server survives a restart of its container, and a newer image only matters for a new volume.</p>
-        <p>Keep <code>--restart=always</code>: when the server can’t replace itself in place after an update, it exits to be started again into the new build.</p>
+        <p>Keep <code>--restart=always</code> (<code>restart: always</code> in Compose): when the server can’t replace itself in place after an update, it exits to be started again into the new build.</p>
       </section>
 
       <section id="people" aria-labelledby="people-title">
