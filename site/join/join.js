@@ -94,6 +94,9 @@ function heading(fragment) {
     const names = leadingStrings(bytes, 1);
     return names === null ? null : 'Set up ' + or(names[0], 'your server');
   }
+  if (kind === 'license') {
+    return 'A griasdi server license: open it in griasdi';
+  }
   return null;
 }
 
