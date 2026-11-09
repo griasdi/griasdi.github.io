@@ -55,7 +55,7 @@
 <main id="main" class="doc">
   <div class="wrap doc-head guide-head">
     <h1>Run your own server.</h1>
-    <p class="doc-lede">griasdi-server is one program for Linux. It holds your communities, stores and forwards what your members encrypt, and can’t read any of it. This guide covers installing it, setting it up, configuring it and keeping it up to date.</p>
+    <p class="doc-lede">griasdi-server is one program for Linux. It holds your communities, stores and forwards what your members encrypt, and can’t read any of it. This guide covers installing it, setting it up, its license, configuring it and keeping it up to date.</p>
     <aside class="release" aria-labelledby="release-title">
       <svg class="ico" aria-hidden="true"><use href="#i-server"/></svg>
       <p><b id="release-title">Server builds are coming soon.</b> Until then, this is how it will work.</p>
@@ -88,6 +88,7 @@
         <li><a href="#setup">Set it up</a></li>
         <li><a href="#container">In a container</a></li>
         <li><a href="#people">Communities and admins</a></li>
+        <li><a href="#license">License</a></li>
         <li><a href="#config">Configuration</a></li>
         <li><a href="#updates">Updates</a></li>
         <li><a href="#files">Files and commands</a></li>
@@ -158,6 +159,10 @@
             <h3>Open it in griasdi</h3>
             <p>Paste the setup link into <span class="ui-path">Join by link</span> in the app, or open it as the first link when griasdi starts. That creates the server’s first community and makes you the server’s admin.</p>
           </li>
+          <li>
+            <h3>Get the free license</h3>
+            <p>In <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span>, <span class="ui-path">Get free license</span> raises the server from 10 members and 1 community to 32 members and 3. See <a href="#license">License</a>.</p>
+          </li>
         </ol>
         <div class="note">
           <p><b>The setup link works once and for 24 hours.</b> A restart keeps it. Lost it? <code>sudo griasdi-server setup-link --config /etc/griasdi/griasdi-server.toml</code> prints a new one and voids the old one, for as long as the server has no community.</p>
@@ -226,9 +231,64 @@
         <ul class="plain">
           <li>The community the setup link creates belongs to the server and can’t be dissolved. A server that had communities before makes its oldest one this community.</li>
           <li>Everyone else joins with invite links, made in the app. Each lets one person in and expires after 1 hour to 30 days, 7 by default. Whoever manages a community can also make its public link, for 10, 20, 50, 100 or any number of people; it never expires and works until it is used up or turned off.</li>
-          <li>By default anyone on the server may create communities, at most 20 each. <code>community_creation = "admins"</code> leaves that to the admins.</li>
-          <li>Whoever redeemed the setup link is an admin; <code>admins</code> in the configuration adds more by user id. An admin finds <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span> next to the server: version and uptime, users, devices and who is online, live voice, calls, shares and transfers, stored files and messages, and every community with its counts. Communities are named only where the admin is a member. Never any content.</li>
+          <li>By default anyone on the server may create communities, at most 20 each and as many as its <a href="#license">license</a> allows. <code>community_creation = "admins"</code> leaves that to the admins.</li>
+          <li>Whoever redeemed the setup link is an admin; <code>admins</code> in the configuration adds more by user id. An admin finds <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span> next to the server: version and uptime, users, devices and who is online, live voice, calls, shares and transfers, stored files and messages, its license, and every community with its counts. Communities are named only where the admin is a member. Never any content.</li>
         </ul>
+      </section>
+
+      <section id="license" aria-labelledby="license-title">
+        <h2 id="license-title">License</h2>
+        <p>A server without a license lets in 10 members and 1 community. The free license raises that to 32 members and 3 communities, for one click in the app.</p>
+        <div class="table-wrap">
+          <table class="wire">
+            <thead><tr><th scope="col">License</th><th scope="col">Members</th><th scope="col">Communities</th><th scope="col">How</th></tr></thead>
+            <tbody>
+              <tr><td>None</td><td>10</td><td>1</td><td>Where every server starts.</td></tr>
+              <tr><td>Free</td><td>32</td><td>3</td><td><span class="ui-path">Get free license</span> in the app, for the server’s admins.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>What counts</h3>
+        <ul class="plain">
+          <li><b>Members</b> are the distinct people across all of the server’s communities, bots included. Someone already on the server joins its other communities even when it is full.</li>
+          <li>Past the limits a newcomer is told “This server is full”, and another community is refused with “This server allows only 1 community”, for admins too. The community the setup link creates always fits.</li>
+          <li>Nothing is taken away: a server over its limits keeps every member and community and only stops growing.</li>
+        </ul>
+        <h3>In the app</h3>
+        <p>An admin finds the <b>License</b> section in <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span>: its status, members and communities against the limits, and the <b>Server ID</b>. <span class="ui-path">Get free license</span> shows while no license is in effect and the server uses august, which issues it. <span class="ui-path">Copy license link</span> and <span class="ui-path">Save license file…</span> keep a copy, for example to install it again after you set the server up anew.</p>
+        <h3>How long it holds</h3>
+        <ul class="plain">
+          <li>A license names the server by the fingerprint of its key, the Server ID. It works on that server only, so it is no secret.</li>
+          <li>It runs for a year, and august renews it while the server reaches august. A server that hasn’t reached august for a year falls back to 10 members and 1 community. With <code>[august] enabled = false</code> there is no free license and no renewal.</li>
+        </ul>
+        <h3>Install a license</h3>
+        <p>A license is a <code>griasdi:license:…</code> link or a <code>.griasdi-license</code> file holding one. In the app, open it with <span class="ui-path">Add license…</span> in the License section or paste the link into <span class="ui-path">Join by link</span>. On the host, <code>license</code> takes the link or the file:</p>
+        <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server license chat.griasdi-license --config /etc/griasdi/griasdi-server.toml
+<span class="c">installed: 32 members, 3 communities, valid until 2027-11-09 (UTC)</span></code></pre></div>
+        <p>A running server uses it at once, without a restart. In a container, hand it the link; <code>"$(cat …)"</code> reads it from the file:</p>
+        <div class="tabs" data-tabs="engine">
+          <div class="seg" role="tablist" aria-label="Container engine" hidden>
+            <button type="button" role="tab" id="lic-docker-tab" aria-controls="lic-docker" aria-selected="true" data-tab="docker">Docker</button>
+            <button type="button" role="tab" id="lic-compose-tab" aria-controls="lic-compose" aria-selected="false" tabindex="-1" data-tab="compose">Docker Compose</button>
+            <button type="button" role="tab" id="lic-podman-tab" aria-controls="lic-podman" aria-selected="false" tabindex="-1" data-tab="podman">Podman</button>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="lic-docker" aria-labelledby="lic-docker-tab" tabindex="0">
+            <p class="tab-title">Docker</p>
+            <div class="code"><pre><code><span class="p">$ </span>docker exec griasdi-server /var/lib/griasdi/bin/current license \
+    "$(cat chat.griasdi-license)" --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="lic-compose" aria-labelledby="lic-compose-tab" tabindex="0">
+            <p class="tab-title">Docker Compose</p>
+            <div class="code"><pre><code><span class="c"># in the directory of compose.yaml</span>
+<span class="p">$ </span>docker compose exec griasdi-server /var/lib/griasdi/bin/current license \
+    "$(cat chat.griasdi-license)" --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="lic-podman" aria-labelledby="lic-podman-tab" tabindex="0">
+            <p class="tab-title">Podman</p>
+            <div class="code"><pre><code><span class="p">$ </span>podman exec griasdi-server /var/lib/griasdi/bin/current license \
+    "$(cat chat.griasdi-license)" --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
+          </div>
+        </div>
       </section>
 
       <section id="config" aria-labelledby="config-title">
@@ -266,7 +326,7 @@
         <h3>Updates and august</h3>
         <ul class="ref">
           <li><span class="term-name"><code>[updates] channel</code><span class="def">default <code>"dev"</code></span></span><div class="desc"><p>The channel the server updates itself from: <code>"dev"</code>, <code>"nightly"</code> or <code>"release"</code>.</p></div></li>
-          <li><span class="term-name"><code>[august] enabled</code><span class="def">default <code>true</code></span></span><div class="desc"><p><code>false</code> cuts the server off from august, our catalog of builds and models. It then fetches no app builds and no speech models for its members and forwards no performance reports.</p></div></li>
+          <li><span class="term-name"><code>[august] enabled</code><span class="def">default <code>true</code></span></span><div class="desc"><p><code>false</code> cuts the server off from august, our catalog of builds and models. It then fetches no app builds and no speech models for its members, forwards no performance reports, gets no free license and no renewal of its license.</p></div></li>
           <li><span class="term-name"><code>[august] host</code>, <code>port</code>, <code>fingerprint</code></span><div class="desc"><p>Where august is and the SHA-256 fingerprint of its key (64 hex digits). The defaults are ours; leave them out.</p></div></li>
         </ul>
         <div class="code">
@@ -304,6 +364,7 @@
           <li><span class="term-name"><code>run</code></span><div class="desc"><p>Runs the server. The systemd unit does this.</p></div></li>
           <li><span class="term-name"><code>init</code></span><div class="desc"><p>Writes a new configuration from <code>--public-host</code>, <code>--listen</code>, <code>--data-dir</code> and <code>--name</code>; refuses to overwrite.</p></div></li>
           <li><span class="term-name"><code>setup-link</code></span><div class="desc"><p>Prints a new setup link and voids the old one, while the server has no community.</p></div></li>
+          <li><span class="term-name"><code>license</code></span><div class="desc"><p>Installs a license from a <code>griasdi:license:</code> link or a license file. A running server uses it at once.</p></div></li>
           <li><span class="term-name"><code>update</code></span><div class="desc"><p>Lists the update builds stored on this host: each channel’s newest and the builds kept.</p></div></li>
           <li><span class="term-name"><code>--version</code></span><div class="desc"><p>The version, with build number, channel and commit once the build is known.</p></div></li>
         </ul>
