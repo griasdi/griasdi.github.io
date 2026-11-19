@@ -377,7 +377,7 @@ Inline SVG with `shape-rendering: crispEdges`, 26% radius, soft drop. Sizes in m
 ### Stickers and marks
 - **Stickers:** terracotta, teal, gold and lavender bubble-shaped labels on the screenshot, tilted -3 to 3deg, straightening and growing on hover; hidden below 700px.
 - **Tape:** a small gold rectangle (3px radius, tilted 4deg) pinned to the top edge of the visitor's platform card.
-- **Stamp:** a bordered, uppercase terracotta label tilted -14deg on the "coming soon" box, 3px on-terracotta border, 8px radius, .08em tracking.
+- **Stamp:** a bordered, uppercase terracotta label tilted -14deg for what is not out yet, 3px on-terracotta border, 8px radius, .08em tracking.
 
 ### Cast chat-line features
 Each feature is a line said by a face: a 60px face beside a feature bubble, alternating sides in a 4-item rhythm, every third bubble tinted peach or mint, faces tilted -4 and 4deg alternately. The bubble holds an h3 title and a short paragraph in bubble-body-text.

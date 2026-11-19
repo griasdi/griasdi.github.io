@@ -11,7 +11,7 @@ Launch page for griasdi, `site/` (static HTML/CSS/JS, no build). Mode: Persuade.
 Audience: gamers, technical people, IT professionals, long-time voice-server users.
 Action: download the desktop app (Linux, Windows, macOS Apple Silicon; placeholder URLs).
 Proof: real gsichtl faces, `design/hero.png`, simplified `docs/audio.svg` pipeline, real CLI/MCP snippets.
-Constraints: English copy, no product comparisons, proprietary (never "open source"), Linux server only "coming soon".
+Constraints: English copy, no product comparisons, proprietary (never "open source"), Linux server through the server guide.
 
 ## Direction contract
 

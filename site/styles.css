@@ -445,13 +445,13 @@ section[id]:not(.hero) { scroll-margin-top: calc(2rem - var(--section)); } /* an
 @media (max-width: 700px) { .beta { grid-template-columns: auto 1fr; } .beta .btn { grid-column: 1 / -1; justify-self: start; } }
 @media (max-width: 900px) { .platforms { grid-template-columns: 1fr; } }
 
-.soon {
-  position: relative; display: flex; align-items: center; gap: 1rem;
-  width: fit-content; max-width: 100%; margin-top: clamp(2.5rem, 5vw, 3.5rem); padding: 1rem 4.5rem 1rem 1.2rem;
-  border: 2px dashed rgb(27 12 6 / .45); border-radius: 18px; color: var(--on-terra);
+.host {
+  display: flex; align-items: center; gap: 1rem;
+  width: fit-content; max-width: 100%; margin-top: clamp(2.5rem, 5vw, 3.5rem); padding: 1rem 1.2rem;
+  border: 2px solid rgb(27 12 6 / .45); border-radius: 18px; color: var(--on-terra);
 }
-.soon .ico { width: 1.8rem; height: 1.8rem; }
-.soon p { font-size: 1.05rem; }
+.host .ico { width: 1.8rem; height: 1.8rem; }
+.host p { font-size: 1.05rem; }
 .stamp {
   position: absolute; right: -.9rem; top: 50%; translate: 0 -50%; rotate: -14deg;
   padding: .2em .55em; border: 3px solid var(--on-terra); border-radius: 8px;

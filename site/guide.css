@@ -48,17 +48,15 @@
 .thread .mention { color: var(--terra-l); font-weight: 700; }
 .bot-id { color: var(--ink-3); font: 600 .78rem/1 var(--mono); letter-spacing: .02em; }
 
-/* ---------- coming soon ---------- */
+/* ---------- release: the downloads of the newest build ---------- */
 .release {
-  position: relative; display: flex; align-items: center; gap: 1rem;
-  width: fit-content; max-width: 100%; margin-top: .6rem; padding: .95rem 4.6rem .95rem 1.1rem;
-  border: 2px dashed var(--line); border-radius: 18px; color: var(--ink-2);
+  display: flex; align-items: center; gap: 1rem;
+  width: fit-content; max-width: 100%; margin-top: .6rem; padding: .95rem 1.1rem;
+  border: 2px solid var(--line); border-radius: 18px; color: var(--ink-2);
 }
 .release .ico { width: 1.7rem; height: 1.7rem; color: var(--ink-3); }
 .release b { color: var(--ink); }
-.release .stamp { right: -.8rem; background: var(--terra); border-color: var(--terra-d); color: var(--on-terra); font-size: 1rem; }
-.release.get { padding-right: 1.1rem; border-style: solid; }
-.release.get .files { margin-top: .7rem; }
+.release .files { margin-top: .7rem; }
 
 /* ---------- prose code ---------- */
 .doc-body :not(pre) > code { padding: .08em .38em; border-radius: 10px; background: var(--night-3); color: var(--ink); font-size: .86em; overflow-wrap: anywhere; }

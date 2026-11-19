@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://griasdi.doodleshnookie.net; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#1c131d">
 <title>griasdi: run your own server</title>
 <meta name="description" content="Host griasdi for your own crew on Linux: install griasdi-server, set it up, configure it and keep it updated.">
@@ -57,9 +57,14 @@
     <h1>Run your own server.</h1>
     <p class="doc-lede">griasdi-server is one program for Linux. It holds your communities, stores and forwards what your members encrypt, and can’t read any of it. This guide covers installing it, setting it up, its license, configuring it and keeping it up to date.</p>
     <aside class="release" aria-labelledby="release-title">
-      <svg class="ico" aria-hidden="true"><use href="#i-server"/></svg>
-      <p><b id="release-title">Server builds are coming soon.</b> Until then, this is how it will work.</p>
-      <span class="stamp" aria-hidden="true">soon</span>
+      <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>
+      <div>
+        <p><b id="release-title">griasdi-server for Linux.</b> <span id="release-build" data-none="No server build is published yet.">Looking for the newest build…</span> Unpack it as in <a href="#install">Install</a>, Other Linux.</p>
+        <ul class="files">
+          <li><a class="file" data-file="server:tar.gz:x86_64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>x86_64</small></a></li>
+          <li><a class="file" data-file="server:tar.gz:aarch64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>ARM64</small></a></li>
+        </ul>
+      </div>
     </aside>
     <figure class="scene">
       <div class="relay" aria-hidden="true">
@@ -396,5 +401,7 @@
 
 <script src="../faces.js"></script>
 <script src="../site.js"></script>
+<script src="../downloads.js"></script>
+<script src="../release.js"></script>
 </body>
 </html>
