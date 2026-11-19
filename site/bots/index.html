@@ -58,7 +58,7 @@
     <aside class="release" aria-labelledby="release-title">
       <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>
       <div>
-        <p><b id="release-title">spezl for Linux.</b> <span id="release-build" data-none="No build of spezl is published yet.">Looking for the newest build…</span> The Python and TypeScript SDKs come later.</p>
+        <p><b id="release-title">spezl for Linux.</b> <span id="release-build" data-none="No build of spezl is published yet.">Looking for the newest build…</span> The Python and TypeScript SDKs and example bots are on <a href="https://github.com/griasdi/spezl-sdk">GitHub</a>, MIT-licensed.</p>
         <ul class="files">
           <li><a class="file" data-file="tool:spezl:x86_64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>x86_64</small></a></li>
           <li><a class="file" data-file="tool:spezl:aarch64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>ARM64</small></a></li>
@@ -103,6 +103,7 @@
         <ul class="plain">
           <li>spezl, a single program for Linux on x86_64 or ARM64 (glibc 2.39 or newer, as in Ubuntu 24.04). It holds the griasdi client the SDKs talk to and uses the system’s GStreamer, PipeWire and ALSA libraries. Unpack it into <code>~/.local</code> with <code>tar -xzf spezl-*-linux.tar.gz --strip-components=1 -C ~/.local</code>.</li>
           <li>Python 3.10 or newer for the Python SDK, or Node 22.18 or newer (or Bun) for the TypeScript SDK. Neither SDK has dependencies.</li>
+          <li>The SDK, from <a href="https://github.com/griasdi/spezl-sdk">github.com/griasdi/spezl-sdk</a> (MIT), with the example bots. Python: <code>pip install "spezl @ git+https://github.com/griasdi/spezl-sdk#subdirectory=sdk/python"</code>, or the same with <code>uv add</code>. TypeScript: clone the repository and <code>npm install ./spezl-sdk/sdk/typescript</code> in your project, then import <code>@griasdi/spezl</code>.</li>
           <li>For streaming video only: GStreamer with its base, good and bad plugins, and libav for H.264 and older formats.</li>
         </ul>
       </section>
