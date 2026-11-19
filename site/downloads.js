@@ -35,13 +35,16 @@
   }
 
   // The file name for `spec` in `manifest`, or null. `spec` is
-  // 'installer:<target>' (an entry of `installers`) or
+  // 'installer:<target>' (an entry of `installers`),
+  // 'tool:<name>:<target>' (an entry of `tools`) or
   // '<component>:<kind>:<target>' (an entry of `artifacts`).
   function fileFor(manifest, spec) {
     const parts = String(spec).split(':');
     let entry;
     if (parts.length === 2 && parts[0] === 'installer') {
       entry = (manifest.installers || []).find((i) => i.target === parts[1]);
+    } else if (parts.length === 3 && parts[0] === 'tool') {
+      entry = (manifest.tools || []).find((t) => t.name === parts[1] && t.target === parts[2]);
     } else if (parts.length === 3) {
       entry = (manifest.artifacts || []).find(
         (a) => a.component === parts[0] && a.kind === parts[1] && a.target === parts[2]);

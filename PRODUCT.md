@@ -29,10 +29,10 @@ GitHub Pages publishes `site/` at https://griasdi.github.io/ on every push to
 - Self-hosted Linux server: builds are "coming soon"; `site/server/` documents
   installing, setting up, configuring and updating it, from the app
   repository's README and `crates/griasdi-server`.
-- Bots: spezl (the `spezl` repository, checked out next to this one as `../spezl`) is
-  closed source and released as a binary only, "coming soon". `site/bots/`
-  documents the Python and TypeScript SDKs and the `spezl serve` JSON-RPC
-  protocol; never the Rust crate or the spezl source. How the SDKs are
-  distributed is open: the site says only that they come with the spezl
-  release.
+- Bots: spezl lives in `spezl/` of the griasdi repository and is published as
+  a binary for Linux (x86_64, ARM64) with every griasdi build, through the
+  update manifest's `tools`; `site/bots/` offers it from there
+  (`site/downloads.js`). The Python and TypeScript SDKs live in the private
+  griasdi/spezl-sdk and come later. `site/bots/` documents the SDKs and the
+  `spezl serve` JSON-RPC protocol; never the Rust crate or the spezl source.
 - Site copy in English.

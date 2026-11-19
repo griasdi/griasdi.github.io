@@ -9,7 +9,7 @@ related_targets: ["site/bots/index.html"]
 Server (site/server/) and Bots (site/bots/), the technical guides of the launch site. Mode: Read.
 Audience: people hosting griasdi for their crew on Linux; developers writing bots with spezl in Python or TypeScript.
 Proof: real commands, config keys and defaults from griasdi's README and crates/griasdi-server; real SDK API, CLI and serve protocol from spezl's README.
-Constraints: English; server and spezl builds "coming soon" (dashed release box with the terracotta stamp); spezl is closed source, binary only: no Rust crate, no source paths, no examples folder; SDK distribution unspecified beyond "comes with the spezl release".
+Constraints: English; server builds "coming soon" (dashed release box with the terracotta stamp), spezl downloadable for Linux, SDKs coming later; spezl is closed source, binary only: no Rust crate, no source paths, no examples folder; SDK distribution unspecified beyond "come later".
 
 ## Direction contract
 THESIS: Guides as the table's own mechanics: a scene from the hero (server node seeing hex, a bot answering a mention) above a reading column of steps, code wells and ruled reference rows; refuses the generic docs-site sidebar template.

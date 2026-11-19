@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://griasdi.doodleshnookie.net; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#1c131d">
 <title>griasdi: bots with spezl</title>
 <meta name="description" content="Write bots for griasdi in Python or TypeScript with spezl: slash commands, cards, polls, voice and video streaming.">
@@ -55,10 +55,15 @@
   <div class="wrap doc-head guide-head">
     <h1>Bring a bot to the table.</h1>
     <p class="doc-lede">spezl runs griasdi bots you write in Python or TypeScript. A bot is a member like anyone else: it has its own key, joins with an invite link and reads and writes the channels it can see. Slash commands, cards, polls, voice and video streams included.</p>
-    <aside class="release" aria-labelledby="release-title">
-      <svg class="ico" aria-hidden="true"><use href="#i-bot"/></svg>
-      <p><b id="release-title">spezl is coming soon.</b> The Python and TypeScript SDKs come with its release.</p>
-      <span class="stamp" aria-hidden="true">soon</span>
+    <aside class="release get" aria-labelledby="release-title">
+      <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>
+      <div>
+        <p><b id="release-title">spezl for Linux.</b> <span id="spezl-build">Looking for the newest build…</span> The Python and TypeScript SDKs come later.</p>
+        <ul class="files">
+          <li><a class="file" data-file="tool:spezl:x86_64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>x86_64</small></a></li>
+          <li><a class="file" data-file="tool:spezl:aarch64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>ARM64</small></a></li>
+        </ul>
+      </div>
     </aside>
     <figure class="scene">
       <ol class="thread" aria-label="A member mentions HelloBot, and it answers">
@@ -96,7 +101,7 @@
         </ul>
         <h3>What you need</h3>
         <ul class="plain">
-          <li>spezl, a single program. It holds the griasdi client the SDKs talk to.</li>
+          <li>spezl, a single program for Linux on x86_64 or ARM64 (glibc 2.39 or newer, as in Ubuntu 24.04). It holds the griasdi client the SDKs talk to and uses the system’s GStreamer, PipeWire and ALSA libraries. Unpack it into <code>~/.local</code> with <code>tar -xzf spezl-*-linux.tar.gz --strip-components=1 -C ~/.local</code>.</li>
           <li>Python 3.10 or newer for the Python SDK, or Node 22.18 or newer (or Bun) for the TypeScript SDK. Neither SDK has dependencies.</li>
           <li>For streaming video only: GStreamer with its base, good and bad plugins, and libav for H.264 and older formats.</li>
         </ul>
@@ -484,5 +489,7 @@ bot.run()</code></pre>
 
 <script src="../faces.js"></script>
 <script src="../site.js"></script>
+<script src="../downloads.js"></script>
+<script src="bots.js"></script>
 </body>
 </html>
