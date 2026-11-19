@@ -157,9 +157,9 @@
           <li>
             <h3>Write the configuration</h3>
             <p>Use the host name your members reach the server by. <code>init</code> refuses to overwrite a configuration that exists.</p>
-            <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server init --public-host chat.example.org --listen '[::]:1337' \
-    --data-dir /var/lib/griasdi --name "$(hostname -s)" \
-    --config /etc/griasdi/griasdi-server.toml
+            <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server init --public-host chat.example.org \
+    --listen '[::]:1337' --data-dir /var/lib/griasdi \
+    --name "$(hostname -s)" --config /etc/griasdi/griasdi-server.toml
 <span class="p">$ </span>sudo chmod 644 /etc/griasdi/griasdi-server.toml</code></pre></div>
           </li>
           <li>
@@ -280,7 +280,8 @@
         </ul>
         <h3>Install a license</h3>
         <p>A license is a <code>griasdi:license:…</code> link or a <code>.griasdi-license</code> file holding one. In the app, open it with <span class="ui-path">Add license…</span> in the License section or paste the link into <span class="ui-path">Join by link</span>. On the host, <code>license</code> takes the link or the file:</p>
-        <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server license chat.griasdi-license --config /etc/griasdi/griasdi-server.toml
+        <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server license chat.griasdi-license \
+    --config /etc/griasdi/griasdi-server.toml
 <span class="c">installed: 32 members, 3 communities, valid until 2027-11-09 (UTC)</span></code></pre></div>
         <p>A running server uses it at once, without a restart. In a container, hand it the link; <code>"$(cat …)"</code> reads it from the file:</p>
         <div class="tabs" data-tabs="engine">
@@ -291,19 +292,22 @@
           </div>
           <div class="tab-panel" role="tabpanel" id="lic-docker" aria-labelledby="lic-docker-tab" tabindex="0">
             <p class="tab-title">Docker</p>
-            <div class="code"><pre><code><span class="p">$ </span>docker exec griasdi-server /var/lib/griasdi/bin/current license \
-    "$(cat chat.griasdi-license)" --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
+            <div class="code"><pre><code><span class="p">$ </span>docker exec griasdi-server \
+    /var/lib/griasdi/bin/current license "$(cat chat.griasdi-license)" \
+    --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
           </div>
           <div class="tab-panel" role="tabpanel" id="lic-compose" aria-labelledby="lic-compose-tab" tabindex="0">
             <p class="tab-title">Docker Compose</p>
             <div class="code"><pre><code><span class="c"># in the directory of compose.yaml</span>
-<span class="p">$ </span>docker compose exec griasdi-server /var/lib/griasdi/bin/current license \
-    "$(cat chat.griasdi-license)" --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
+<span class="p">$ </span>docker compose exec griasdi-server \
+    /var/lib/griasdi/bin/current license "$(cat chat.griasdi-license)" \
+    --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
           </div>
           <div class="tab-panel" role="tabpanel" id="lic-podman" aria-labelledby="lic-podman-tab" tabindex="0">
             <p class="tab-title">Podman</p>
-            <div class="code"><pre><code><span class="p">$ </span>podman exec griasdi-server /var/lib/griasdi/bin/current license \
-    "$(cat chat.griasdi-license)" --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
+            <div class="code"><pre><code><span class="p">$ </span>podman exec griasdi-server \
+    /var/lib/griasdi/bin/current license "$(cat chat.griasdi-license)" \
+    --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
           </div>
         </div>
       </section>

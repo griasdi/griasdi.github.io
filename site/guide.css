@@ -72,6 +72,8 @@
 .code pre::-webkit-scrollbar { height: 10px; }
 .code pre::-webkit-scrollbar-thumb { border-color: #0f0d14; }
 .code pre::-webkit-scrollbar-track { background: #0f0d14; }
+/* Phones wrap long lines instead of scrolling sideways. */
+@media (max-width: 640px) { .code pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; } }
 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.2rem; }
 .pair .code { margin: 0; }
 @media (max-width: 1180px) { .pair { grid-template-columns: 1fr; } }
