@@ -58,7 +58,7 @@
     <aside class="release" aria-labelledby="release-title">
       <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>
       <div>
-        <p><b id="release-title">spezl for Linux.</b> <span id="release-build" data-none="No build of spezl is published yet.">Looking for the newest build…</span> The Python and TypeScript SDKs and example bots are on <a href="https://github.com/griasdi/spezl-sdk">GitHub</a>, MIT-licensed.</p>
+        <p><b id="release-title">spezl for Linux.</b> <span id="release-build" data-none="No build of spezl is published yet.">Looking for the newest build…</span> The Python and TypeScript SDKs are on <a href="https://pypi.org/project/spezl/">PyPI</a> and <a href="https://www.npmjs.com/package/@griasdilabs/spezl">npm</a>, with the example bots on <a href="https://github.com/griasdi/spezl-sdk">GitHub</a>, MIT-licensed.</p>
         <ul class="files">
           <li><a class="file" data-file="tool:spezl:x86_64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>x86_64</small></a></li>
           <li><a class="file" data-file="tool:spezl:aarch64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>ARM64</small></a></li>
@@ -103,7 +103,7 @@
         <ul class="plain">
           <li>spezl, a single program for Linux on x86_64 or ARM64 (glibc 2.39 or newer, as in Ubuntu 24.04). It holds the griasdi client the SDKs talk to and uses the system’s GStreamer, PipeWire and ALSA libraries. Unpack it into <code>~/.local</code> with <code>tar -xzf spezl-*-linux.tar.gz --strip-components=1 -C ~/.local</code>.</li>
           <li>Python 3.10 or newer for the Python SDK, or Node 22.18 or newer (or Bun) for the TypeScript SDK. Neither SDK has dependencies.</li>
-          <li>The SDK, from <a href="https://github.com/griasdi/spezl-sdk">github.com/griasdi/spezl-sdk</a> (MIT), with the example bots. Python: <code>pip install "spezl @ git+https://github.com/griasdi/spezl-sdk#subdirectory=sdk/python"</code>, or the same with <code>uv add</code>. TypeScript: clone the repository and <code>npm install ./spezl-sdk/sdk/typescript</code> in your project, then import <code>@griasdi/spezl</code>.</li>
+          <li>The SDK, MIT-licensed: <a href="https://pypi.org/project/spezl/"><code>spezl</code></a> on PyPI for Python, <a href="https://www.npmjs.com/package/@griasdilabs/spezl"><code>@griasdilabs/spezl</code></a> on npm for TypeScript. Its source and the example bots are at <a href="https://github.com/griasdi/spezl-sdk">github.com/griasdi/spezl-sdk</a>.</li>
           <li>For streaming video only: GStreamer with its base, good and bad plugins, and libav for H.264 and older formats.</li>
         </ul>
       </section>
@@ -121,6 +121,12 @@
             <p>Make an invite link as you would for a person, with <span class="ui-path">Invite people <span aria-hidden="true">›</span> Create link</span> in the community, and hand it to the bot. <code>join</code> tells you what the bot can read, for example <code>HelloBot can read: #general</code>.</p>
             <div class="code"><pre><code><span class="p">$ </span>spezl join 'https://griasdi.github.io/join#invite:…'
 <span class="p">$ </span>spezl status</code></pre></div>
+          </li>
+          <li>
+            <h3>Install the SDK</h3>
+            <p>In a new folder for the bot. <code>spezl run</code> uses uv when the folder has a <code>pyproject.toml</code>; without uv, <code>pip install spezl</code> into a virtual environment. TypeScript: <a href="#typescript">below</a>.</p>
+            <div class="code"><pre><code><span class="p">$ </span>uv init --bare hellobot &amp;&amp; cd hellobot
+<span class="p">$ </span>uv add spezl</code></pre></div>
           </li>
           <li>
             <h3>Write it</h3>
@@ -235,7 +241,7 @@ bot.run()</code></pre>
 
       <section id="python" aria-labelledby="python-title">
         <h2 id="python-title">Python</h2>
-        <p>Standard library only, Python 3.10 or newer. Handlers are <code>async</code> functions registered with decorators; an exception in a handler is printed and the bot keeps running. <code>spezl.Bot(home=…, binary=…)</code> overrides <code>SPEZL_HOME</code> and <code>SPEZL_BIN</code>.</p>
+        <p>On PyPI as <code>spezl</code>: <code>pip install spezl</code> or <code>uv add spezl</code>. Standard library only, Python 3.10 or newer. Handlers are <code>async</code> functions registered with decorators; an exception in a handler is printed and the bot keeps running. <code>spezl.Bot(home=…, binary=…)</code> overrides <code>SPEZL_HOME</code> and <code>SPEZL_BIN</code>.</p>
         <ul class="ref">
           <li><span class="term-name"><code>@bot.on_ready</code><code>@bot.on_mention</code><code>@bot.on_message</code></span><div class="desc"><p><code>on_mention</code> gets messages that mention the bot, <code>on_message</code> every message.</p><p><code>msg.text</code>, <code>msg.sender.name</code>, <code>msg.sender.id</code>, <code>msg.sender.bot_id</code>, <code>msg.channel.name</code>, <code>msg.community.name</code>, <code>msg.seq</code>, <code>msg.reply_to</code>, <code>await msg.reply(text)</code>.</p></div></li>
           <li><span class="term-name"><code>await bot.send(…)</code><code>await bot.send_dm(…)</code></span><div class="desc"><p><code>send(channel, text, reply_to=None)</code> writes to a <code>spezl.Channel</code>; <code>send_dm(server, user, text)</code> to a member by user id, opening the DM on the first one. <code>await bot.communities()</code> lists communities and channels.</p></div></li>
@@ -248,10 +254,10 @@ bot.run()</code></pre>
 
       <section id="typescript" aria-labelledby="typescript-title">
         <h2 id="typescript-title">TypeScript</h2>
-        <p>Only <code>node:</code> modules, no build step, on Node 22.18 or newer and on Bun. The same bot as above:</p>
+        <p>On npm as <code>@griasdilabs/spezl</code>, compiled to JavaScript with type declarations. Only <code>node:</code> modules, on Node 22.18 or newer and on Bun. The same bot as above:</p>
         <div class="code">
           <div class="code-head"><span>TypeScript</span><code>hello.ts</code></div>
-<pre><code><span class="k">import</span> { Bot } <span class="k">from</span> <span class="s">"@griasdi/spezl"</span>;
+<pre><code><span class="k">import</span> { Bot } <span class="k">from</span> <span class="s">"@griasdilabs/spezl"</span>;
 
 <span class="c">// new Bot({ home, binary }) overrides SPEZL_HOME / SPEZL_BIN</span>
 <span class="k">const</span> bot = <span class="k">new</span> Bot();
@@ -263,7 +269,7 @@ bot.onMention(<span class="k">async</span> (msg) =&gt; {
 <span class="k">await</span> bot.run();</code></pre>
         </div>
         <ul class="ref">
-          <li><span class="term-name">Your project</span><div class="desc"><p><code>npm install ../spezl-sdk/sdk/typescript</code> and <code>npm install -D typescript @types/node</code>, with <code>"type": "module"</code> in <code>package.json</code>. The SDK comes as TypeScript source, so <code>tsc</code> checks it with your settings: <code>tsconfig.json</code> needs <code>"types": ["node"]</code> and <code>"allowImportingTsExtensions": true</code> (with <code>"noEmit": true</code>), or it reports errors inside the SDK. Completion in the editor works either way.</p></div></li>
+          <li><span class="term-name">Your project</span><div class="desc"><p><code>npm install @griasdilabs/spezl</code>, with <code>"type": "module"</code> in <code>package.json</code>. To typecheck your bot, also <code>npm install -D typescript @types/node</code>; the SDK needs no settings of its own in <code>tsconfig.json</code>.</p></div></li>
           <li><span class="term-name">Names</span><div class="desc"><p>camelCase throughout: <code>msg.sender.botId</code>, <code>msg.replyTo</code>, <code>msg.mentionsMe</code>, <code>bot.sendDm</code>, <code>bot.postCard</code>.</p></div></li>
           <li><span class="term-name"><code>bot.send(…)</code><code>bot.sendDm(…)</code></span><div class="desc"><p><code>send(channel, text, { replyTo })</code>, <code>sendDm(server, user, text)</code> and <code>communities()</code>.</p></div></li>
           <li><span class="term-name"><code>bot.command(…)</code></span><div class="desc"><p><code>command({ name, description, fields }, handler)</code> with fields such as <code>{ type: "textList", id, label, min, max, maxChars }</code>; <code>inv.respond(card, { private })</code> answers.</p></div></li>
