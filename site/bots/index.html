@@ -101,16 +101,51 @@
         </ul>
         <h3>What you need</h3>
         <ul class="plain">
-          <li>spezl, a single program for Linux on x86_64 or ARM64 (glibc 2.39 or newer, as in Ubuntu 24.04). It holds the griasdi client the SDKs talk to and uses the system’s GStreamer, PipeWire and ALSA libraries. Unpack it into <code>~/.local</code> with <code>tar -xzf spezl-*-linux.tar.gz --strip-components=1 -C ~/.local</code>.</li>
+          <li>spezl, a single program for Linux on x86_64 or ARM64 (glibc 2.39 or newer, as in Ubuntu 24.04 and Debian 13). It holds the griasdi client the SDKs talk to. The <a href="#start">quick start</a> installs it into <code>~/.local/bin</code>; by hand, unpack the tar.gz from the box above with <code>tar -xzf spezl-*-linux.tar.gz --strip-components=1 -C ~/.local</code>.</li>
           <li>Python 3.10 or newer for the Python SDK, or Node 22.18 or newer (or Bun) for the TypeScript SDK. Neither SDK has dependencies.</li>
           <li>The SDK, MIT-licensed: <a href="https://pypi.org/project/spezl/"><code>spezl</code></a> on PyPI for Python, <a href="https://www.npmjs.com/package/@griasdilabs/spezl"><code>@griasdilabs/spezl</code></a> on npm for TypeScript. Its source and the example bots are at <a href="https://github.com/griasdi/spezl-sdk">github.com/griasdi/spezl-sdk</a>.</li>
-          <li>For streaming video only: GStreamer with its base, good and bad plugins, and libav for H.264 and older formats.</li>
         </ul>
+        <h3 id="packages">System packages</h3>
+        <p>spezl starts with the system’s GStreamer, PipeWire and ALSA libraries. Streaming video also needs GStreamer’s base, good and bad plugins, and libav for H.264 and older formats. One command installs all of it:</p>
+        <div class="tabs" data-tabs="os">
+          <div class="seg" role="tablist" aria-label="Distribution" hidden>
+            <button type="button" role="tab" id="pkg-deb-tab" aria-controls="pkg-deb" aria-selected="true" data-tab="deb">Debian and Ubuntu</button>
+            <button type="button" role="tab" id="pkg-rpm-tab" aria-controls="pkg-rpm" aria-selected="false" tabindex="-1" data-tab="rpm">Fedora</button>
+            <button type="button" role="tab" id="pkg-arch-tab" aria-controls="pkg-arch" aria-selected="false" tabindex="-1" data-tab="arch">Arch</button>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="pkg-deb" aria-labelledby="pkg-deb-tab" tabindex="0">
+            <p class="tab-title">Debian and Ubuntu</p>
+            <p>Ubuntu 24.04 or newer, Debian 13:</p>
+            <div class="code"><pre><code><span class="p">$ </span>sudo apt install libasound2t64 libpipewire-0.3-0t64 \
+    libgstreamer1.0-0 libgstreamer-plugins-base1.0-0 \
+    gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-bad gstreamer1.0-libav</code></pre></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="pkg-rpm" aria-labelledby="pkg-rpm-tab" tabindex="0">
+            <p class="tab-title">Fedora</p>
+            <p>H.264 comes from openh264, from Cisco’s repository that Fedora enables by default.</p>
+            <div class="code"><pre><code><span class="p">$ </span>sudo dnf install alsa-lib pipewire-libs gstreamer1 \
+    gstreamer1-plugins-base gstreamer1-plugins-good \
+    gstreamer1-plugins-bad-free gstreamer1-plugin-libav \
+    gstreamer1-plugin-openh264</code></pre></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="pkg-arch" aria-labelledby="pkg-arch-tab" tabindex="0">
+            <p class="tab-title">Arch</p>
+            <div class="code"><pre><code><span class="p">$ </span>sudo pacman -S --needed alsa-lib libpipewire gstreamer \
+    gst-plugins-base-libs gst-plugins-base gst-plugins-good \
+    gst-plugins-bad gst-libav</code></pre></div>
+          </div>
+        </div>
       </section>
 
       <section id="start" aria-labelledby="start-title">
         <h2 id="start-title">Quick start</h2>
         <ol class="steps">
+          <li>
+            <h3>Install spezl</h3>
+            <p>First the <a href="#packages">system packages</a>, then spezl itself: the newest build, checked against its SHA-256, into <code>~/.local/bin</code>. Run it again to update.</p>
+            <div class="code"><pre><code><span class="p">$ </span>curl -fsSL https://griasdi.github.io/bots/install.sh | sh</code></pre></div>
+          </li>
           <li>
             <h3>Create the bot</h3>
             <p>A fresh identity with a <code>b07b…</code> id. People mention it as <code>@HelloBot</code>.</p>
