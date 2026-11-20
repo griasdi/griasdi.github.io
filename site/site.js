@@ -1,4 +1,4 @@
-// Shared by every page: the gsichtl faces (faces.js), their blinking, the nav hairline and the guide tabs.
+// Shared by every page: the gsichtl faces (faces.js), their blinking, the nav hairline, the guide tabs and the contents rail.
 (() => {
   "use strict";
 
@@ -120,6 +120,38 @@
       tabs[to].focus();
     });
   });
+
+  // ---------- contents rail (document pages): mark the section being read ----------
+
+  const tocLinks = [...document.querySelectorAll('.toc a[href^="#"]')];
+  const tocTargets = tocLinks.map((a) => document.getElementById(a.hash.slice(1)));
+  if (tocLinks.length && tocTargets.every(Boolean)) {
+    let current = -1;
+    // A clicked entry stays marked until the reader scrolls themselves: a section near
+    // the end may not reach the reading line, and the spy would mark its neighbour.
+    let pinned = -1;
+    const mark = (i) => {
+      if (i === current) return;
+      if (current >= 0) tocLinks[current].removeAttribute("aria-current");
+      if (i >= 0) tocLinks[i].setAttribute("aria-current", "location");
+      current = i;
+    };
+    const spy = () => {
+      if (pinned >= 0) return mark(pinned);
+      // The last section whose top has passed a line a third down the window;
+      // at the very bottom the last one, which may be too short to reach it.
+      const line = innerHeight / 3;
+      let i = -1;
+      tocTargets.forEach((el, j) => { if (el.getBoundingClientRect().top <= line) i = j; });
+      if (i >= 0 && innerHeight + scrollY >= document.documentElement.scrollHeight - 2) i = tocTargets.length - 1;
+      mark(i);
+    };
+    tocLinks.forEach((a, i) => a.addEventListener("click", () => { pinned = i; mark(i); }));
+    ["wheel", "touchstart", "pointerdown", "keydown"].forEach((t) => addEventListener(t, () => { pinned = -1; }, { passive: true, capture: true }));
+    addEventListener("scroll", spy, { passive: true });
+    addEventListener("resize", spy, { passive: true });
+    spy();
+  }
 
   Object.assign(window.GSICHTL = window.GSICHTL || { faces: [] }, { face: faceElement, fill: fillSlot });
 })();
