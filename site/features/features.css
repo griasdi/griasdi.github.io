@@ -1,0 +1,63 @@
+/* The features page: a face says each feature, ruled spec rows say how. Frame from doc.css and guide.css. */
+.spec-body { max-width: none; }
+.spec-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(1.5rem, 3.5vw, 3rem); align-items: start; }
+.spec-rows { margin-top: 0; }
+.spec-rows.ref.tight > li { grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr); }
+.spec-intro { margin-bottom: 1.2rem; }
+
+/* accents keep the launch page's meanings: teal voice, gold keys and ciphertext, lavender models */
+.spec-voice h2 { color: var(--teal-l); }
+.spec-keys h2 { color: var(--gold); }
+.spec-models h2 { color: var(--lav-l); }
+
+.val { color: var(--ink); font: 600 .84rem/1.45 var(--mono); letter-spacing: .02em; }
+.spec-voice .val { color: var(--teal-l); }
+.spec-keys .val { color: var(--gold); }
+.spec-models .val { color: var(--lav-l); }
+
+/* the face says it */
+.says { position: sticky; top: 7.5rem; display: flex; align-items: flex-end; gap: .9rem; padding-bottom: .6rem; }
+.says .face-slot { width: 60px; flex: none; rotate: -4deg; }
+.spec:nth-of-type(even) .says .face-slot { rotate: 4deg; }
+.doc-body .say-it {
+  max-width: none; flex: 1; padding: 1rem 1.2rem 1.1rem; border-radius: 1.3em 1.3em 1.3em .35em;
+  color: #4a3f52; font: 400 1rem/1.5 var(--body);
+}
+.say-it::after { left: 1em; }
+.say-it b { display: block; margin-bottom: .3rem; color: #241c2c; font: 800 1.25rem/1.2 var(--display); letter-spacing: -.01em; }
+.spec:nth-of-type(3n + 2) .say-it { background: #f3d9cc; }
+.spec:nth-of-type(3n) .say-it { background: #d6ecec; }
+
+@media (max-width: 1000px) {
+  .spec-split { grid-template-columns: 1fr; }
+  .says { position: static; max-width: 34rem; }
+}
+@media (max-width: 640px) { .spec-rows.ref.tight > li { grid-template-columns: 1fr; } }
+
+/* head scene: a share with the viewer's stats overlay */
+.share { border-radius: 24px; background: var(--night-2); border: 1px solid var(--line); overflow: hidden; box-shadow: 0 40px 70px -40px #000; }
+.share-bar { display: flex; align-items: center; gap: .7rem; padding: .7rem .9rem; border-bottom: 1px solid var(--line); }
+.share-bar .face-slot { width: 40px; flex: none; }
+.share-who { color: var(--ink-2); font-size: .95rem; line-height: 1.3; }
+.share-who b { color: var(--ink); }
+.share-who span { color: var(--ink-3); }
+.share-screen { position: relative; display: grid; place-items: center end; aspect-ratio: 16 / 10; padding-right: 9%; background: #0f0d14; }
+.share-cam { width: 120px; }
+.stats {
+  position: absolute; top: .8rem; left: .8rem; margin: 0; display: grid; gap: .15rem;
+  padding: .6rem .75rem; border-radius: 12px; background: rgb(36 25 38 / .92); border: 1px solid #2a2433;
+  font: 600 .8rem/1.35 var(--mono); letter-spacing: .02em;
+}
+.stats div { display: grid; grid-template-columns: 3.6rem auto; gap: .6rem; }
+.stats dt { color: var(--ink-3); }
+.stats dd { margin: 0; color: var(--ink); white-space: nowrap; }
+
+/* close: the terracotta band */
+.spec-close { background: var(--terra); color: var(--on-terra); }
+.spec-close h2 { font-size: clamp(2.3rem, 5vw, 3.9rem); }
+.spec-close a:not(.btn), .spec-close a:not(.btn):hover { color: var(--on-terra); font-weight: 700; }
+.spec-close :focus-visible { outline-color: var(--on-terra); }
+.close-row { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 1.5rem 2rem; }
+.close-say { margin-top: .8rem; font-size: 1.2rem; font-weight: 700; }
+.close-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 1.8rem; }
+@media (max-width: 700px) { .close-row { grid-template-columns: 1fr; } }

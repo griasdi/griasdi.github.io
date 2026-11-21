@@ -41,4 +41,8 @@ GitHub Pages publishes `site/` at https://griasdi.github.io/ on every push to
   GitHub; `site/bots/` links it, documents the SDKs and the `spezl serve`
   JSON-RPC protocol (the public protocol reference), never the Rust crate or
   the spezl source.
+- Features: `site/features/` explains every feature with its specs (codecs,
+  bitrates, buffers, keys, models, local API), taken from the app's code and
+  docs, and names what griasdi doesn't do yet. Every page carries the same
+  nav (Features, Server, Bots, Download); About and Privacy are in the footer.
 - Site copy in English.

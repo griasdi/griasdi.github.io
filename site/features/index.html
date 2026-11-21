@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#1c131d">
+<title>griasdi: every feature, in detail</title>
+<meta name="description" content="What griasdi does and the numbers behind it: screen sharing in AV1 up to 1440p, Opus voice, overlays and hotkeys, MLS and SFrame encryption, on-device models and a local API.">
+<link rel="canonical" href="https://griasdi.github.io/features/">
+<meta property="og:site_name" content="griasdi">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://griasdi.github.io/features/">
+<meta property="og:title" content="griasdi, every feature in detail">
+<meta property="og:description" content="Screen sharing, voice, overlays, encryption, on-device models and developer tools, with the numbers behind them.">
+<meta property="og:image" content="https://griasdi.github.io/img/card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="griasdi: five pixel faces around a table talk in speech bubbles while the server in the middle only sees scrambled hex.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../img/mark.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/baloo2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/atkinson-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../doc.css">
+<link rel="stylesheet" href="../guide.css">
+<link rel="stylesheet" href="features.css">
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3.5v12M7 10.5l5 5 5-5M4.5 20.5h15"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="../" aria-label="griasdi, to the home page"><img src="../img/mark.svg" width="34" height="34" alt=""><span>griasdi</span></a>
+    <ul class="nav-links">
+      <li><a href="../features/" aria-current="page">Features</a></li>
+      <li><a href="../server/">Server</a></li>
+      <li><a href="../bots/">Bots</a></li>
+    </ul>
+    <a class="btn btn-small" href="../#download"><svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>Download</a>
+  </nav>
+</header>
+
+<main id="main" class="doc">
+  <div class="wrap doc-head guide-head">
+    <h1>Every feature, in detail.</h1>
+    <p class="doc-lede">What griasdi does and the numbers behind it: codecs, bitrates, buffers, keys and models. Short enough to read before your stream starts, exact enough to check against your own setup.</p>
+    <figure class="scene">
+      <div class="share" aria-hidden="true">
+        <div class="share-bar"><span class="face-slot" data-face="27"></span><span class="share-who"><b>Bob</b> shares <span>Capture card</span></span></div>
+        <div class="share-screen">
+          <span class="face-slot share-cam" data-face="27"></span>
+          <dl class="stats">
+            <div><dt>size</dt><dd>2560×1440</dd></div>
+            <div><dt>codec</dt><dd>AV1</dd></div>
+            <div><dt>color</dt><dd>BT.709 4:2:0</dd></div>
+            <div><dt>rate</dt><dd>7 420 kbit/s</dd></div>
+            <div><dt>fps</dt><dd>30 · 30 · 30</dd></div>
+            <div><dt>sound</dt><dd>Opus 64k</dd></div>
+          </dl>
+        </div>
+      </div>
+      <figcaption>The stats overlay any viewer can open on a share: received, decoded and shown frames side by side. Example values.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap doc-grid">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-title">On this page</p>
+      <ol>
+        <li><a href="#screen">Screen sharing</a></li>
+        <li><a href="#voice">Voice</a></li>
+        <li><a href="#overlays">Overlays and keys</a></li>
+        <li><a href="#chat">Chat and files</a></li>
+        <li><a href="#security">Encryption</a></li>
+        <li><a href="#models">On-device models</a></li>
+        <li><a href="#devs">For developers</a></li>
+        <li><a href="#runs">Where it runs</a></li>
+        <li><a href="#not-yet">Not yet</a></li>
+      </ol>
+    </nav>
+    <div class="doc-body spec-body">
+
+      <section id="screen" class="spec" aria-labelledby="screen-title">
+        <h2 id="screen-title">Screen sharing</h2>
+        <div class="spec-split">
+          <div class="says"><span class="face-slot" data-face="27" aria-hidden="true"></span><p class="bubble say-it"><b>Your game, with its sound, in AV1.</b> A screen, a window, a capture card or a camera, into a call or a text channel. If one viewer’s line is slow, only they drop to 15&nbsp;fps.</p></div>
+          <ul class="ref tight spec-rows">
+            <li><span class="term-name"><b>Codecs</b></span><div class="desc"><p class="val">AV1 · H.264</p><p>Hardware first: NVENC, VA-API, AMF, Quick Sync or VideoToolbox, whichever your machine has. If one fails mid-stream, the next takes over. Software AV1 is the last resort.</p></div></li>
+            <li><span class="term-name"><b>Picture</b></span><div class="desc"><p class="val">480p · 720p · 1080p · 1440p, 30&nbsp;fps</p><p>1080p by default and never upscaled. The Text switch trades motion for sharp letters at 15&nbsp;fps. Software encoding runs at 720p and 10&nbsp;fps.</p></div></li>
+            <li><span class="term-name"><b>Bitrate</b></span><div class="desc"><p class="val">up to 10&nbsp;Mbit/s AV1, 15&nbsp;Mbit/s H.264</p><p>At 1440p. The stream starts lower and is retuned every 2&nbsp;s from what the server reports: down by 30&nbsp;% when the line is congested, up again once it’s calm.</p></div></li>
+            <li><span class="term-name"><b>Delay</b></span><div class="desc"><p class="val">≤ 150&nbsp;ms playout buffer</p><p>It follows the jitter of the last 3&nbsp;s. A keyframe every 2&nbsp;s, so a new viewer is in within 2&nbsp;s.</p></div></li>
+            <li><span class="term-name"><b>Slow viewers</b></span><div class="desc"><p class="val">up to 3 temporal layers</p><p>The server drops the upper layers for the viewer who can’t keep up. Everyone else keeps 30&nbsp;fps.</p></div></li>
+            <li><span class="term-name"><b>Sound</b></span><div class="desc"><p class="val">Opus · 64&nbsp;kbit/s</p><p>Every app’s sound except griasdi’s own, so the call never echoes into your stream. Or one audio input, such as the capture card’s HDMI sound.</p></div></li>
+            <li><span class="term-name"><b>Capture</b></span><div class="desc"><p>Wayland through the screen portal and PipeWire, X11, Windows Graphics Capture, macOS ScreenCaptureKit. Capture cards and cameras with a live preview.</p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="voice" class="spec spec-voice" aria-labelledby="voice-title">
+        <h2 id="voice-title">Voice</h2>
+        <div class="spec-split">
+          <div class="says"><span class="face-slot" data-face="6" aria-hidden="true"></span><p class="bubble say-it"><b>Crisp for a whole evening.</b> The noise model eats your keyboard, the echo stays out, and everyone gets their own volume.</p></div>
+          <ul class="ref tight spec-rows">
+            <li><span class="term-name"><b>Codec</b></span><div class="desc"><p class="val">Opus · 48&nbsp;kHz · 32&nbsp;kbit/s</p><p>20&nbsp;ms frames with forward error correction: a lost packet is rebuilt from the next one.</p></div></li>
+            <li><span class="term-name"><b>Jitter buffer</b></span><div class="desc"><p class="val">40–200&nbsp;ms, per speaker</p><p>Starts at 60&nbsp;ms, grows when someone’s line wobbles and shrinks back after 10&nbsp;s of calm.</p></div></li>
+            <li><span class="term-name"><b>Noise suppression</b></span><div class="desc"><p class="val">Light · Strong · Maximum</p><p>RNNoise, DPDFNet-2 and DPDFNet-8, on the processor. If a model needs more than 60&nbsp;% of real time, griasdi falls back to the standard one.</p></div></li>
+            <li><span class="term-name"><b>Clean-up</b></span><div class="desc"><p>Echo cancellation, automatic gain up to +15&nbsp;dB and an 8-band equalizer from 100&nbsp;Hz to 12.8&nbsp;kHz.</p></div></li>
+            <li><span class="term-name"><b>Sending</b></span><div class="desc"><p>Speech detection by default, a loudness gate, or push-to-talk, on the backquote key unless you pick another.</p></div></li>
+            <li><span class="term-name"><b>Per person</b></span><div class="desc"><p class="val">−10 to +15&nbsp;dB</p><p>A volume and a “Mute for me” for everyone, kept on your device for every channel.</p></div></li>
+            <li><span class="term-name"><b>Under load</b></span><div class="desc"><p>The audio thread runs at real-time priority on Windows, macOS and Linux, so a game on every core doesn’t cut you off.</p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="overlays" class="spec" aria-labelledby="overlays-title">
+        <h2 id="overlays-title">Overlays and keys</h2>
+        <div class="spec-split">
+          <div class="says"><span class="face-slot" data-face="58" aria-hidden="true"></span><p class="bubble say-it"><b>Stay in your game.</b> See who’s talking, pause your stream, mute yourself, all without switching windows.</p></div>
+          <ul class="ref tight spec-rows">
+            <li><span class="term-name"><b>Voice overlay</b></span><div class="desc"><p>Who is in your call, with a lamp that lights while someone talks. It sits above your game and never takes the focus or a click.</p></div></li>
+            <li><span class="term-name"><b>Stream overlay</b></span><div class="desc"><p>Your own share: live or paused, for how long, the quality and who watches, with buttons for pause, sound, microphone, deafen and stop.</p></div></li>
+            <li><span class="term-name"><b>Kept off stream</b></span><div class="desc"><p>On Windows and macOS 14.4 or newer the overlays stay out of your own screen share. Elsewhere they hide while you share a whole screen.</p></div></li>
+            <li><span class="term-name"><b>System-wide keys</b></span><div class="desc"><p>Push-to-talk, mute, deafen, leave, transcript, the overlays, pause and sound of your share. They work while the game has focus, on Windows, macOS, X11 and Wayland.</p></div></li>
+            <li><span class="term-name"><b>OBS</b></span><div class="desc"><p>“OBS overlay…” gives OBS a key and a page with your voice overlay, ready for a browser source.</p></div></li>
+            <li><span class="term-name"><b>Everything else</b></span><div class="desc"><p class="val">Ctrl+K</p><p>The command palette runs every action in the app. Cmd+K on a Mac.</p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="chat" class="spec" aria-labelledby="chat-title">
+        <h2 id="chat-title">Chat and files</h2>
+        <div class="spec-split">
+          <div class="says"><span class="face-slot" data-face="11" aria-hidden="true"></span><p class="bubble say-it"><b>Text channels, DMs and big files.</b> Too big for the server? It goes from member to member, from everyone who already has it.</p></div>
+          <ul class="ref tight spec-rows">
+            <li><span class="term-name"><b>Messages</b></span><div class="desc"><p>Markdown, replies, reactions, edits, forwards, pins, polls with up to 10 options, read receipts, mentions, @here and @all. Drafts survive a restart.</p></div></li>
+            <li><span class="term-name"><b>Attachments</b></span><div class="desc"><p class="val">≤ 25&nbsp;MiB, kept 1, 7 or 30 days</p><p>Stored encrypted on the server for as long as the sender picks, from the server’s list.</p></div></li>
+            <li><span class="term-name"><b>Big files and folders</b></span><div class="desc"><p class="val">8&nbsp;GiB, or up to 1&nbsp;TiB if the server allows</p><p>Sent in 1&nbsp;MiB pieces, each one checked, from everyone online who has them. If nobody is, the download waits and carries on by itself. From a folder you take only what you need.</p></div></li>
+            <li><span class="term-name"><b>Video</b></span><div class="desc"><p>Plays in the chat while it is still arriving. A YouTube player is built in.</p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="security" class="spec spec-keys" aria-labelledby="security-title">
+        <h2 id="security-title">Encryption</h2>
+        <div class="spec-split">
+          <div class="says"><span class="face-slot" data-face="19" aria-hidden="true"></span><p class="bubble say-it"><b>No accounts. Just keys.</b> Everything is encrypted on your device. The server orders, stores and forwards what it can’t read.</p></div>
+          <ul class="ref tight spec-rows">
+            <li><span class="term-name"><b>Text</b></span><div class="desc"><p class="val">MLS, RFC 9420</p><p>X25519, AES-128-GCM and Ed25519. Messages are sealed with XChaCha20-Poly1305 and padded, so their length gives little away. New keys with every change of members.</p></div></li>
+            <li><span class="term-name"><b>Voice and screens</b></span><div class="desc"><p class="val">SFrame, RFC 9605 · AES-128-GCM</p><p>Keys from MLS, one per sender, replaced with every change of members.</p></div></li>
+            <li><span class="term-name"><b>Files</b></span><div class="desc"><p>A random key per file, every piece checked with BLAKE3.</p></div></li>
+            <li><span class="term-name"><b>You</b></span><div class="desc"><p>An Ed25519 key, optionally behind a passphrase. Each device has its own key, signed by yours. Join with a link: no e-mail, no phone number, no password.</p></div></li>
+            <li><span class="term-name"><b>The server sees</b></span><div class="desc"><p>Ciphertext, sizes, timing, who belongs to which group and who is muted. The names of communities, channels and roles are sealed. <a href="../privacy/#servers">What a server sees</a></p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="models" class="spec spec-models" aria-labelledby="models-title">
+        <h2 id="models-title">On-device models</h2>
+        <div class="spec-split">
+          <div class="says"><span class="face-slot" data-face="52" aria-hidden="true"></span><p class="bubble say-it"><b>Smart where you sit.</b> Every model runs on your computer, on griasdi’s own inference engine. Nothing you say is sent anywhere to be analysed.</p></div>
+          <ul class="ref tight spec-rows">
+            <li><span class="term-name"><b>Noise suppression</b></span><div class="desc"><p class="val">RNNoise · DPDFNet-2 · DPDFNet-8</p><p>On the processor, in real time.</p></div></li>
+            <li><span class="term-name"><b>Speech detection</b></span><div class="desc"><p>A small voice model opens your microphone when you speak, not when you type.</p></div></li>
+            <li><span class="term-name"><b>Live transcripts</b></span><div class="desc"><p class="val">NVIDIA Nemotron ASR Streaming 0.6B</p><p>Opt in, on your graphics card (Vulkan, Metal or DirectX 12). Also dictates into the composer. Call transcripts vanish when the call ends.</p></div></li>
+            <li><span class="term-name"><b>Spoken cues</b></span><div class="desc"><p class="val">Supertonic 3 · ten voices</p><p>Opt in: says who joined, by name.</p></div></li>
+            <li><span class="term-name"><b>Writing check</b></span><div class="desc"><p class="val">EuroLLM 1.7B</p><p>Marks likely typos in English and German as you write. It never rewrites anything.</p></div></li>
+            <li><span class="term-name"><b>The engine</b></span><div class="desc"><p>griasdi’s own GPU kernels on wgpu, and a CPU path. Model files are signed and come through the server, never from a third party.</p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="devs" class="spec" aria-labelledby="devs-title">
+        <h2 id="devs-title">For developers</h2>
+        <div class="spec-split">
+          <div class="says"><span class="face-slot" data-face="33" aria-hidden="true"></span><p class="bubble say-it"><b>Hackable from your side.</b> A local API for your Stream Deck and scripts, an MCP server for your agents, and bots in Python or TypeScript.</p></div>
+          <ul class="ref tight spec-rows">
+            <li><span class="term-name"><b>Local access</b></span><div class="desc"><p class="val">127.0.0.1:13337</p><p>Off until you turn it on in Settings, Integrations. Every program gets its own key and only the permissions you grant. Requests from web pages and other host names are refused.</p></div></li>
+            <li><span class="term-name"><b>Events and commands</b></span><div class="desc"><p>State as server-sent events from <code>GET /v1/events</code>; <code>POST /v1/commands/&lt;name&gt;</code> to mute, deafen, push to talk, leave, pause or stop your share and toggle the overlays.</p></div></li>
+            <li><span class="term-name"><b>MCP</b></span><div class="desc"><p class="val">/mcp · 12 tools</p><p>Let an agent list conversations, read and send messages, read the live transcript, and see or control your call and your share.</p></div></li>
+            <li><span class="term-name"><b>Bots</b></span><div class="desc"><p>A bot is a member with its own key. Slash commands, cards, polls, voice in 48&nbsp;kHz frames, and a video file streamed as a share. <a href="../bots/">Read the bot guide</a></p></div></li>
+            <li><span class="term-name"><b>Devices</b></span><div class="desc"><p><code>griasdi link ssh desktop</code> brings a laptop in from a terminal: your desktop signs its key.</p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="runs" class="spec" aria-labelledby="runs-title">
+        <h2 id="runs-title">Where it runs</h2>
+        <div class="spec-split">
+          <div class="says"><span class="face-slot" data-face="40" aria-hidden="true"></span><p class="bubble say-it"><b>One app on three systems.</b> Native, drawn on your graphics card, and it updates itself without dropping your call.</p></div>
+          <ul class="ref tight spec-rows">
+            <li><span class="term-name"><b>Linux</b></span><div class="desc"><p class="val">x86_64 · ARM64</p><p>AppImage or tarball. glibc 2.39 and PipeWire 0.3.53 or newer.</p></div></li>
+            <li><span class="term-name"><b>Windows</b></span><div class="desc"><p class="val">x86_64</p><p>Setup or portable zip. Sharing a stream’s sound needs Windows 11 or Windows 10 build 20348.</p></div></li>
+            <li><span class="term-name"><b>macOS</b></span><div class="desc"><p class="val">Apple Silicon · macOS 14</p><p>A .dmg.</p></div></li>
+            <li><span class="term-name"><b>Updates</b></span><div class="desc"><p>Signed builds, every piece checked. The restart keeps your place, your call and your screen share.</p></div></li>
+            <li><span class="term-name"><b>Your own server</b></span><div class="desc"><p>griasdi-server for Linux: one program, UDP and TCP port 1337, no database to run. <a href="../server/">Read the server guide</a></p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="not-yet" class="spec" aria-labelledby="not-yet-title">
+        <h2 id="not-yet-title">Not yet</h2>
+        <p class="spec-intro">What griasdi doesn’t do today, so you know before your first stream.</p>
+        <ul class="ref tight spec-rows">
+          <li><span class="term-name"><b>Over 30&nbsp;fps</b></span><div class="desc"><p>Screen sharing tops out at 30&nbsp;fps. No 60&nbsp;fps yet.</p></div></li>
+          <li><span class="term-name"><b>Who sent a frame</b></span><div class="desc"><p>Everyone in a call holds its keys, so a member working together with the server could fake who sent a piece of voice or video. Outsiders and the server alone can’t. Text is signed by each device.</p></div></li>
+          <li><span class="term-name"><b>Search and threads</b></span><div class="desc"><p>There is no message search, and replies don’t open threads.</p></div></li>
+          <li><span class="term-name"><b>Checking a contact</b></span><div class="desc"><p>No guided step yet to compare keys with someone in person.</p></div></li>
+          <li><span class="term-name"><b>Tested on real desktops</b></span><div class="desc"><p>Screen sharing on Linux, Windows and macOS has so far been checked in test runs without a real desktop. The checks on real desktops are still under way.</p></div></li>
+          <li><span class="term-name"><b>Signed installers</b></span><div class="desc"><p>The Windows setup isn’t code-signed and the Mac app isn’t notarized, so both systems warn on first start. <a href="../#download">How to open it anyway</a></p></div></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <section class="spec-close" aria-labelledby="close-title">
+    <div class="wrap close-row">
+      <div>
+        <h2 id="close-title">Seen enough? Say griasdi.</h2>
+        <p class="close-say">One app for Linux, Windows and macOS. Invite your crew with a link.</p>
+        <p class="close-actions"><a class="btn btn-ghost" href="../#download"><svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>Download griasdi</a><a href="../server/">Run your own server</a><a href="../bots/">Write a bot</a></p>
+      </div>
+      <div class="dl-cast" aria-hidden="true"><span class="face-slot" data-face="11"></span><span class="face-slot" data-face="1"></span><span class="face-slot" data-face="27"></span><span class="face-slot" data-face="40"></span><span class="face-slot" data-face="6"></span></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <a class="brand" href="../" aria-label="griasdi, to the home page"><img src="../img/mark.svg" width="28" height="28" alt=""><span>griasdi</span></a>
+    <p>griasdi is Bavarian for “hello, you”.</p>
+    <ul class="foot-links"><li><a href="../features/">Features</a></li><li><a href="../server/">Server</a></li><li><a href="../bots/">Bots</a></li><li><a href="../about/">About</a></li><li><a href="../privacy/">Privacy</a></li></ul>
+    <p class="legal">© 2026 Hannes Uebelacker and Felix Itzenplitz. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="../faces.js"></script>
+<script src="../site.js"></script>
+</body>
+</html>

@@ -112,7 +112,14 @@ code, pre { font-family: var(--mono); }
 .nav-links a { display: block; padding: .45rem .75rem; border-radius: 10px; color: var(--ink-2); text-decoration: none; font-weight: 700; font-size: .98rem; }
 .nav-links a:hover { color: var(--ink); background: var(--night-3); }
 .nav-links a[aria-current="page"] { color: var(--ink); background: var(--night-3); }
-@media (max-width: 900px) { .nav-links { display: none; } .nav .btn-small { margin-left: auto; } }
+@media (max-width: 900px) {
+  /* the links move to a second row under the brand and the button */
+  html { scroll-padding-top: 7.5rem; }
+  .nav { flex-wrap: wrap; height: auto; column-gap: 1rem; row-gap: 0; padding-top: .6rem; }
+  .nav .btn-small { margin-left: auto; }
+  .nav-links { order: 3; width: calc(100% + 1.5rem); margin: .2rem -.75rem 0; padding-bottom: .35rem; overflow-x: auto; }
+  .nav-links a { padding: .35rem .75rem; }
+}
 
 /* ---------- hero ---------- */
 .hero {
