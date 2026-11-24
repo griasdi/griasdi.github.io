@@ -435,9 +435,9 @@
 
       <section id="config" aria-labelledby="config-title">
         <h2 id="config-title">Configuration</h2>
-        <p><code>griasdi-server.toml</code>, written by <code>init</code>: in <code>/etc/griasdi/</code> with a package or the tarball, in the volume with a container. Change it as in <a href="#install">Day to day</a> of your install, then restart. <code>init</code> writes the first four keys; everything else has a default. The file may hold only these keys: an unknown or misspelled key is an error and the server doesn’t start.</p>
+        <p><code>griasdi-server.toml</code>, written by <code>init</code>: in <code>/etc/griasdi/</code> with a package or the tarball, in the volume with a container. Change it as in <a href="#install">Day to day</a> of your install, then restart. <code>init</code> writes every key below except the <code>[august]</code> table: <code>name</code> and <code>public_host</code> from its questions, <code>listen</code> and <code>data_dir</code> for your install, the rest with their defaults. The file may hold only these keys: an unknown or misspelled key is an error and the server doesn’t start.</p>
         <div class="code">
-          <div class="code-head"><span>Written by init</span><code>griasdi-server.toml</code></div>
+          <div class="code-head"><span>The first lines init writes</span><code>griasdi-server.toml</code></div>
 <pre><code><span class="k">name</span> = <span class="s">"chat"</span>
 <span class="k">listen</span> = <span class="s">"[::]:1337"</span>
 <span class="k">public_host</span> = <span class="s">"chat.example.org"</span>
