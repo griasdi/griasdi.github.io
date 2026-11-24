@@ -26,10 +26,12 @@ GitHub Pages publishes `site/` at https://griasdi.github.io/ on every push to
   zip), macOS Apple Silicon (dmg, macOS 14+). Downloads are the newest build of
   the update files, read live from `griasdi.doodleshnookie.net/updates`
   (`site/downloads.js`).
-- Self-hosted Linux server: `site/server/` offers its tar.gz (x86_64, ARM64)
-  from the newest build of the update files (`site/release.js`) and documents
-  installing, setting up, configuring and updating it, from the app
-  repository's README and `crates/griasdi-server`.
+- Self-hosted Linux server: `site/server/` documents installing it per medium
+  (Ubuntu/Debian .deb, Fedora .rpm, Docker, Podman Quadlet, Docker Compose,
+  tarball) from `griasdi.doodleshnookie.net/updates/latest/` and the image
+  `oci.doodleshnookie.net/griasdi-server`, then setting it up, licensing,
+  configuring and updating it, from the app repository's README and
+  `crates/griasdi-server`.
 - Bots: spezl lives in `spezl/` of the griasdi repository and is published as
   a binary for Linux (x86_64, ARM64) with every griasdi build, through the
   update manifest's `tools`; `site/bots/` offers it from there

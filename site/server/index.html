@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://griasdi.doodleshnookie.net; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#1c131d">
 <title>griasdi: run your own server</title>
 <meta name="description" content="Host griasdi for your own crew on Linux: install griasdi-server, set it up, configure it and keep it updated.">
@@ -30,7 +30,6 @@
 <body>
 <svg class="sprite" aria-hidden="true" focusable="false">
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol>
   <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17.5 12v3.5M20.5 12v2.5"/></symbol>
   <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/><path d="M8 7.5h.01M8 16.5h.01M12 7.5h4M12 16.5h4"/></symbol>
   <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h13M13.5 4.5L17 8l-3.5 3.5M20 16H7M10.5 12.5L7 16l3.5 3.5"/></symbol>
@@ -55,16 +54,6 @@
   <div class="wrap doc-head guide-head">
     <h1>Run your own server.</h1>
     <p class="doc-lede">griasdi-server is one program for Linux. It holds your communities, stores and forwards what your members encrypt, and can’t read any of it. This guide covers installing it, setting it up, its license, configuring it and keeping it up to date.</p>
-    <aside class="release" aria-labelledby="release-title">
-      <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>
-      <div>
-        <p><b id="release-title">griasdi-server for Linux.</b> <span id="release-build" data-none="No server build is published yet.">Looking for the newest build…</span> Unpack it as in <a href="#install">Install</a>, Other Linux.</p>
-        <ul class="files">
-          <li><a class="file" data-file="server:tar.gz:x86_64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>x86_64</small></a></li>
-          <li><a class="file" data-file="server:tar.gz:aarch64-unknown-linux-gnu" href="#" aria-disabled="true"><span>.tar.gz</span><small>ARM64</small></a></li>
-        </ul>
-      </div>
-    </aside>
     <figure class="scene">
       <div class="relay" aria-hidden="true">
         <div class="speaker"><span class="face-slot" data-face="11"></span><div class="said"><span class="said-who"><b>Alice</b> says</span><span class="bubble">gg, same time tomorrow?</span></div></div>
@@ -88,14 +77,13 @@
       <ol>
         <li><a href="#what">What a server does</a></li>
         <li><a href="#needs">What you need</a></li>
-        <li><a href="#install">Install</a></li>
-        <li><a href="#setup">Set it up</a></li>
-        <li><a href="#container">In a container</a></li>
+        <li><a href="#install">Install and set up</a></li>
+        <li><a href="#join">Join your server</a></li>
         <li><a href="#people">Communities and admins</a></li>
         <li><a href="#license">License</a></li>
         <li><a href="#config">Configuration</a></li>
         <li><a href="#updates">Updates</a></li>
-        <li><a href="#files">Files and commands</a></li>
+        <li><a href="#commands">Commands</a></li>
       </ol>
     </nav>
     <div class="doc-body">
@@ -104,151 +92,310 @@
         <p>Every griasdi community lives on a server. Run your own and your crew’s communities, messages and files live on hardware you choose. Your members connect to it from the griasdi app like to any other server.</p>
         <ul class="facts">
           <li><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span><b>It stores ciphertext.</b> Messages, files, voice, screen sharing and the names of communities, channels and roles are encrypted on your members’ devices. <a href="../privacy/#servers">What a server sees</a></span></li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg><span><b>No accounts, no passwords.</b> People are keys. They join with invite links, and the first link makes you the owner.</span></li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-swap"/></svg><span><b>It hands out updates and models.</b> The server fetches signed app builds and on-device speech models and passes them on to the apps connected to it. Only builds signed by us are taken.</span></li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><span><b>It serves no web page.</b> Invite links point to griasdi.github.io/join, which hands them to the app. The server talks only to griasdi apps, other griasdi servers and our catalog of builds.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg><span><b>No accounts, no passwords.</b> People are keys. They join with invite links; the setup link makes you the server’s admin and the owner of its first community.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-swap"/></svg><span><b>It hands out updates and models.</b> Your members’ apps get their updates and speech models from it. The server fetches signed builds and passes them on; only builds signed by us are taken. See <a href="#updates">Updates</a>.</span></li>
         </ul>
       </section>
 
       <section id="needs" aria-labelledby="needs-title">
         <h2 id="needs-title">What you need</h2>
         <ul class="ref tight">
-          <li><span class="term-name"><b>A Linux machine</b></span><div class="desc"><p>x86_64 or ARM64 with systemd: Ubuntu 24.04, Debian 13, Fedora 40 or later. In a container, any host that runs Docker or Podman.</p></div></li>
-          <li><span class="term-name"><b>System packages</b></span><div class="desc"><p>Only glibc 2.39 or newer and libgcc_s, which those distributions bring. The server carries its own SQLite and TLS: no OpenSSL, no database server. The image brings everything it needs.</p></div></li>
-          <li><span class="term-name"><b>A name or address</b></span><div class="desc"><p>The host name (or IP address) your members’ apps reach the server by, such as <code>chat.example.org</code>. It goes into every link the server makes.</p></div></li>
-          <li><span class="term-name"><b>Two open ports</b></span><div class="desc"><p><b>UDP 1337</b> for everything griasdi does. <b>TCP 1337</b> for app updates over HTTPS, for apps that can’t reach the server over QUIC; without it the server logs a warning at start and those apps skip that fallback. Outgoing, it reaches august on UDP 1328, and on TCP 1328 over HTTPS when that doesn’t get through.</p></div></li>
+          <li><span class="term-name"><b>A Linux machine</b></span><div class="desc"><p>x86_64 or ARM64: Ubuntu 24.04 or newer, Debian 13, Fedora 40 or newer, or any Linux that runs containers (Docker, Podman or another OCI runtime).</p><p>CPU and memory hardly matter: our own server runs in about 150 MB of memory on two ARM cores. Bandwidth matters more, because your members’ apps download their <a href="#updates">updates</a> from the server. Disk: about 4 GB for the cache of app builds and speech models, plus what members store: attachments, up to 1 GiB per person by default.</p></div></li>
+          <li><span class="term-name"><b>A name or address</b></span><div class="desc"><p>The name or IP address your members’ apps reach the server by, such as <code>chat.example.org</code>. It goes into every invite link. A DNS name beats an IP address because it survives a move to another machine. It needs no subdomain of its own: the server keeps to its own port, so it can share a machine and its name with a website or anything else.</p></div></li>
+          <li><span class="term-name"><b>Port 1337, UDP and TCP</b></span><div class="desc"><p>Open it for both, and forward it if the machine sits behind a router. Outgoing connections need no rule on most networks; <a href="#updates">Updates</a> names them.</p></div></li>
         </ul>
       </section>
 
       <section id="install" aria-labelledby="install-title">
-        <h2 id="install-title">Install</h2>
-        <p>The server comes for x86_64 and ARM64 in three forms. Until the first release they are in the nightly prereleases (<code>nightly-&lt;date&gt;</code>) on the <a href="https://github.com/griasdi/griasdi/releases">releases page</a>, with their checksums in the build’s signed <code>manifest.json</code>. A release adds <code>SHA256SUMS</code>, to check them with <code>sha256sum -c --ignore-missing SHA256SUMS</code>. The packages and the tarball bring the systemd unit <code>griasdi-server.service</code>. For a container, skip to <a href="#container">In a container</a>.</p>
-        <div class="tabs" data-tabs="os">
-          <div class="seg" role="tablist" aria-label="Distribution" hidden>
-            <button type="button" role="tab" id="os-deb-tab" aria-controls="os-deb" aria-selected="true" data-tab="deb">Debian and Ubuntu</button>
-            <button type="button" role="tab" id="os-rpm-tab" aria-controls="os-rpm" aria-selected="false" tabindex="-1" data-tab="rpm">Fedora</button>
-            <button type="button" role="tab" id="os-tar-tab" aria-controls="os-tar" aria-selected="false" tabindex="-1" data-tab="tar">Other Linux</button>
+        <h2 id="install-title">Install and set up</h2>
+        <p>Pick how you run it; everything below the choice is for that way.</p>
+        <div class="tabs" data-tabs="medium">
+          <div class="seg" role="tablist" aria-label="How you run it" hidden>
+            <button type="button" role="tab" id="m-deb-tab" aria-controls="m-deb" aria-selected="true" data-tab="deb">Ubuntu / Debian</button>
+            <button type="button" role="tab" id="m-rpm-tab" aria-controls="m-rpm" aria-selected="false" tabindex="-1" data-tab="rpm">Fedora</button>
+            <button type="button" role="tab" id="m-docker-tab" aria-controls="m-docker" aria-selected="false" tabindex="-1" data-tab="docker">Docker</button>
+            <button type="button" role="tab" id="m-podman-tab" aria-controls="m-podman" aria-selected="false" tabindex="-1" data-tab="podman">Podman</button>
+            <button type="button" role="tab" id="m-compose-tab" aria-controls="m-compose" aria-selected="false" tabindex="-1" data-tab="compose">Docker Compose</button>
+            <button type="button" role="tab" id="m-tar-tab" aria-controls="m-tar" aria-selected="false" tabindex="-1" data-tab="tar">Other Linux</button>
           </div>
-          <div class="tab-panel" role="tabpanel" id="os-deb" aria-labelledby="os-deb-tab" tabindex="0">
-            <p class="tab-title">Debian and Ubuntu</p>
-            <p>Download <code>griasdi-server_&lt;version&gt;-1_&lt;arch&gt;.deb</code>, for amd64 or arm64, and install it:</p>
-            <div class="code"><pre><code><span class="p">$ </span>sudo apt install ./griasdi-server_*.deb</code></pre></div>
+
+          <div class="tab-panel" role="tabpanel" id="m-deb" aria-labelledby="m-deb-tab" tabindex="0">
+            <p class="tab-title">Ubuntu / Debian</p>
+            <p>Ubuntu 24.04 or newer and Debian 13, on x86_64 or ARM64.</p>
+            <ol class="steps">
+              <li>
+                <h3>Install it</h3>
+                <div class="code"><pre><code><span class="p">$ </span>curl -fLO https://griasdi.doodleshnookie.net/updates/latest/griasdi-server_$(dpkg --print-architecture).deb
+<span class="p">$ </span>sudo apt install ./griasdi-server_*.deb</code></pre></div>
+                <p>It brings the service <code>griasdi-server</code>, which waits until the server is set up.</p>
+              </li>
+              <li>
+                <h3>Set it up</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server init</code></pre></div>
+                <p>It asks for the name or address your members reach the server by and a name for the server, and writes <code>/etc/griasdi/griasdi-server.toml</code>.</p>
+              </li>
+              <li>
+                <h3>Start it</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo systemctl enable --now griasdi-server</code></pre></div>
+                <p>It starts now and with every boot, and comes back by itself after a crash or its own update. If ufw is active: <code>sudo ufw allow 1337</code>. Open port 1337 for UDP and TCP in any firewall in front of the machine too.</p>
+              </li>
+              <li>
+                <h3>Take the setup link</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo journalctl -u griasdi-server -o cat | grep -A1 'setup link'</code></pre></div>
+                <p>Lost it, or older than 24 hours? <code>sudo griasdi-server setup-link</code> prints a new one. Then open it in griasdi: see <a href="#join">Join your server</a>.</p>
+              </li>
+            </ol>
+            <h3>Day to day</h3>
+            <ul class="ref tight">
+              <li><span class="term-name"><b>Logs</b></span><div class="desc"><p><code>sudo journalctl -u griasdi-server -f</code></p></div></li>
+              <li><span class="term-name"><b>Configuration</b></span><div class="desc"><p><code>sudoedit /etc/griasdi/griasdi-server.toml</code>, then <code>sudo systemctl restart griasdi-server</code>. See <a href="#config">Configuration</a>.</p></div></li>
+              <li><span class="term-name"><b>Commands</b></span><div class="desc"><p><code>sudo griasdi-server &lt;command&gt;</code>, see <a href="#commands">Commands</a>.</p></div></li>
+              <li><span class="term-name"><b>Files</b></span><div class="desc"><p><code>/etc/griasdi/</code>: the configuration.</p><p><code>/var/lib/griasdi/</code>: the database, attachments, the server’s identity and its installed builds (<code>bin/</code>).</p><p><code>/var/cache/griasdi/</code>: the cache of app builds and models, refilled if lost. Mount bulk storage there.</p></div></li>
+            </ul>
           </div>
-          <div class="tab-panel" role="tabpanel" id="os-rpm" aria-labelledby="os-rpm-tab" tabindex="0">
+
+          <div class="tab-panel" role="tabpanel" id="m-rpm" aria-labelledby="m-rpm-tab" tabindex="0">
             <p class="tab-title">Fedora</p>
-            <p>For Fedora and other rpm distributions, download <code>griasdi-server-&lt;version&gt;-1.&lt;arch&gt;.rpm</code>, for x86_64 or aarch64, and install it:</p>
-            <div class="code"><pre><code><span class="p">$ </span>sudo dnf install ./griasdi-server-*.rpm</code></pre></div>
+            <p>Fedora 40 or newer and other rpm distributions with glibc 2.39 or newer, on x86_64 or ARM64.</p>
+            <ol class="steps">
+              <li>
+                <h3>Install it</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo dnf install https://griasdi.doodleshnookie.net/updates/latest/griasdi-server.$(uname -m).rpm</code></pre></div>
+                <p>It brings the service <code>griasdi-server</code>, which waits until the server is set up.</p>
+              </li>
+              <li>
+                <h3>Set it up</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server init</code></pre></div>
+                <p>It asks for the name or address your members reach the server by and a name for the server, and writes <code>/etc/griasdi/griasdi-server.toml</code>.</p>
+              </li>
+              <li>
+                <h3>Start it</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo systemctl enable --now griasdi-server</code></pre></div>
+                <p>It starts now and with every boot, and comes back by itself after a crash or its own update. If firewalld is active:</p>
+                <div class="code"><pre><code><span class="p">$ </span>sudo firewall-cmd --permanent --add-port=1337/udp --add-port=1337/tcp
+<span class="p">$ </span>sudo firewall-cmd --reload</code></pre></div>
+                <p>Open port 1337 for UDP and TCP in any firewall in front of the machine too.</p>
+              </li>
+              <li>
+                <h3>Take the setup link</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo journalctl -u griasdi-server -o cat | grep -A1 'setup link'</code></pre></div>
+                <p>Lost it, or older than 24 hours? <code>sudo griasdi-server setup-link</code> prints a new one. Then open it in griasdi: see <a href="#join">Join your server</a>.</p>
+              </li>
+            </ol>
+            <h3>Day to day</h3>
+            <ul class="ref tight">
+              <li><span class="term-name"><b>Logs</b></span><div class="desc"><p><code>sudo journalctl -u griasdi-server -f</code></p></div></li>
+              <li><span class="term-name"><b>Configuration</b></span><div class="desc"><p><code>sudoedit /etc/griasdi/griasdi-server.toml</code>, then <code>sudo systemctl restart griasdi-server</code>. See <a href="#config">Configuration</a>.</p></div></li>
+              <li><span class="term-name"><b>Commands</b></span><div class="desc"><p><code>sudo griasdi-server &lt;command&gt;</code>, see <a href="#commands">Commands</a>.</p></div></li>
+              <li><span class="term-name"><b>Files</b></span><div class="desc"><p><code>/etc/griasdi/</code>: the configuration.</p><p><code>/var/lib/griasdi/</code>: the database, attachments, the server’s identity and its installed builds (<code>bin/</code>).</p><p><code>/var/cache/griasdi/</code>: the cache of app builds and models, refilled if lost. Mount bulk storage there.</p></div></li>
+            </ul>
           </div>
-          <div class="tab-panel" role="tabpanel" id="os-tar" aria-labelledby="os-tar-tab" tabindex="0">
+
+          <div class="tab-panel" role="tabpanel" id="m-docker" aria-labelledby="m-docker-tab" tabindex="0">
+            <p class="tab-title">Docker</p>
+            <p>Any Linux with Docker. Run the commands as root or as a member of the <code>docker</code> group.</p>
+            <ol class="steps">
+              <li>
+                <h3>Set it up</h3>
+                <div class="code"><pre><code><span class="p">$ </span>docker run --rm -it -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server init</code></pre></div>
+                <p>This pulls the image and asks for the name or address your members reach the server by and a name for the server. The volume <code>griasdi</code> keeps the configuration, the data and the server’s own updates.</p>
+              </li>
+              <li>
+                <h3>Start it</h3>
+                <div class="code"><pre><code><span class="p">$ </span>docker run -d --name griasdi-server --restart=always \
+    -p 1337:1337/udp -p 1337:1337/tcp \
+    -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server</code></pre></div>
+                <p><code>--restart=always</code> brings it back after a crash, after its own updates and after a reboot, as long as Docker starts at boot (<code>sudo systemctl enable docker</code>). Open port 1337 for UDP and TCP in any firewall in front of the machine.</p>
+              </li>
+              <li>
+                <h3>Take the setup link</h3>
+                <div class="code"><pre><code><span class="p">$ </span>docker logs griasdi-server | grep -A1 'setup link'</code></pre></div>
+                <p>Lost it, or older than 24 hours? <code>docker exec griasdi-server griasdi-server setup-link</code> prints a new one. Then open it in griasdi: see <a href="#join">Join your server</a>.</p>
+              </li>
+            </ol>
+            <h3>Day to day</h3>
+            <ul class="ref tight">
+              <li><span class="term-name"><b>Logs</b></span><div class="desc"><p><code>docker logs -f griasdi-server</code></p></div></li>
+              <li><span class="term-name"><b>Configuration</b></span><div class="desc"><p><code>sudoedit "$(docker volume inspect -f '{{ .Mountpoint }}' griasdi)/griasdi-server.toml"</code>, then <code>docker restart griasdi-server</code>. See <a href="#config">Configuration</a>.</p></div></li>
+              <li><span class="term-name"><b>Commands</b></span><div class="desc"><p><code>docker exec griasdi-server griasdi-server &lt;command&gt;</code>, see <a href="#commands">Commands</a>.</p></div></li>
+              <li><span class="term-name"><b>Files</b></span><div class="desc"><p>Everything is in the volume <code>griasdi</code>: the configuration, the database, attachments, the server’s identity, its installed builds and the cache of app builds and models.</p></div></li>
+            </ul>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="m-podman" aria-labelledby="m-podman-tab" tabindex="0">
+            <p class="tab-title">Podman</p>
+            <p>Podman 4.4 or newer: Ubuntu 24.04, Debian 13, Fedora. Podman runs the server as a systemd service through a Quadlet file.</p>
+            <ol class="steps">
+              <li>
+                <h3>Set it up</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo podman run --rm -it -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server init</code></pre></div>
+                <p>This pulls the image and asks for the name or address your members reach the server by and a name for the server. The volume <code>griasdi</code> keeps the configuration, the data and the server’s own updates.</p>
+              </li>
+              <li>
+                <h3>Describe the service</h3>
+                <div class="code">
+                  <div class="code-head"><span>As root</span><code>/etc/containers/systemd/griasdi-server.container</code></div>
+<pre><code>[<span class="k">Unit</span>]
+<span class="k">Description</span>=<span class="s">griasdi server</span>
+
+[<span class="k">Container</span>]
+<span class="k">Image</span>=<span class="s">oci.doodleshnookie.net/griasdi-server</span>
+<span class="k">ContainerName</span>=<span class="s">griasdi-server</span>
+<span class="k">Volume</span>=<span class="s">griasdi:/var/lib/griasdi</span>
+<span class="k">PublishPort</span>=<span class="s">1337:1337/udp</span>
+<span class="k">PublishPort</span>=<span class="s">1337:1337/tcp</span>
+
+[<span class="k">Service</span>]
+<span class="k">Restart</span>=<span class="s">always</span>
+
+[<span class="k">Install</span>]
+<span class="k">WantedBy</span>=<span class="s">multi-user.target</span></code></pre>
+                </div>
+              </li>
+              <li>
+                <h3>Start it</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo systemctl daemon-reload
+<span class="p">$ </span>sudo systemctl start griasdi-server</code></pre></div>
+                <p>Podman makes the service <code>griasdi-server</code> from the file; it starts with every boot and comes back by itself. Open port 1337 for UDP and TCP in any firewall in front of the machine.</p>
+              </li>
+              <li>
+                <h3>Take the setup link</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo journalctl -u griasdi-server -o cat | grep -A1 'setup link'</code></pre></div>
+                <p>Lost it, or older than 24 hours? <code>sudo podman exec griasdi-server griasdi-server setup-link</code> prints a new one. Then open it in griasdi: see <a href="#join">Join your server</a>.</p>
+              </li>
+            </ol>
+            <h3>Day to day</h3>
+            <ul class="ref tight">
+              <li><span class="term-name"><b>Logs</b></span><div class="desc"><p><code>sudo journalctl -u griasdi-server -f</code></p></div></li>
+              <li><span class="term-name"><b>Configuration</b></span><div class="desc"><p><code>sudoedit "$(sudo podman volume inspect -f '{{ .Mountpoint }}' griasdi)/griasdi-server.toml"</code>, then <code>sudo systemctl restart griasdi-server</code>. See <a href="#config">Configuration</a>.</p></div></li>
+              <li><span class="term-name"><b>Commands</b></span><div class="desc"><p><code>sudo podman exec griasdi-server griasdi-server &lt;command&gt;</code>, see <a href="#commands">Commands</a>.</p></div></li>
+              <li><span class="term-name"><b>Files</b></span><div class="desc"><p>Everything is in the volume <code>griasdi</code>: the configuration, the database, attachments, the server’s identity, its installed builds and the cache of app builds and models.</p></div></li>
+            </ul>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="m-compose" aria-labelledby="m-compose-tab" tabindex="0">
+            <p class="tab-title">Docker Compose</p>
+            <p>Docker with its Compose plugin. Run the commands in the directory of <code>compose.yaml</code>.</p>
+            <ol class="steps">
+              <li>
+                <h3>Describe it</h3>
+                <div class="code">
+                  <div class="code-head"><span>In a directory of its own</span><code>compose.yaml</code></div>
+<pre><code><span class="k">services</span>:
+  <span class="k">griasdi-server</span>:
+    <span class="k">image</span>: <span class="s">oci.doodleshnookie.net/griasdi-server</span>
+    <span class="k">restart</span>: <span class="s">always</span>
+    <span class="k">ports</span>:
+      - <span class="s">"1337:1337/udp"</span>
+      - <span class="s">"1337:1337/tcp"</span>
+    <span class="k">volumes</span>:
+      - <span class="s">griasdi:/var/lib/griasdi</span>
+
+<span class="k">volumes</span>:
+  <span class="k">griasdi</span>:
+    <span class="k">name</span>: <span class="s">griasdi</span></code></pre>
+                </div>
+              </li>
+              <li>
+                <h3>Set it up</h3>
+                <div class="code"><pre><code><span class="p">$ </span>docker compose run --rm griasdi-server init</code></pre></div>
+                <p>This pulls the image and asks for the name or address your members reach the server by and a name for the server. The volume <code>griasdi</code> keeps the configuration, the data and the server’s own updates.</p>
+              </li>
+              <li>
+                <h3>Start it</h3>
+                <div class="code"><pre><code><span class="p">$ </span>docker compose up -d</code></pre></div>
+                <p><code>restart: always</code> brings it back after a crash, after its own updates and after a reboot, as long as Docker starts at boot (<code>sudo systemctl enable docker</code>). Open port 1337 for UDP and TCP in any firewall in front of the machine.</p>
+              </li>
+              <li>
+                <h3>Take the setup link</h3>
+                <div class="code"><pre><code><span class="p">$ </span>docker compose logs --no-log-prefix griasdi-server | grep -A1 'setup link'</code></pre></div>
+                <p>Lost it, or older than 24 hours? <code>docker compose exec griasdi-server griasdi-server setup-link</code> prints a new one. Then open it in griasdi: see <a href="#join">Join your server</a>.</p>
+              </li>
+            </ol>
+            <h3>Day to day</h3>
+            <ul class="ref tight">
+              <li><span class="term-name"><b>Logs</b></span><div class="desc"><p><code>docker compose logs -f griasdi-server</code></p></div></li>
+              <li><span class="term-name"><b>Configuration</b></span><div class="desc"><p><code>sudoedit "$(docker volume inspect -f '{{ .Mountpoint }}' griasdi)/griasdi-server.toml"</code>, then <code>docker compose restart</code>. See <a href="#config">Configuration</a>.</p></div></li>
+              <li><span class="term-name"><b>Commands</b></span><div class="desc"><p><code>docker compose exec griasdi-server griasdi-server &lt;command&gt;</code>, see <a href="#commands">Commands</a>.</p></div></li>
+              <li><span class="term-name"><b>Files</b></span><div class="desc"><p>Everything is in the volume <code>griasdi</code>: the configuration, the database, attachments, the server’s identity, its installed builds and the cache of app builds and models.</p></div></li>
+            </ul>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="m-tar" aria-labelledby="m-tar-tab" tabindex="0">
             <p class="tab-title">Other Linux</p>
-            <p>For any other Linux with systemd, download <code>griasdi-server-&lt;version&gt;-&lt;arch&gt;-linux.tar.gz</code>, for x86_64 or aarch64, and unpack it into <code>/usr/local</code>:</p>
-            <div class="code"><pre><code><span class="p">$ </span>sudo tar -xzf griasdi-server-*-linux.tar.gz --strip-components=1 -C /usr/local
-<span class="p">$ </span>sudo systemctl daemon-reload
-<span class="p">$ </span>sudo install -d -m755 /etc/griasdi</code></pre></div>
+            <p>Any other Linux with systemd and glibc 2.39 or newer, on x86_64 or ARM64. The tarball holds what the packages hold, to install by hand.</p>
+            <ol class="steps">
+              <li>
+                <h3>Unpack it</h3>
+                <div class="code"><pre><code><span class="p">$ </span>curl -fL https://griasdi.doodleshnookie.net/updates/latest/griasdi-server-$(uname -m)-linux.tar.gz \
+    | sudo tar -xz --strip-components=1 -C /usr/local
+<span class="p">$ </span>sudo systemctl daemon-reload</code></pre></div>
+                <p>This puts the program in <code>/usr/local/bin</code> and the service <code>griasdi-server</code> in <code>/usr/local/lib/systemd/system</code>.</p>
+              </li>
+              <li>
+                <h3>Set it up</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server init</code></pre></div>
+                <p>It asks for the name or address your members reach the server by and a name for the server, and writes <code>/etc/griasdi/griasdi-server.toml</code>.</p>
+              </li>
+              <li>
+                <h3>Start it</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo systemctl enable --now griasdi-server</code></pre></div>
+                <p>It starts now and with every boot, and comes back by itself after a crash or its own update. Open port 1337 for UDP and TCP in any firewall in front of the machine.</p>
+              </li>
+              <li>
+                <h3>Take the setup link</h3>
+                <div class="code"><pre><code><span class="p">$ </span>sudo journalctl -u griasdi-server -o cat | grep -A1 'setup link'</code></pre></div>
+                <p>Lost it, or older than 24 hours? <code>sudo griasdi-server setup-link</code> prints a new one. Then open it in griasdi: see <a href="#join">Join your server</a>.</p>
+              </li>
+            </ol>
+            <h3>Where it lives</h3>
+            <ul class="plain">
+              <li><code>/usr/local/bin/griasdi-server</code> only starts the server. At every start it installs its own build into <code>/var/lib/griasdi/bin/</code> when that is newer than what is there, and runs <code>bin/current</code>. Updates land in <code>bin/</code> as well, with <code>bin/previous</code> kept to fall back to. Never replace files in <code>bin/</code> by hand; unpacking a newer tarball moves the server forward the same way, never back.</li>
+              <li>Both follow <code>data_dir</code> in the configuration, <code>/var/lib/griasdi</code>. The service runs as a user systemd allocates and gives it exactly that directory, with <code>bin/</code> the only place it may run programs from: keep <code>data_dir</code> where <code>init</code> puts it.</li>
+              <li>The cache of app builds and models (about 4 GB, refilled if lost) is <code>/var/cache/griasdi/</code>: mount bulk storage there to keep it off the system disk.</li>
+            </ul>
+            <h3>Day to day</h3>
+            <ul class="ref tight">
+              <li><span class="term-name"><b>Logs</b></span><div class="desc"><p><code>sudo journalctl -u griasdi-server -f</code></p></div></li>
+              <li><span class="term-name"><b>Configuration</b></span><div class="desc"><p><code>sudoedit /etc/griasdi/griasdi-server.toml</code>, then <code>sudo systemctl restart griasdi-server</code>. See <a href="#config">Configuration</a>.</p></div></li>
+              <li><span class="term-name"><b>Commands</b></span><div class="desc"><p><code>sudo griasdi-server &lt;command&gt;</code>, see <a href="#commands">Commands</a>.</p></div></li>
+              <li><span class="term-name"><b>Files</b></span><div class="desc"><p><code>/etc/griasdi/</code>: the configuration.</p><p><code>/var/lib/griasdi/</code>: the database, attachments, the server’s identity and its installed builds (<code>bin/</code>).</p><p><code>/var/cache/griasdi/</code>: the cache of app builds and models, refilled if lost. Mount bulk storage there.</p></div></li>
+            </ul>
           </div>
         </div>
-        <p>The service is installed but stays idle until its configuration exists. At its first start it installs its build into <code>/var/lib/griasdi/bin/</code> and updates itself from there.</p>
       </section>
 
-      <section id="setup" aria-labelledby="setup-title">
-        <h2 id="setup-title">Set it up</h2>
+      <section id="join" aria-labelledby="join-title">
+        <h2 id="join-title">Join your server</h2>
         <ol class="steps">
           <li>
-            <h3>Write the configuration</h3>
-            <p>Use the host name your members reach the server by. <code>init</code> refuses to overwrite a configuration that exists.</p>
-            <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server init --public-host chat.example.org \
-    --listen '[::]:1337' --data-dir /var/lib/griasdi \
-    --name "$(hostname -s)" --config /etc/griasdi/griasdi-server.toml
-<span class="p">$ </span>sudo chmod 644 /etc/griasdi/griasdi-server.toml</code></pre></div>
-          </li>
-          <li>
-            <h3>Start the service</h3>
-            <div class="code"><pre><code><span class="p">$ </span>sudo systemctl enable --now griasdi-server</code></pre></div>
-            <p>Open UDP 1337 and TCP 1337 in your firewall.</p>
-          </li>
-          <li>
-            <h3>Take the setup link</h3>
-            <p>At start the server prints its <code>griasdi:server:…</code> link and, while it has no community yet, a setup link.</p>
-            <div class="code"><pre><code><span class="p">$ </span>sudo journalctl -u griasdi-server -o cat | grep -A1 'setup link'</code></pre></div>
-          </li>
-          <li>
-            <h3>Open it in griasdi</h3>
-            <p>Paste the setup link into <span class="ui-path">Join by link</span> in the app, or open it as the first link when griasdi starts. That creates the server’s first community and makes you the server’s admin.</p>
+            <h3>Open the setup link</h3>
+            <p>Paste it into <span class="ui-path">Join by link</span> in griasdi, or open it as the first link when griasdi starts. It creates the server’s first community; you become its owner and the server’s admin. See <a href="#people">Communities and admins</a>.</p>
           </li>
           <li>
             <h3>Get the free license</h3>
             <p>In <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span>, <span class="ui-path">Get free license</span> raises the server from 10 members and 1 community to 32 members and 3. See <a href="#license">License</a>.</p>
           </li>
+          <li>
+            <h3>Invite your crew</h3>
+            <p>Make invite links in the community with <span class="ui-path">Invite people <span aria-hidden="true">›</span> Create link</span>, one for each person, and send them.</p>
+          </li>
         </ol>
         <div class="note">
-          <p><b>The setup link works once and for 24 hours.</b> A restart keeps it. Lost it? <code>sudo griasdi-server setup-link --config /etc/griasdi/griasdi-server.toml</code> prints a new one and voids the old one, for as long as the server has no community.</p>
+          <p><b>The setup link works once and for 24 hours.</b> A restart keeps it. A lost or expired one is replaced by the <code>setup-link</code> command of your <a href="#install">install</a>, which voids the old one, for as long as the server has no community.</p>
         </div>
-      </section>
-
-      <section id="container" aria-labelledby="container-title">
-        <h2 id="container-title">In a container</h2>
-        <p>The server is also the image <code>oci.doodleshnookie.net/griasdi-server</code> for amd64 and arm64, pulled without an account. <code>latest</code> is the newest nightly, <code>dev</code> the maintainers’ channel, and a release is tagged with its version (<code>v0.1.0</code>).</p>
-        <div class="tabs" data-tabs="engine">
-          <div class="seg" role="tablist" aria-label="Container engine" hidden>
-            <button type="button" role="tab" id="run-docker-tab" aria-controls="run-docker" aria-selected="true" data-tab="docker">Docker</button>
-            <button type="button" role="tab" id="run-compose-tab" aria-controls="run-compose" aria-selected="false" tabindex="-1" data-tab="compose">Docker Compose</button>
-            <button type="button" role="tab" id="run-podman-tab" aria-controls="run-podman" aria-selected="false" tabindex="-1" data-tab="podman">Podman</button>
-          </div>
-          <div class="tab-panel" role="tabpanel" id="run-docker" aria-labelledby="run-docker-tab" tabindex="0">
-            <p class="tab-title">Docker</p>
-            <div class="code"><pre><code><span class="p">$ </span>docker run -d --name griasdi-server --restart=always \
-    -p 1337:1337/udp -p 1337:1337/tcp \
-    -e GRIASDI_PUBLIC_HOST=chat.example.org -e GRIASDI_NAME="$(hostname -s)" \
-    -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server:latest
-<span class="p">$ </span>docker logs griasdi-server | grep -A1 'setup link'</code></pre></div>
-          </div>
-          <div class="tab-panel" role="tabpanel" id="run-compose" aria-labelledby="run-compose-tab" tabindex="0">
-            <p class="tab-title">Docker Compose</p>
-            <div class="code">
-              <div class="code-head"><span>In a directory of its own</span><code>compose.yaml</code></div>
-<pre><code><span class="k">services</span>:
-  <span class="k">griasdi-server</span>:
-    <span class="k">image</span>: <span class="s">oci.doodleshnookie.net/griasdi-server:latest</span>
-    <span class="k">restart</span>: <span class="s">always</span>
-    <span class="k">ports</span>:
-      - <span class="s">"1337:1337/udp"</span>
-      - <span class="s">"1337:1337/tcp"</span>
-    <span class="k">environment</span>:
-      <span class="k">GRIASDI_PUBLIC_HOST</span>: <span class="s">chat.example.org</span>
-      <span class="k">GRIASDI_NAME</span>: <span class="s">chat</span>
-    <span class="k">volumes</span>:
-      - <span class="s">griasdi:/var/lib/griasdi</span>
-
-<span class="k">volumes</span>:
-  <span class="k">griasdi</span>:</code></pre>
-            </div>
-            <div class="code"><pre><code><span class="p">$ </span>docker compose up -d
-<span class="p">$ </span>docker compose logs --no-log-prefix griasdi-server | grep -A1 'setup link'</code></pre></div>
-          </div>
-          <div class="tab-panel" role="tabpanel" id="run-podman" aria-labelledby="run-podman-tab" tabindex="0">
-            <p class="tab-title">Podman</p>
-            <div class="code"><pre><code><span class="p">$ </span>podman run -d --name griasdi-server --restart=always \
-    -p 1337:1337/udp -p 1337:1337/tcp \
-    -e GRIASDI_PUBLIC_HOST=chat.example.org -e GRIASDI_NAME="$(hostname -s)" \
-    -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server:latest
-<span class="p">$ </span>podman logs griasdi-server | grep -A1 'setup link'</code></pre></div>
-          </div>
-        </div>
-        <ul class="ref tight">
-          <li><span class="term-name"><code>GRIASDI_PUBLIC_HOST</code><span class="def">required</span></span><div class="desc"><p>The host name or address your members reach the server at.</p></div></li>
-          <li><span class="term-name"><code>GRIASDI_NAME</code><span class="def">default <code>griasdi</code></span></span><div class="desc"><p>The server’s display name.</p></div></li>
-        </ul>
-        <p>Both are read on the first start only, when the server writes <code>griasdi-server.toml</code> into the volume. It writes no <code>[updates]</code> there, so the server follows the channel of the image’s build. The volume holds the data, the configuration and the server’s binaries. The server updates itself inside the volume, so an updated server survives a restart of its container. At every start the image’s program installs its build into the volume when it is newer than the one there, so a newer image moves the server forward too, never back.</p>
-        <p>Keep <code>--restart=always</code> (<code>restart: always</code> in Compose): when the server can’t replace itself in place after an update, it exits to be started again into the new build.</p>
       </section>
 
       <section id="people" aria-labelledby="people-title">
         <h2 id="people-title">Communities and admins</h2>
+        <ul class="ref tight">
+          <li><span class="term-name"><b>Server admins</b></span><div class="desc"><p>They run the server, not its communities. <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span> shows them version and uptime, users, devices and who is online, live voice, calls, shares and transfers, stored files and messages, the license, and every community with its counts, named only where the admin is a member. Never any content. They get and install licenses, and with <code>community_creation = "admins"</code> only they create communities.</p><p>Whoever redeemed the setup link is one; <code>admins</code> in the <a href="#config">configuration</a> adds more by user id, which the app shows in <span class="ui-path">Settings <span aria-hidden="true">›</span> Account <span aria-hidden="true">›</span> Devices and keys</span>. Being a server admin gives no say inside a community.</p></div></li>
+          <li><span class="term-name"><b>Owners</b></span><div class="desc"><p>They run a community: whoever creates it, and for the first community whoever redeemed the setup link. Owners can make other members owners. Every new community starts with the roles Admin (every right) and Moderator (kick, mute, mention everyone), which its owners hand out, change or delete. A community’s Admin role is not a server admin.</p></div></li>
+        </ul>
         <ul class="plain">
-          <li>The community the setup link creates belongs to the server and can’t be dissolved. A server that had communities before makes its oldest one this community.</li>
-          <li>Everyone else joins with invite links, made in the app. Each lets one person in and expires after 1 hour to 30 days, 7 by default. Whoever manages a community can also make its public link, for 10, 20, 50, 100 or any number of people; it never expires and works until it is used up or turned off.</li>
-          <li>By default anyone on the server may create communities, at most 20 each and as many as its <a href="#license">license</a> allows. <code>community_creation = "admins"</code> leaves that to the admins.</li>
-          <li>Whoever redeemed the setup link is an admin; <code>admins</code> in the configuration adds more by user id. An admin finds <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span> next to the server: version and uptime, users, devices and who is online, live voice, calls, shares and transfers, stored files and messages, its license, and every community with its counts. Communities are named only where the admin is a member. Never any content.</li>
+          <li>The first community belongs to the server and can’t be dissolved. A server that had communities before makes its oldest one that community.</li>
+          <li>Any member can make invite links, unless the owners take that right away. Each lets one person in and expires after 1 hour to 30 days, 7 by default. Members who may manage the community can also make its public link, for 10, 20, 50, 100 or any number of people; it never expires and works until it is used up or turned off.</li>
+          <li>By default anyone on the server may create communities, at most 20 each (server admins without that cap) and as many as the <a href="#license">license</a> allows.</li>
         </ul>
       </section>
 
@@ -266,12 +413,13 @@
         </div>
         <h3>What counts</h3>
         <ul class="plain">
-          <li><b>Members</b> are the distinct people across all of the server’s communities, bots included. Someone already on the server joins its other communities even when it is full.</li>
-          <li>Past the limits a newcomer is told “This server is full”, and another community is refused with “This server allows only 1 community”, for admins too. The community the setup link creates always fits.</li>
+          <li><b>Members</b> are people, counted once however many of the server’s communities they are in. Bots count like people.</li>
+          <li>On a full server a newcomer’s invite is refused with “This server is full. Its admin can raise the limit.” Someone already on the server can still join its other communities: they are counted already.</li>
+          <li>A community past the limit is refused with “This server allows only 1 community.”, for server admins too. The first community always fits.</li>
           <li>Nothing is taken away: a server over its limits keeps every member and community and only stops growing.</li>
         </ul>
         <h3>In the app</h3>
-        <p>An admin finds the <b>License</b> section in <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span>: its status, members and communities against the limits, and the <b>Server ID</b>. <span class="ui-path">Get free license</span> shows while no license is in effect and the server uses august, which issues it. <span class="ui-path">Copy license link</span> and <span class="ui-path">Save license file…</span> keep a copy, for example to install it again after you set the server up anew.</p>
+        <p>A server admin finds the <b>License</b> section in <span class="ui-path">Settings <span aria-hidden="true">›</span> Servers <span aria-hidden="true">›</span> Manage</span>: its status, members and communities against the limits, and the <b>Server ID</b>. <span class="ui-path">Get free license</span> shows while no license is in effect and the server uses august, which issues it. <span class="ui-path">Copy license link</span> and <span class="ui-path">Save license file…</span> keep a copy, for example to install it again after you set the server up anew.</p>
         <h3>How long it holds</h3>
         <ul class="plain">
           <li>A license names the server by the fingerprint of its key, the Server ID. It works on that server only, so it is no secret.</li>
@@ -279,41 +427,15 @@
         </ul>
         <h3>Install a license</h3>
         <p>A license is a <code>griasdi:license:…</code> link or a <code>.griasdi-license</code> file holding one. In the app, open it with <span class="ui-path">Add license…</span> in the License section or paste the link into <span class="ui-path">Join by link</span>. On the host, <code>license</code> takes the link or the file:</p>
-        <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server license chat.griasdi-license \
-    --config /etc/griasdi/griasdi-server.toml
+        <div class="code"><pre><code><span class="p">$ </span>sudo griasdi-server license chat.griasdi-license
 <span class="c">installed: 32 members, 3 communities, valid until 2027-11-09 (UTC)</span></code></pre></div>
-        <p>A running server uses it at once, without a restart. In a container, hand it the link; <code>"$(cat …)"</code> reads it from the file:</p>
-        <div class="tabs" data-tabs="engine">
-          <div class="seg" role="tablist" aria-label="Container engine" hidden>
-            <button type="button" role="tab" id="lic-docker-tab" aria-controls="lic-docker" aria-selected="true" data-tab="docker">Docker</button>
-            <button type="button" role="tab" id="lic-compose-tab" aria-controls="lic-compose" aria-selected="false" tabindex="-1" data-tab="compose">Docker Compose</button>
-            <button type="button" role="tab" id="lic-podman-tab" aria-controls="lic-podman" aria-selected="false" tabindex="-1" data-tab="podman">Podman</button>
-          </div>
-          <div class="tab-panel" role="tabpanel" id="lic-docker" aria-labelledby="lic-docker-tab" tabindex="0">
-            <p class="tab-title">Docker</p>
-            <div class="code"><pre><code><span class="p">$ </span>docker exec griasdi-server \
-    /var/lib/griasdi/bin/current license "$(cat chat.griasdi-license)" \
-    --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
-          </div>
-          <div class="tab-panel" role="tabpanel" id="lic-compose" aria-labelledby="lic-compose-tab" tabindex="0">
-            <p class="tab-title">Docker Compose</p>
-            <div class="code"><pre><code><span class="c"># in the directory of compose.yaml</span>
-<span class="p">$ </span>docker compose exec griasdi-server \
-    /var/lib/griasdi/bin/current license "$(cat chat.griasdi-license)" \
-    --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
-          </div>
-          <div class="tab-panel" role="tabpanel" id="lic-podman" aria-labelledby="lic-podman-tab" tabindex="0">
-            <p class="tab-title">Podman</p>
-            <div class="code"><pre><code><span class="p">$ </span>podman exec griasdi-server \
-    /var/lib/griasdi/bin/current license "$(cat chat.griasdi-license)" \
-    --config /var/lib/griasdi/griasdi-server.toml</code></pre></div>
-          </div>
-        </div>
+        <p>A running server uses it at once. In a container, hand it the link, here with Docker; with Podman or Compose, take the Commands form from <a href="#install">Day to day</a> of your install:</p>
+        <div class="code"><pre><code><span class="p">$ </span>docker exec griasdi-server griasdi-server license "$(cat chat.griasdi-license)"</code></pre></div>
       </section>
 
       <section id="config" aria-labelledby="config-title">
         <h2 id="config-title">Configuration</h2>
-        <p><code>/etc/griasdi/griasdi-server.toml</code>, written by <code>init</code>. The first four keys come from its options; everything else has a default. The file may hold only these keys: an unknown or misspelled key is an error and the server doesn’t start. Restart the service after a change.</p>
+        <p><code>griasdi-server.toml</code>, written by <code>init</code>: in <code>/etc/griasdi/</code> with a package or the tarball, in the volume with a container. Change it as in <a href="#install">Day to day</a> of your install, then restart. <code>init</code> writes the first four keys; everything else has a default. The file may hold only these keys: an unknown or misspelled key is an error and the server doesn’t start.</p>
         <div class="code">
           <div class="code-head"><span>Written by init</span><code>griasdi-server.toml</code></div>
 <pre><code><span class="k">name</span> = <span class="s">"chat"</span>
@@ -323,12 +445,12 @@
         </div>
         <h3>Server</h3>
         <ul class="ref">
-          <li><span class="term-name"><code>name</code><span class="def"><code>--name</code></span></span><div class="desc"><p>The server’s display name.</p></div></li>
-          <li><span class="term-name"><code>listen</code><span class="def"><code>--listen</code>, default <code>0.0.0.0:1337</code></span></span><div class="desc"><p>The UDP address to listen on. The server also takes the same TCP port for update downloads.</p></div></li>
-          <li><span class="term-name"><code>public_host</code><span class="def"><code>--public-host</code></span></span><div class="desc"><p>The host name or address clients reach the server by.</p></div></li>
-          <li><span class="term-name"><code>data_dir</code><span class="def"><code>--data-dir</code></span></span><div class="desc"><p>The database, the stored files and the server’s TLS identity.</p></div></li>
+          <li><span class="term-name"><code>name</code><span class="def">asked by <code>init</code></span></span><div class="desc"><p>The server’s display name.</p></div></li>
+          <li><span class="term-name"><code>listen</code><span class="def">set by <code>init</code>: <code>[::]:1337</code> (<code>0.0.0.0:1337</code> in a container)</span></span><div class="desc"><p>The address to listen on, for UDP and TCP on the same port.</p></div></li>
+          <li><span class="term-name"><code>public_host</code><span class="def">asked by <code>init</code></span></span><div class="desc"><p>The name or address your members’ apps reach the server by.</p></div></li>
+          <li><span class="term-name"><code>data_dir</code><span class="def">set by <code>init</code></span></span><div class="desc"><p>The database, the stored files, the server’s TLS identity and its installed builds.</p></div></li>
           <li><span class="term-name"><code>community_creation</code><span class="def">default <code>"anyone"</code></span></span><div class="desc"><p>Who may create communities: <code>"anyone"</code> or <code>"admins"</code>.</p></div></li>
-          <li><span class="term-name"><code>admins</code><span class="def">default <code>[]</code></span></span><div class="desc"><p>User ids in hex with server-admin rights, besides whoever redeemed the setup link.</p></div></li>
+          <li><span class="term-name"><code>admins</code><span class="def">default <code>[]</code></span></span><div class="desc"><p>User ids in hex with server-admin rights, besides whoever redeemed the setup link. The app shows your user id in <span class="ui-path">Settings <span aria-hidden="true">›</span> Account <span aria-hidden="true">›</span> Devices and keys</span>.</p></div></li>
         </ul>
         <h3>Files</h3>
         <ul class="ref">
@@ -343,18 +465,14 @@
           <li><span class="term-name"><code>rate_burst</code><span class="def">default <code>60</code></span></span><div class="desc"><p>Requests one device may send at once: posting messages, creating groups and calls, joining voice, sharing and the like.</p></div></li>
           <li><span class="term-name"><code>rate_per_sec</code><span class="def">default <code>10</code></span></span><div class="desc"><p>How fast that allowance refills, per second. A device over the limit is told “rate limited” until it has refilled.</p></div></li>
         </ul>
-        <h3>Updates and august</h3>
+        <h3>august</h3>
         <ul class="ref">
-          <li><span class="term-name"><code>[updates] channel</code><span class="def">default: the channel of the build the server runs, else <code>"nightly"</code></span></span><div class="desc"><p>The channel the server updates itself from: <code>"nightly"</code>, or <code>"dev"</code>, the maintainers’ channel.</p></div></li>
           <li><span class="term-name"><code>[august] enabled</code><span class="def">default <code>true</code></span></span><div class="desc"><p><code>false</code> cuts the server off from august, our catalog of builds and models. It then fetches no app builds and no speech models for its members, forwards no performance reports, gets no free license and no renewal of its license.</p></div></li>
           <li><span class="term-name"><code>[august] host</code>, <code>port</code>, <code>fingerprint</code></span><div class="desc"><p>Where august is and the SHA-256 fingerprint of its key (64 hex digits). The defaults are ours; leave them out.</p></div></li>
         </ul>
         <div class="code">
           <div class="code-head"><span>Optional tables</span><code>griasdi-server.toml</code></div>
-<pre><code>[<span class="k">updates</span>]
-<span class="k">channel</span> = <span class="s">"nightly"</span>
-
-[<span class="k">august</span>]
+<pre><code>[<span class="k">august</span>]
 <span class="k">enabled</span> = true</code></pre>
         </div>
       </section>
@@ -362,31 +480,25 @@
       <section id="updates" aria-labelledby="updates-title">
         <h2 id="updates-title">Updates</h2>
         <h3>Your server</h3>
-        <p>Every install updates itself from its channel: the packages, the tarball and the container alike. The program they bring installs its build into <code>/var/lib/griasdi/bin/</code>, in the container inside the volume, and the server runs from there. It fetches each new build, checks its signature against the keys compiled into it, installs it next to the old one and hands its socket over to the new build. Apps reconnect at once. A newer package or image moves it forward too; it only ever moves to a newer build. A failed install is tried again after 15 minutes, then after twice the wait each time, up to 6 hours. A build that won’t start, or dies three times right after its start, is set aside, and the previous one runs again. If the server still runs an older build an hour after a newer one came out, or has had no contact with august for 6 hours, its log and its admins’ notification center say why and what to do.</p>
-        <p>Before it changes its database schema the server keeps a copy, <code>griasdi.db.pre-v&lt;old version&gt;</code>, next to the database.</p>
+        <p>Every install updates itself, whichever way you installed it. The server installs each build into <code>bin/</code> in its data directory (<code>/var/lib/griasdi/bin/</code>, in a container inside the volume) and runs from there. It fetches each new build, checks its signature against the keys compiled into it, installs it next to the old one and hands its socket over to the new build; apps reconnect at once. It only ever moves forward, and a newer package or image moves it forward too. A failed install is tried again after 15 minutes, then after twice the wait each time, up to 6 hours. A build that won’t start, or dies three times right after its start, is set aside, and the previous one runs again. If the server still runs an older build an hour after a newer one came out, or has had no contact with august for 6 hours, its log and its admins’ notification center say why and what to do.</p>
+        <p>Before it changes its database schema the server keeps a copy, <code>griasdi.db.pre-v&lt;old version&gt;</code>, next to the database. Voice sessions live in memory only: after a restart the apps in a call join it again on their own.</p>
+        <p><b>What it needs:</b> outgoing connections only. To august, our catalog of signed builds, at <code>griasdi.doodleshnookie.net</code> on port 1328 (UDP, and TCP as a fallback), and to other griasdi servers on their port 1337 (UDP).</p>
+        <p>It fetches new builds and models in 1&nbsp;MiB pieces from august and other servers at once, like a torrent, and checks every piece against the signed manifest: it trusts neither august nor the other servers, only the signature. A file that won’t come that way comes whole from august over HTTPS. While it can’t reach august over UDP for 30 minutes, it asks there over HTTPS every 15 minutes.</p>
         <h3>Your members’ apps</h3>
-        <p>The server follows august, our catalog, and fetches every signed app build and speech model in 1&nbsp;MiB pieces, from august and from other servers at once. A file they can’t deliver comes whole from august over HTTPS on TCP 1328, and while the server has had no link to august for 30 minutes, it asks august there for new builds every 15 minutes. It trusts none of them: everything is checked against the signed manifest, and an older build is never taken. Once it holds a build of the apps’ channel it announces it to them, and they fetch it from all the servers that have it.</p>
-        <p>Voice sessions live in memory only. After a restart the apps in a call join it again on their own.</p>
+        <p>The apps get their updates from the servers they are connected to. Each server announces a new build once it holds all of it, and the app takes the changed files from all announcing servers at once. If that doesn’t get through, it takes them over HTTPS from the same servers (TCP 1337), then from august. An app with no server online for 2 minutes asks august directly, and at start it checks august for up to 3 seconds.</p>
+        <p>Your server is what delivers them. It keeps the app builds for Linux, Windows and macOS and the speech models, about 4 GB, and hands them to your members’ apps. A new build moves only changed files, mostly the app program of about 170 MB, once per member and new build; builds come out up to once a day. A speech model, 0.4 to 2 GB, moves once to each member who uses it. Members connected to several servers share that load among them.</p>
       </section>
 
-      <section id="files" aria-labelledby="files-title">
-        <h2 id="files-title">Files and commands</h2>
-        <h3>Where things live</h3>
+      <section id="commands" aria-labelledby="commands-title">
+        <h2 id="commands-title">Commands</h2>
+        <p>Run them as in <a href="#install">Day to day</a> of your install; on a package or tarball install with <code>sudo</code>.</p>
         <ul class="ref tight">
-          <li><span class="term-name"><code>/etc/griasdi/</code></span><div class="desc"><p>The configuration. Root’s; the service only reads it.</p></div></li>
-          <li><span class="term-name"><code>/var/lib/griasdi/</code></span><div class="desc"><p>The database, stored files and TLS identity. The service runs as a user systemd allocates, and only root reads this directory, so use <code>sudo</code>.</p></div></li>
-          <li><span class="term-name"><code>…/storage/</code></span><div class="desc"><p>The caches of update builds and model files, refilled from august if lost. A directory of its own, so you can mount bulk storage there and keep the databases on the local disk.</p></div></li>
-        </ul>
-        <h3>Commands</h3>
-        <p>Each takes <code>--config &lt;path&gt;</code>, default <code>griasdi-server.toml</code> in the current directory.</p>
-        <ul class="ref tight">
-          <li><span class="term-name"><code>run</code></span><div class="desc"><p>Runs the server. The systemd unit does this.</p></div></li>
-          <li><span class="term-name"><code>init</code></span><div class="desc"><p>Writes a new configuration from <code>--public-host</code>, <code>--listen</code>, <code>--data-dir</code> and <code>--name</code>; refuses to overwrite.</p></div></li>
+          <li><span class="term-name"><code>run</code></span><div class="desc"><p>Runs the server. The service does this.</p></div></li>
+          <li><span class="term-name"><code>init</code></span><div class="desc"><p>Asks for the address and name and writes a new configuration; refuses to overwrite one. <code>--public-host</code> and <code>--name</code> answer the questions without asking.</p></div></li>
           <li><span class="term-name"><code>setup-link</code></span><div class="desc"><p>Prints a new setup link and voids the old one, while the server has no community.</p></div></li>
           <li><span class="term-name"><code>license</code></span><div class="desc"><p>Installs a license from a <code>griasdi:license:</code> link or a license file. A running server uses it at once.</p></div></li>
           <li><span class="term-name"><code>--version</code></span><div class="desc"><p>The version, with build number, channel and commit once the build is known.</p></div></li>
         </ul>
-        <p>Logs: <code>sudo journalctl -u griasdi-server</code>.</p>
       </section>
     </div>
   </div>
@@ -403,7 +515,5 @@
 
 <script src="../faces.js"></script>
 <script src="../site.js"></script>
-<script src="../downloads.js"></script>
-<script src="../release.js"></script>
 </body>
 </html>

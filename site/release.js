@@ -1,6 +1,6 @@
 'use strict';
 
-// The downloads of a guide's release box (server/, bots/), from the newest
+// The downloads of a guide's release box (bots/), from the newest
 // build of the update files (downloads.js): every `a[data-file]` of the page,
 // and in `#release-build` which build they are, or its `data-none` when the
 // build has none of them.
