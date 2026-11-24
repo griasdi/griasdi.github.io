@@ -122,7 +122,7 @@
 
       <section id="install" aria-labelledby="install-title">
         <h2 id="install-title">Install</h2>
-        <p>Every release carries the server for x86_64 and ARM64 in three forms, next to <code>SHA256SUMS</code> to check them with <code>sha256sum -c --ignore-missing SHA256SUMS</code>. The packages and the tarball bring the systemd unit <code>griasdi-server.service</code>. For a container, skip to <a href="#container">In a container</a>.</p>
+        <p>The server comes for x86_64 and ARM64 in three forms. Until the first release they are in the nightly prereleases (<code>nightly-&lt;date&gt;</code>) on the <a href="https://github.com/griasdi/griasdi/releases">releases page</a>, with their checksums in the build’s signed <code>manifest.json</code>. A release adds <code>SHA256SUMS</code>, to check them with <code>sha256sum -c --ignore-missing SHA256SUMS</code>. The packages and the tarball bring the systemd unit <code>griasdi-server.service</code>. For a container, skip to <a href="#container">In a container</a>.</p>
         <div class="tabs" data-tabs="os">
           <div class="seg" role="tablist" aria-label="Distribution" hidden>
             <button type="button" role="tab" id="os-deb-tab" aria-controls="os-deb" aria-selected="true" data-tab="deb">Debian and Ubuntu</button>
@@ -147,7 +147,7 @@
 <span class="p">$ </span>sudo install -d -m755 /etc/griasdi</code></pre></div>
           </div>
         </div>
-        <p>The service is installed but stays idle until its configuration exists.</p>
+        <p>The service is installed but stays idle until its configuration exists. At its first start it installs its build into <code>/var/lib/griasdi/bin/</code> and updates itself from there.</p>
       </section>
 
       <section id="setup" aria-labelledby="setup-title">
@@ -187,7 +187,7 @@
 
       <section id="container" aria-labelledby="container-title">
         <h2 id="container-title">In a container</h2>
-        <p>Every build is also the image <code>oci.doodleshnookie.net/griasdi-server</code> for amd64 and arm64, pulled without an account. Its tags are the update channel (<code>dev</code>, <code>nightly</code>, <code>release</code>) and the build number; a release adds its version and <code>latest</code>.</p>
+        <p>The server is also the image <code>oci.doodleshnookie.net/griasdi-server</code> for amd64 and arm64, pulled without an account. <code>latest</code> is the newest nightly, <code>dev</code> the maintainers’ channel, and a release is tagged with its version (<code>v0.1.0</code>).</p>
         <div class="tabs" data-tabs="engine">
           <div class="seg" role="tablist" aria-label="Container engine" hidden>
             <button type="button" role="tab" id="run-docker-tab" aria-controls="run-docker" aria-selected="true" data-tab="docker">Docker</button>
@@ -199,7 +199,7 @@
             <div class="code"><pre><code><span class="p">$ </span>docker run -d --name griasdi-server --restart=always \
     -p 1337:1337/udp -p 1337:1337/tcp \
     -e GRIASDI_PUBLIC_HOST=chat.example.org -e GRIASDI_NAME="$(hostname -s)" \
-    -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server:release
+    -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server:latest
 <span class="p">$ </span>docker logs griasdi-server | grep -A1 'setup link'</code></pre></div>
           </div>
           <div class="tab-panel" role="tabpanel" id="run-compose" aria-labelledby="run-compose-tab" tabindex="0">
@@ -208,7 +208,7 @@
               <div class="code-head"><span>In a directory of its own</span><code>compose.yaml</code></div>
 <pre><code><span class="k">services</span>:
   <span class="k">griasdi-server</span>:
-    <span class="k">image</span>: <span class="s">oci.doodleshnookie.net/griasdi-server:release</span>
+    <span class="k">image</span>: <span class="s">oci.doodleshnookie.net/griasdi-server:latest</span>
     <span class="k">restart</span>: <span class="s">always</span>
     <span class="k">ports</span>:
       - <span class="s">"1337:1337/udp"</span>
@@ -230,7 +230,7 @@
             <div class="code"><pre><code><span class="p">$ </span>podman run -d --name griasdi-server --restart=always \
     -p 1337:1337/udp -p 1337:1337/tcp \
     -e GRIASDI_PUBLIC_HOST=chat.example.org -e GRIASDI_NAME="$(hostname -s)" \
-    -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server:release
+    -v griasdi:/var/lib/griasdi oci.doodleshnookie.net/griasdi-server:latest
 <span class="p">$ </span>podman logs griasdi-server | grep -A1 'setup link'</code></pre></div>
           </div>
         </div>
@@ -238,7 +238,7 @@
           <li><span class="term-name"><code>GRIASDI_PUBLIC_HOST</code><span class="def">required</span></span><div class="desc"><p>The host name or address your members reach the server at.</p></div></li>
           <li><span class="term-name"><code>GRIASDI_NAME</code><span class="def">default <code>griasdi</code></span></span><div class="desc"><p>The server’s display name.</p></div></li>
         </ul>
-        <p>Both are read on the first start only, when the server writes <code>griasdi-server.toml</code> into the volume, with the image’s channel in <code>[updates]</code> unless it is <code>dev</code>, the default. The volume holds the data, the configuration and the server’s binaries. The server updates itself inside the volume, so an updated server survives a restart of its container, and a newer image only matters for a new volume.</p>
+        <p>Both are read on the first start only, when the server writes <code>griasdi-server.toml</code> into the volume. It writes no <code>[updates]</code> there, so the server follows the channel of the image’s build. The volume holds the data, the configuration and the server’s binaries. The server updates itself inside the volume, so an updated server survives a restart of its container. At every start the image’s program installs its build into the volume when it is newer than the one there, so a newer image moves the server forward too, never back.</p>
         <p>Keep <code>--restart=always</code> (<code>restart: always</code> in Compose): when the server can’t replace itself in place after an update, it exits to be started again into the new build.</p>
       </section>
 
@@ -345,14 +345,14 @@
         </ul>
         <h3>Updates and august</h3>
         <ul class="ref">
-          <li><span class="term-name"><code>[updates] channel</code><span class="def">default <code>"dev"</code></span></span><div class="desc"><p>The channel the server updates itself from: <code>"dev"</code>, <code>"nightly"</code> or <code>"release"</code>.</p></div></li>
+          <li><span class="term-name"><code>[updates] channel</code><span class="def">default: the channel of the build the server runs, else <code>"nightly"</code></span></span><div class="desc"><p>The channel the server updates itself from: <code>"nightly"</code>, or <code>"dev"</code>, the maintainers’ channel.</p></div></li>
           <li><span class="term-name"><code>[august] enabled</code><span class="def">default <code>true</code></span></span><div class="desc"><p><code>false</code> cuts the server off from august, our catalog of builds and models. It then fetches no app builds and no speech models for its members, forwards no performance reports, gets no free license and no renewal of its license.</p></div></li>
           <li><span class="term-name"><code>[august] host</code>, <code>port</code>, <code>fingerprint</code></span><div class="desc"><p>Where august is and the SHA-256 fingerprint of its key (64 hex digits). The defaults are ours; leave them out.</p></div></li>
         </ul>
         <div class="code">
           <div class="code-head"><span>Optional tables</span><code>griasdi-server.toml</code></div>
 <pre><code>[<span class="k">updates</span>]
-<span class="k">channel</span> = <span class="s">"release"</span>
+<span class="k">channel</span> = <span class="s">"nightly"</span>
 
 [<span class="k">august</span>]
 <span class="k">enabled</span> = true</code></pre>
@@ -362,8 +362,7 @@
       <section id="updates" aria-labelledby="updates-title">
         <h2 id="updates-title">Updates</h2>
         <h3>Your server</h3>
-        <p><b>From a package or the tarball,</b> the server doesn’t update itself. Once a newer build is out it logs that and tells its admins in the app’s notification center, with what to do. Install the next release over it the way you installed the first.</p>
-        <p><b>In the container,</b> the server updates itself from its channel: it fetches a new build, checks its signature against the keys compiled into it, installs it in the volume and hands its socket over to the new build. Apps reconnect at once. It only ever moves to a newer build. A failed install is tried again after 15 minutes, then after twice the wait each time, up to 6 hours. A build that won’t start, or dies three times right after its start, is set aside, and the previous one runs again. If the server still runs an older build an hour after a newer one came out, or has had no contact with august for 6 hours, its log and its admins’ notification center say why and what to do.</p>
+        <p>Every install updates itself from its channel: the packages, the tarball and the container alike. The program they bring installs its build into <code>/var/lib/griasdi/bin/</code>, in the container inside the volume, and the server runs from there. It fetches each new build, checks its signature against the keys compiled into it, installs it next to the old one and hands its socket over to the new build. Apps reconnect at once. A newer package or image moves it forward too; it only ever moves to a newer build. A failed install is tried again after 15 minutes, then after twice the wait each time, up to 6 hours. A build that won’t start, or dies three times right after its start, is set aside, and the previous one runs again. If the server still runs an older build an hour after a newer one came out, or has had no contact with august for 6 hours, its log and its admins’ notification center say why and what to do.</p>
         <p>Before it changes its database schema the server keeps a copy, <code>griasdi.db.pre-v&lt;old version&gt;</code>, next to the database.</p>
         <h3>Your members’ apps</h3>
         <p>The server follows august, our catalog, and fetches every signed app build and speech model in 1&nbsp;MiB pieces, from august and from other servers at once. A file they can’t deliver comes whole from august over HTTPS on TCP 1328, and while the server has had no link to august for 30 minutes, it asks august there for new builds every 15 minutes. It trusts none of them: everything is checked against the signed manifest, and an older build is never taken. Once it holds a build of the apps’ channel it announces it to them, and they fetch it from all the servers that have it.</p>

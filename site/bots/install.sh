@@ -46,7 +46,7 @@ main() {
 	done
 
 	manifest=
-	for ch in release dev; do
+	for ch in nightly; do
 		build=$(curl -fsS "${UPDATES}${ch}/latest" 2>/dev/null) || continue
 		case $build in
 		'' | *[!0-9]*) continue ;;

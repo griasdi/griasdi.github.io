@@ -8,10 +8,11 @@
 (() => {
   const UPDATES = 'https://griasdi.doodleshnookie.net/updates/';
 
-  // The newest build of the update upstream: {base, manifest} of the first
-  // channel that has one, or null.
+  // The newest build of the update upstream: {base, manifest} of the newest
+  // nightly, the channel of every new install
+  // (`updates/nightly/<latest>/`), or null.
   async function newestBuild() {
-    for (const ch of ['release', 'dev']) {
+    for (const ch of ['nightly']) {
       try {
         const latest = await fetch(UPDATES + ch + '/latest', {cache: 'no-store'});
         if (!latest.ok) {
