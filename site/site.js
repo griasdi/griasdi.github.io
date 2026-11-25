@@ -1,4 +1,4 @@
-// Shared by every page: the gsichtl faces (faces.js), their blinking, the nav hairline, the guide tabs and the contents rail.
+// Shared by every page: the gsichtl faces (faces.js), their blinking, the nav hairline, the guide tabs, the copy buttons and the contents rail.
 (() => {
   "use strict";
 
@@ -120,6 +120,54 @@
       tabs[to].focus();
     });
   });
+
+  // ---------- copy buttons (guides): every code well copies its text, without the $ prompts ----------
+
+  const icon = (paths) => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${paths}</svg>`;
+  const COPY = icon('<rect x="8.5" y="8.5" width="12" height="12" rx="2.5"/><path d="M15.5 8.5V6a2.5 2.5 0 0 0-2.5-2.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5"/>');
+  const DONE = icon('<path d="M5 12.5l4.5 4.5L19 7.5"/>');
+
+  if (navigator.clipboard) {
+    document.querySelectorAll(".code").forEach((well) => {
+      const pre = well.querySelector("pre");
+      if (!pre) return;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "copy";
+      btn.title = "Copy";
+      btn.setAttribute("aria-label", "Copy to clipboard");
+      btn.innerHTML = COPY;
+      const status = document.createElement("span");
+      status.className = "sr-only";
+      status.setAttribute("aria-live", "polite");
+      btn.append(status);
+      let timer = 0;
+      btn.addEventListener("click", async () => {
+        const clone = pre.cloneNode(true);
+        clone.querySelectorAll(".p").forEach((p) => p.remove());
+        try {
+          await navigator.clipboard.writeText(clone.textContent.replace(/\n+$/, ""));
+        } catch {
+          // Clipboard refused: select the text so Ctrl+C still works.
+          getSelection().selectAllChildren(pre);
+          status.textContent = "Copy failed, text selected";
+          return;
+        }
+        btn.firstElementChild.outerHTML = DONE;
+        btn.classList.add("is-done");
+        status.textContent = "Copied";
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          btn.firstElementChild.outerHTML = COPY;
+          btn.classList.remove("is-done");
+          status.textContent = "";
+        }, 1600);
+      });
+      const head = well.querySelector(".code-head");
+      if (head) head.append(btn);
+      else { well.classList.add("has-copy"); well.prepend(btn); }
+    });
+  }
 
   // ---------- contents rail (document pages): mark the section being read ----------
 

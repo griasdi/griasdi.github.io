@@ -62,8 +62,9 @@
 .doc-body :not(pre) > code { padding: .08em .38em; border-radius: 10px; background: var(--night-3); color: var(--ink); font-size: .86em; overflow-wrap: anywhere; }
 .code { margin: 1.2rem 0 0; border-radius: 16px; background: #0f0d14; border: 1px solid #2a2433; overflow: hidden; }
 .code + p, .code + .code, .code + h3 { margin-top: 1.2rem; }
-.code-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .55rem 1.1rem; border-bottom: 1px solid #2a2433; color: var(--ink-3); font-size: .88rem; font-weight: 700; }
-.code-head code { font-weight: 400; font-size: .82rem; }
+.code-head { display: flex; align-items: center; gap: 1rem; padding: .55rem 1.1rem; border-bottom: 1px solid #2a2433; color: var(--ink-3); font-size: .88rem; font-weight: 700; }
+.code-head code { margin-left: auto; font-weight: 400; font-size: .82rem; }
+.code-head .copy { margin: -.3rem -.6rem -.3rem -.4rem; }
 .code pre { margin: 0; padding: 1rem 1.1rem; color: var(--ink); font-size: .88rem; line-height: 1.65; overflow-x: auto; tab-size: 4; }
 .code .c { color: var(--ink-3); }
 .code .p { color: var(--terra-l); user-select: none; }
@@ -74,6 +75,18 @@
 .code pre::-webkit-scrollbar-track { background: #0f0d14; }
 /* Phones wrap long lines instead of scrolling sideways. */
 @media (max-width: 640px) { .code pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; } }
+/* copy button (site.js): top right of the well, or at the end of its head */
+.code.has-copy { position: relative; }
+.code.has-copy pre { padding-right: 3.6rem; }
+.code.has-copy > .copy { position: absolute; top: .72rem; right: .7rem; z-index: 2; }
+/* Scrolled lines fade out before they reach the button instead of running under it. */
+.code.has-copy::after { content: ""; position: absolute; top: 0; right: 0; z-index: 1; width: 4.8rem; height: 3.5rem; background: linear-gradient(to right, transparent, #0f0d14 1.6rem); mask-image: linear-gradient(to bottom, #000 65%, transparent); pointer-events: none; }
+.copy { display: grid; place-items: center; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--ink-3); cursor: pointer; transition: background .18s, color .18s; }
+.copy .ico { width: 1.15rem; height: 1.15rem; }
+.copy:hover { background: var(--night-3); color: var(--ink); }
+.copy.is-done { color: var(--ink); }
+@media (prefers-reduced-motion: no-preference) { .copy.is-done .ico { animation: copy-pop .35s var(--spring); } }
+@keyframes copy-pop { from { transform: scale(.6); } }
 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.2rem; }
 .pair .code { margin: 0; }
 @media (max-width: 1180px) { .pair { grid-template-columns: 1fr; } }
